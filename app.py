@@ -369,34 +369,47 @@ def calculate_individual_score(age_group, gender, marital_status, dependents,
     
     # Determine Risk Grade
     if percentage_score >= 96:
-        risk_grade = "1 (Exceptional)"
+        risk_grade = 1
+        risk_grade_text = "1 (Exceptional) - APPROVED"
     elif percentage_score >= 91:
-        risk_grade = "2 (Superior)"
+        risk_grade = 2
+        risk_grade_text = "2 (Superior) - APPROVED"
     elif percentage_score >= 81:
-        risk_grade = "3 (Very Good)"
+        risk_grade = 3
+        risk_grade_text = "3 (Very Good) - APPROVED"
     elif percentage_score >= 71:
-        risk_grade = "4 (Good)"
+        risk_grade = 4
+        risk_grade_text = "4 (Good) - APPROVED"
     elif percentage_score >= 61:
-        risk_grade = "5 (Satisfactory)"
+        risk_grade = 5
+        risk_grade_text = "5 (Satisfactory) - APPROVED"
     elif percentage_score >= 51:
-        risk_grade = "6 (Acceptable)"
+        risk_grade = 6
+        risk_grade_text = "6 (Acceptable) - APPROVED"
     elif percentage_score >= 41:
-        risk_grade = "7 (Marginal)"
+        risk_grade = 7
+        risk_grade_text = "7 (Marginal) - DECLINED"
     elif percentage_score >= 31:
-        risk_grade = "8 (Watch List)"
+        risk_grade = 8
+        risk_grade_text = "8 (Watch List) - DECLINED"
     elif percentage_score >= 21:
-        risk_grade = "9 (Substandard)"
+        risk_grade = 9
+        risk_grade_text = "9 (Substandard) - DECLINED"
     elif percentage_score >= 11:
-        risk_grade = "10 (Doubtful)"
+        risk_grade = 10
+        risk_grade_text = "10 (Doubtful) - DECLINED"
     else:
-        risk_grade = "11 (Loss)"
+        risk_grade = 11
+        risk_grade_text = "11 (Loss) - DECLINED"
     
     return {
         "score_data": score_data,
         "total_score": total_score,
         "max_score": max_score,
         "percentage_score": percentage_score,
-        "risk_grade": risk_grade
+        "risk_grade": risk_grade,
+        "risk_grade_text": risk_grade_text,
+        "is_approved": risk_grade <= 6
     }
 
 
@@ -493,34 +506,47 @@ def calculate_sme_score(business_type, business_commitment, age_group, experienc
     
     # Determine Risk Grade
     if percentage_score >= 90:
-        risk_grade = "1 (Exceptional)"
+        risk_grade = 1
+        risk_grade_text = "1 (Exceptional) - APPROVED"
     elif percentage_score >= 80:
-        risk_grade = "2 (Superior)"
+        risk_grade = 2
+        risk_grade_text = "2 (Superior) - APPROVED"
     elif percentage_score >= 70:
-        risk_grade = "3 (Very Good)"
+        risk_grade = 3
+        risk_grade_text = "3 (Very Good) - APPROVED"
     elif percentage_score >= 60:
-        risk_grade = "4 (Good)"
+        risk_grade = 4
+        risk_grade_text = "4 (Good) - APPROVED"
     elif percentage_score >= 55:
-        risk_grade = "5 (Satisfactory)"
+        risk_grade = 5
+        risk_grade_text = "5 (Satisfactory) - APPROVED"
     elif percentage_score >= 50:
-        risk_grade = "6 (Acceptable)"
+        risk_grade = 6
+        risk_grade_text = "6 (Acceptable) - APPROVED"
     elif percentage_score >= 40:
-        risk_grade = "7 (Marginal)"
+        risk_grade = 7
+        risk_grade_text = "7 (Marginal) - DECLINED"
     elif percentage_score >= 30:
-        risk_grade = "8 (Watch List)"
+        risk_grade = 8
+        risk_grade_text = "8 (Watch List) - DECLINED"
     elif percentage_score >= 20:
-        risk_grade = "9 (Substandard)"
+        risk_grade = 9
+        risk_grade_text = "9 (Substandard) - DECLINED"
     elif percentage_score >= 6:
-        risk_grade = "11 (Doubtful)"
+        risk_grade = 11
+        risk_grade_text = "11 (Doubtful) - DECLINED"
     else:
-        risk_grade = "12 (Loss)"
+        risk_grade = 12
+        risk_grade_text = "12 (Loss) - DECLINED"
     
     return {
         "score_data": score_data,
         "total_score": total_score,
         "max_score": max_score,
         "percentage_score": percentage_score,
-        "risk_grade": risk_grade
+        "risk_grade": risk_grade,
+        "risk_grade_text": risk_grade_text,
+        "is_approved": risk_grade <= 6
     }
 
 
@@ -625,7 +651,7 @@ if equity_allowed:
     equity_amount = asset_value * equity_pct / 100
 
 # =============================
-# BUSINESS LOAN DETAILS (NEW FIX)
+# BUSINESS LOAN DETAILS
 # =============================
 
 business_details = None
@@ -637,154 +663,210 @@ if product == "Business Loan":
     requested_amount = st.number_input("Desired Loan Amount (PKR)", min_value=0)
 
 # =============================
-# CREDIT SCORING SECTION (NEW)
+# CREDIT SCORING SECTION (MANDATORY)
 # =============================
 
-scoring_enabled = st.checkbox("Enable Credit Scoring Analysis", value=False)
+st.header("⭐ Credit Scoring Assessment (MANDATORY)")
+st.warning("📋 Credit scoring is mandatory for all applicants. Only Risk Grade 1-6 (APPROVED) will proceed to loan approval.")
 
 individual_score_result = None
 sme_score_result = None
 
-if scoring_enabled:
-    st.header("Credit Scoring Analysis")
+if profession == "Salaried":
+    st.subheader("Individual Scorecard")
     
-    if profession == "Salaried":
-        st.subheader("Individual Scorecard")
-        
-        scor_c1, scor_c2 = st.columns(2)
-        
-        with scor_c1:
-            age_group = st.selectbox("Age Group", 
-                                    ["Over 50 years", "Over 30 & upto 50 years", "Over 18 & upto 30 years"])
-            marital_status = st.selectbox("Marital Status", ["Unmarried", "Married"])
-            dependents = st.selectbox("Number of Dependents", ["Upto 3", "4 to 5", "More than 5"])
-            qualification = st.selectbox("Qualification", ["Masters & Above", "Graduate", "Below Graduate"])
-            occupation = st.selectbox("Type of Occupation",
-                                     ["Employees maintaining salary with BOP & A category",
-                                      "Govt. Employees & B category / under MOU financing",
-                                      "Employee of all other accepted employers"])
-        
-        with scor_c2:
-            job_status = st.selectbox("Job Status", ["Permanent", "Contractual"])
-            employment_years = st.selectbox("Length of Employment",
-                                           ["5 years & over", "3 years & over", "Less than 3 years"])
-            income_bracket = st.selectbox("Income Bracket",
-                                         ["Above Rs.100,000", "Rs.50,000 & above", "Below Rs.50,000"])
-            residence = st.selectbox("Type of Residence", ["Owned/Parents'", "Rented"])
-            collateral = st.selectbox("Collateral",
-                                     ["Leased vehicle/mortgage/Liquid Security", "Personal Loans (clean)"])
-        
-        scor_c3, scor_c4 = st.columns(2)
-        
-        with scor_c3:
-            debt_burden = st.selectbox("Debt Burden", ["Upto 30%", "40%", "50%"])
-            repayment_history = st.selectbox("Repayment History",
-                                            ["No default last 12 months", "1 Instance of OD",
-                                             "2 Instances of OD", "3+ Instances of OD"])
-        
-        with scor_c4:
-            credit_history = st.selectbox("Credit History Length",
-                                         ["Over 5 years", "From 3-5 years", "Less than 3 years"])
-        
-        individual_score_result = calculate_individual_score(
-            age_group, gender, marital_status, dependents, qualification, occupation,
-            job_status, employment_years, income_bracket, residence, collateral,
-            debt_burden, repayment_history, credit_history
-        )
+    scor_c1, scor_c2 = st.columns(2)
     
-    else:  # Self-Employed or Businessman
-        st.subheader("SME/Business Scorecard")
+    with scor_c1:
+        age_group = st.selectbox("Age Group", 
+                                ["Over 50 years", "Over 30 & upto 50 years", "Over 18 & upto 30 years"])
+        marital_status = st.selectbox("Marital Status", ["Unmarried", "Married"])
+        dependents = st.selectbox("Number of Dependents", ["Upto 3", "4 to 5", "More than 5"])
+        qualification = st.selectbox("Qualification", ["Masters & Above", "Graduate", "Below Graduate"])
+        occupation = st.selectbox("Type of Occupation",
+                                 ["Employees maintaining salary with BOP & A category",
+                                  "Govt. Employees & B category / under MOU financing",
+                                  "Employee of all other accepted employers"])
+    
+    with scor_c2:
+        job_status = st.selectbox("Job Status", ["Permanent", "Contractual"])
+        employment_years = st.selectbox("Length of Employment",
+                                       ["5 years & over", "3 years & over", "Less than 3 years"])
+        income_bracket = st.selectbox("Income Bracket",
+                                     ["Above Rs.100,000", "Rs.50,000 & above", "Below Rs.50,000"])
+        residence = st.selectbox("Type of Residence", ["Owned/Parents'", "Rented"])
+        collateral = st.selectbox("Collateral",
+                                 ["Leased vehicle/mortgage/Liquid Security", "Personal Loans (clean)"])
+    
+    scor_c3, scor_c4 = st.columns(2)
+    
+    with scor_c3:
+        debt_burden = st.selectbox("Debt Burden", ["Upto 30%", "40%", "50%"])
+        repayment_history = st.selectbox("Repayment History",
+                                        ["No default last 12 months", "1 Instance of OD",
+                                         "2 Instances of OD", "3+ Instances of OD"])
+    
+    with scor_c4:
+        credit_history = st.selectbox("Credit History Length",
+                                     ["Over 5 years", "From 3-5 years", "Less than 3 years"])
+    
+    individual_score_result = calculate_individual_score(
+        age_group, gender, marital_status, dependents, qualification, occupation,
+        job_status, employment_years, income_bracket, residence, collateral,
+        debt_burden, repayment_history, credit_history
+    )
+
+else:  # Self-Employed or Businessman
+    st.subheader("SME/Business Scorecard")
+    
+    business_type = st.selectbox("Business Type", ["New Business", "Existing Business"])
+    
+    scor_c1, scor_c2 = st.columns(2)
+    
+    with scor_c1:
+        business_commitment = st.selectbox("Business Commitment", ["Full Time", "Part Time"])
+        age_group = st.selectbox("Age Group",
+                                ["42 - 60", "39 - 41", "35 - 38", "30 - 34", "25 - 29"])
+        sme_experience = st.selectbox("Experience",
+                                     ["Relevant Experience > 3 Years", "Relevant Experience 1-3 Years",
+                                      "Family background in business", "Unrelated work experience",
+                                      "Never worked"])
+        training = st.selectbox("Training",
+                               ["Trained & Certified", "Training not required",
+                                "Trained but not certified", "Not Trained"])
+        license = st.selectbox("License/Certification",
+                              ["Required & Held", "No such requirement", "Required but not Held",
+                               "Learner Held", "License Applied"])
+    
+    with scor_c2:
+        vehicle = st.selectbox("Vehicle Ownership",
+                              ["Own registered vehicle", "Family Owned", "Not Applicable", "No vehicle"])
+        outlook = st.selectbox("Business Outlook", ["Positive", "Neutral", "Negative"])
+        debt_burden = st.selectbox("Debt Burden Ratio",
+                                  ["20% or less", "20% - 30%", "30% - 40%", "40% - 50%", "Exceeding 50%"])
+        tax_status = st.selectbox("Tax Filer Status",
+                                 ["NTN held and Filer", "Tax Exempted Zone",
+                                  "NTN held NON-Filer", "No NTN"])
+        security = st.selectbox("Security",
+                               ["Vehicle", "Owned property", "Partly rented property",
+                                "Rural/Agri Property", "Rented property", "Liquid security"])
+    
+    scor_c3, scor_c4 = st.columns(2)
+    
+    with scor_c3:
+        business_premise = st.selectbox("Business Premise",
+                                       ["Owned", "Family owned", "Owned no docs",
+                                        "Rented with docs", "Rented no docs", "To be rented"])
+        credit_turnover = st.selectbox("Credit Turnover",
+                                      ["No requirement", "No limit availed",
+                                       "More than 4x RF", "More than 3x RF",
+                                       "More than 2x RF", "2x or less RF"])
+    
+    with scor_c4:
+        sim_registration = st.selectbox("SIM Registration", ["Yes", "No"])
+    
+    # Existing business criteria
+    business_years = None
+    accounts = None
+    revenues = None
+    profitability = None
+    bank_account = None
+    
+    if business_type == "Existing Business":
+        st.subheader("Existing Business Details")
         
-        business_type = st.selectbox("Business Type", ["New Business", "Existing Business"])
+        exist_c1, exist_c2 = st.columns(2)
         
-        scor_c1, scor_c2 = st.columns(2)
+        with exist_c1:
+            business_years = st.selectbox("Business Existence",
+                                         ["More than 5 Years", "2 - 5 Years", "1 - 2 Years", "Less than 1 Year"])
+            accounts = st.selectbox("Accounts",
+                                   ["Chartered Accountant", "Professional Accountant",
+                                    "Self prepared", "Not provided"])
+            revenues = st.selectbox("Revenues", ["Growing", "Stagnant", "Declined upto 30%",
+                                                 "Declined more than 30%"])
         
-        with scor_c1:
-            business_commitment = st.selectbox("Business Commitment", ["Full Time", "Part Time"])
-            age_group = st.selectbox("Age Group",
-                                    ["42 - 60", "39 - 41", "35 - 38", "30 - 34", "25 - 29"])
-            sme_experience = st.selectbox("Experience",
-                                         ["Relevant Experience > 3 Years", "Relevant Experience 1-3 Years",
-                                          "Family background in business", "Unrelated work experience",
-                                          "Never worked"])
-            training = st.selectbox("Training",
-                                   ["Trained & Certified", "Training not required",
-                                    "Trained but not certified", "Not Trained"])
-            license = st.selectbox("License/Certification",
-                                  ["Required & Held", "No such requirement", "Required but not Held",
-                                   "Learner Held", "License Applied"])
-        
-        with scor_c2:
-            vehicle = st.selectbox("Vehicle Ownership",
-                                  ["Own registered vehicle", "Family Owned", "Not Applicable", "No vehicle"])
-            outlook = st.selectbox("Business Outlook", ["Positive", "Neutral", "Negative"])
-            debt_burden = st.selectbox("Debt Burden Ratio",
-                                      ["20% or less", "20% - 30%", "30% - 40%", "40% - 50%", "Exceeding 50%"])
-            tax_status = st.selectbox("Tax Filer Status",
-                                     ["NTN held and Filer", "Tax Exempted Zone",
-                                      "NTN held NON-Filer", "No NTN"])
-            security = st.selectbox("Security",
-                                   ["Vehicle", "Owned property", "Partly rented property",
-                                    "Rural/Agri Property", "Rented property", "Liquid security"])
-        
-        scor_c3, scor_c4 = st.columns(2)
-        
-        with scor_c3:
-            business_premise = st.selectbox("Business Premise",
-                                           ["Owned", "Family owned", "Owned no docs",
-                                            "Rented with docs", "Rented no docs", "To be rented"])
-            credit_turnover = st.selectbox("Credit Turnover",
-                                          ["No requirement", "No limit availed",
-                                           "More than 4x RF", "More than 3x RF",
-                                           "More than 2x RF", "2x or less RF"])
-        
-        with scor_c4:
-            sim_registration = st.selectbox("SIM Registration", ["Yes", "No"])
-        
-        # Existing business criteria
-        business_years = None
-        accounts = None
-        revenues = None
-        profitability = None
-        bank_account = None
-        
-        if business_type == "Existing Business":
-            st.subheader("Existing Business Details")
-            
-            exist_c1, exist_c2 = st.columns(2)
-            
-            with exist_c1:
-                business_years = st.selectbox("Business Existence",
-                                             ["More than 5 Years", "2 - 5 Years", "1 - 2 Years", "Less than 1 Year"])
-                accounts = st.selectbox("Accounts",
-                                       ["Chartered Accountant", "Professional Accountant",
-                                        "Self prepared", "Not provided"])
-                revenues = st.selectbox("Revenues", ["Growing", "Stagnant", "Declined upto 30%",
-                                                     "Declined more than 30%"])
-            
-            with exist_c2:
-                profitability = st.selectbox("Profitability", ["Growing", "Static",
-                                                               "Declined upto 30%", "Declined more than 30%"])
-                bank_account = st.selectbox("Bank Account", ["Yes with evidence",
-                                                            "Yes without evidence", "No account"])
-        
-        sme_score_result = calculate_sme_score(
-            business_type, business_commitment, age_group, sme_experience, training, license,
-            vehicle, outlook, debt_burden, tax_status, security, business_premise,
-            credit_turnover, sim_registration, existing_business=(business_type == "Existing Business"),
-            business_years=business_years, accounts=accounts, revenues=revenues,
-            profitability=profitability, bank_account=bank_account
-        )
+        with exist_c2:
+            profitability = st.selectbox("Profitability", ["Growing", "Static",
+                                                           "Declined upto 30%", "Declined more than 30%"])
+            bank_account = st.selectbox("Bank Account", ["Yes with evidence",
+                                                        "Yes without evidence", "No account"])
+    
+    sme_score_result = calculate_sme_score(
+        business_type, business_commitment, age_group, sme_experience, training, license,
+        vehicle, outlook, debt_burden, tax_status, security, business_premise,
+        credit_turnover, sim_registration, existing_business=(business_type == "Existing Business"),
+        business_years=business_years, accounts=accounts, revenues=revenues,
+        profitability=profitability, bank_account=bank_account
+    )
 
 # =============================
 # CALCULATION ENGINE
 # =============================
 
-if st.button("Calculate Eligibility"):
+if st.button("Calculate Eligibility & Loan Offer"):
 
     if not cnic_valid:
         st.error("Invalid CNIC")
         st.stop()
+
+    # Check credit score first
+    if individual_score_result and not individual_score_result["is_approved"]:
+        st.error("❌ APPLICATION DECLINED")
+        st.error(f"Risk Grade: {individual_score_result['risk_grade_text']}")
+        st.info("Applicant does not meet minimum credit scoring requirements. Only Risk Grade 1-6 are acceptable.")
+        st.stop()
+    
+    if sme_score_result and not sme_score_result["is_approved"]:
+        st.error("❌ APPLICATION DECLINED")
+        st.error(f"Risk Grade: {sme_score_result['risk_grade_text']}")
+        st.info("Applicant does not meet minimum credit scoring requirements. Only Risk Grade 1-6 are acceptable.")
+        st.stop()
+
+    # Display scoring results
+    st.header("✅ Credit Scoring Results")
+    
+    if individual_score_result:
+        st.subheader("Individual Scorecard Analysis")
+        
+        score_df = pd.DataFrame(individual_score_result["score_data"],
+                               columns=["Criteria", "Selected", "Score", "Max Score", "Allocated"])
+        
+        st.dataframe(score_df, use_container_width=True)
+        
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Total Score", f"{individual_score_result['total_score']:.2f} / {individual_score_result['max_score']}")
+        col2.metric("Percentage Score", f"{individual_score_result['percentage_score']:.2f}%")
+        
+        if individual_score_result["is_approved"]:
+            col3.metric("Status", "✅ APPROVED", delta="Grade " + str(individual_score_result['risk_grade']))
+        else:
+            col3.metric("Status", "❌ DECLINED", delta="Grade " + str(individual_score_result['risk_grade']))
+        
+        st.success(f"Risk Grade: {individual_score_result['risk_grade_text']}")
+    
+    elif sme_score_result:
+        st.subheader("SME/Business Scorecard Analysis")
+        
+        score_df = pd.DataFrame(sme_score_result["score_data"],
+                               columns=["Criteria", "Selected", "Score", "Max Score"])
+        
+        st.dataframe(score_df, use_container_width=True)
+        
+        col1, col2, col3 = st.columns(3)
+        col1.metric("Total Score", f"{sme_score_result['total_score']} / {sme_score_result['max_score']}")
+        col2.metric("Percentage Score", f"{sme_score_result['percentage_score']:.2f}%")
+        
+        if sme_score_result["is_approved"]:
+            col3.metric("Status", "✅ APPROVED", delta="Grade " + str(sme_score_result['risk_grade']))
+        else:
+            col3.metric("Status", "❌ DECLINED", delta="Grade " + str(sme_score_result['risk_grade']))
+        
+        st.success(f"Risk Grade: {sme_score_result['risk_grade_text']}")
+
+    # =============================
+    # LOAN CALCULATION
+    # =============================
 
     dbr_limit = DBR[profession]
     max_emi = income * dbr_limit
@@ -824,62 +906,29 @@ if st.button("Calculate Eligibility"):
     dbr_actual = emi_value / income if income else 0
 
     # =============================
-    # CREDIT SCORING OUTPUT (NEW)
+    # LOAN DECISION OUTPUT
     # =============================
 
-    if scoring_enabled:
-        st.header("Credit Scoring Results")
-        
-        if individual_score_result:
-            st.subheader("Individual Scorecard Analysis")
-            
-            score_df = pd.DataFrame(individual_score_result["score_data"],
-                                   columns=["Criteria", "Selected", "Score", "Max Score", "Allocated"])
-            
-            st.dataframe(score_df, use_container_width=True)
-            
-            col1, col2, col3 = st.columns(3)
-            col1.metric("Total Score", f"{individual_score_result['total_score']:.2f} / {individual_score_result['max_score']}")
-            col2.metric("Percentage Score", f"{individual_score_result['percentage_score']:.2f}%")
-            col3.metric("Risk Grade", individual_score_result["risk_grade"])
-        
-        elif sme_score_result:
-            st.subheader("SME/Business Scorecard Analysis")
-            
-            score_df = pd.DataFrame(sme_score_result["score_data"],
-                                   columns=["Criteria", "Selected", "Score", "Max Score"])
-            
-            st.dataframe(score_df, use_container_width=True)
-            
-            col1, col2, col3 = st.columns(3)
-            col1.metric("Total Score", f"{sme_score_result['total_score']} / {sme_score_result['max_score']}")
-            col2.metric("Percentage Score", f"{sme_score_result['percentage_score']:.2f}%")
-            col3.metric("Risk Grade", sme_score_result["risk_grade"])
-
-    # =============================
-    # OUTPUT
-    # =============================
-
-    st.subheader("Credit Decision Summary")
+    st.header("💰 Loan Offer & Decision")
 
     if product == "Business Loan":
         st.write("Business Details:", business_details)
         st.write("Requested Amount:", f"PKR {requested_amount:,.0f}")
 
-    st.write("Approved Loan:", f"PKR {approved:,.0f}")
-    st.write("DBR Utilization:", f"{dbr_actual*100:.2f}%")
+    st.write("**Approved Loan Amount:**", f"PKR {approved:,.0f}")
+    st.write("**DBR Utilization:**", f"{dbr_actual*100:.2f}%")
 
-    st.metric("EMI", f"PKR {emi_value:,.0f}")
+    st.metric("Monthly EMI", f"PKR {emi_value:,.0f}")
 
-    st.write("Total Repayment:", f"PKR {total:,.0f}")
-    st.write("Markup:", f"PKR {markup:,.0f}")
+    st.write("**Total Repayment:**", f"PKR {total:,.0f}")
+    st.write("**Total Markup/Interest:**", f"PKR {markup:,.0f}")
 
     if equity_allowed:
         st.subheader("Equity Details")
         st.write("Equity Amount:", f"PKR {equity_amount:,.0f}")
 
     # =============================
-    # SCHEDULE
+    # AMORTIZATION SCHEDULE
     # =============================
 
     st.subheader("Amortization Schedule")
@@ -893,9 +942,9 @@ if st.button("Calculate Eligibility"):
     st.dataframe(fmt, use_container_width=True)
 
     st.download_button(
-        "Download CSV",
+        "Download Amortization Schedule (CSV)",
         df.to_csv(index=False),
-        "schedule.csv",
+        "amortization_schedule.csv",
         "text/csv"
     )
 
@@ -908,4 +957,4 @@ if st.button("Calculate Eligibility"):
     st.info(f"DBR Limit: {dbr_limit*100:.0f}%")
 
     if staff_loan:
-        st.success("Staff Pricing Applied (Concessional Rate)")
+        st.success("✨ Staff Pricing Applied (Concessional Rate)")
