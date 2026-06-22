@@ -139,7 +139,7 @@ PRODUCTS = {
     "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 10, "fee": "PKR 8,000", "equity": True},
     "Home Loan": {"rate": KIBOR + 0.03, "max_tenor": 20, "fee": "PKR 12,000", "equity": True},
     "Solar Loan": {"rate": KIBOR + 0.05, "max_tenor": 8, "fee": "PKR 5,000", "equity": True},
-    "Business Loan": {"rate": 0.35, "max_tenor": 5, "fee": "TBA", "equity": False},
+    "Business Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "fee": "PKR 5,000", "equity": False},
 }
 
 BANKS = [
