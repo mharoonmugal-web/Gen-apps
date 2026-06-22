@@ -256,12 +256,11 @@ SME_NEW_BUSINESS_CRITERIA = {
         "Unrelated work experience": 50,
         "Never worked": 0,
     },
-    "Present Employment Status": {
-        "Employed in Relevant Job": 50,
-        "Working in family owned business": 50,
-        "Employed in non-relevant job": 25,
-        "Previous relevant experience": 35,
-        "Never Worked / Un-Employed": 0,
+    "Applicants Business Outlook": {
+        "Positive": 100,
+        "Neutral": 50,
+        "Negative": -200,
+        
     },
     "Training": {
         "Trained & Certified": 100,
