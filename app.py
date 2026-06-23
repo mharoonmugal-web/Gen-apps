@@ -152,7 +152,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "Applicant has Never Worked / Un-Employed": 0,
     },
     "Training": {
-        "Trained & Certified in Relevant Field": 100,
+        "Trained & Certified in Relevant Field - Evidence Provided": 100,
         "Training not required": 100,
         "Trained in Relevant Field but not certified (No evidence)": 80,
         "Not Trained": 0,
@@ -232,7 +232,7 @@ SME_EXISTING_BUSINESS_CRITERIA = {
         "Not Applicable in case of Entities": 50,
     },
     "Training": {
-        "Trained & Certified in Relevant Field - Evidence Provided": 100,
+        "Trained & Certified in Relevant Field": 100,
         "Training not required": 100,
         "Trained in Relevant Field but not certified (No evidence)": 80,
         "Not Trained": 0,
@@ -672,7 +672,7 @@ if submit_button:
             st.metric("Monthly EMI", f"PKR {emi(desired_amount, rate_used, months):,.0f}")
         
         with col2:
-            st.markdown("**CONSTRAINTS**")
+            st.markdown("**Conditions**")
             st.metric("Max by Salary", f"PKR {max_by_salary:,.0f}")
             st.metric("Max by DBR", f"PKR {max_by_dbr:,.0f}")
         
@@ -768,7 +768,7 @@ if submit_button:
             st.stop()
     
     # =============================
-    # SCORECARD APPROVED - CALCULATE LOAN WITH 3-WAY CONSTRAINTS
+    # SCORECARD APPROVED - CALCULATE LOAN WITH 3-WAY Conditions
     # =============================
     
     st.markdown("---")
@@ -838,7 +838,7 @@ if submit_button:
             limiting_factors.append("LIMITED BY ASSET/EQUITY")
     
     # Display 3-way comparison
-    st.markdown("### 💰 Loan Eligibility - 3-Way Constraints Analysis")
+    st.markdown("### 💰 Loan Eligibility - 3-Way Conditions Analysis")
     
     col1, col2, col3, col4 = st.columns(4)
     
