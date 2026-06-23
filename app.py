@@ -298,7 +298,7 @@ with c2:
 months = tenor * 12
 
 st.markdown("**Loan Details**")
-desired_amount = st.number_input("Desired Loan Amount (PKR) *", min_value=0, value=0)
+desired_amount = st.number_input("Requested Loan Amount (PKR) *", min_value=0, value=0)
 
 if not staff_loan:
     c1, c2 = st.columns(2)
@@ -637,7 +637,7 @@ if submit_button:
         if max_by_dbr_amount < max_by_asset if max_by_asset != float('inf') else True:
             st.error("🔴 **LIMITED BY INCOME/DBR**")
             st.markdown(f"""
-Your desired loan requires EMI of PKR {emi(desired_amount, rate_used, months):,.0f}
+Your requested loan requires EMI of PKR {emi(desired_amount, rate_used, months):,.0f}
 
 This creates DBR of {(emi(desired_amount, rate_used, months) / income * 100):.2f}% (Max allowed: {dbr_limit*100:.0f}%)
 
