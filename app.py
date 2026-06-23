@@ -688,7 +688,8 @@ if submit_button:
             st.info(f"ℹ️ You can also borrow up to PKR {approved:,.0f}")
         else:
             st.success(f"✅ Full amount approved: PKR {approved:,.0f}")        
-        # Show amortization schedule
+       
+       # Show amortization schedule
         st.markdown("### 📅 Amortization Schedule")
         
         df_schedule = schedule(approved, rate_used, months, approved_emi)
