@@ -654,7 +654,7 @@ if submit_button:
             st.markdown("### 🔐 Banker's Dashboard")
             st.metric("Loan Type", "Staff Loan (Auto-Approved)")
             st.metric("Max by Salary Multiple", f"PKR {max_by_salary:,.0f}")
-            st.metric("Max by DBR", f"PKR {max_by_dbr:,.0f}")
+            
             st.markdown(f"**CNIC:** {cnic_digits}")
             st.markdown(f"**Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}")
         
