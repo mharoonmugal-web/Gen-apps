@@ -749,7 +749,7 @@ if product != "Business Loan" and individual_score_result:
                     st.dataframe(pd.DataFrame(individual_score_result["breakdown"]), use_container_width=True, hide_index=True)
             st.stop()
     
-    if product == "Business Loan" and sme_score_result:
+if product == "Business Loan" and sme_score_result:
         if not sme_score_result["is_approved"]:
             st.markdown("---")
             st.error(f"❌ APPLICATION DECLINED")
