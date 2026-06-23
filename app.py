@@ -733,7 +733,7 @@ if approved < desired_amount:
     # =============================
     
     # Check scorecard results
-    if product != "Business Loan" and individual_score_result:
+if product != "Business Loan" and individual_score_result:
         if not individual_score_result["is_approved"]:
             st.markdown("---")
             st.error(f"❌ APPLICATION DECLINED")
