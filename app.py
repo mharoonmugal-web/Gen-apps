@@ -769,7 +769,7 @@ if product == "Business Loan" and sme_score_result:
     # SCORECARD APPROVED - CALCULATE LOAN WITH 3-WAY Conditions
     # =============================
     
-    st.markdown("---")
+st.markdown("---")
     st.success("✅ APPLICATION APPROVED")
     
     if individual_score_result:
