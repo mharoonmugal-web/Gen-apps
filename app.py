@@ -194,7 +194,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "No vehicle owned by applicant": 0,
         "Not Applicable in case of Entities": 50,
     },
-    "Is Sim On Customer Name": {
+    "Is Sim on your Name": {
         "Yes": 100,
         "No": -1800,
     },
