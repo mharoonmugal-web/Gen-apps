@@ -205,7 +205,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "No NTN held and NON-Filer": 0,
     },
     "Security": {
-        "Vehicle incase of Logistics": 100,
+        "Vehicle in case of Logistics": 100,
         "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100,
         "Mortgage of partly-rented residential/ Commercial / Industrial property": 80,
         "Mortgage of Rural / Agri Property": 70,
@@ -243,7 +243,7 @@ SME_EXISTING_BUSINESS_CRITERIA = {
         "No such requirement": 100,
         "Required But not Held": 0,
         "license Required but Learner Held": 60,
-        "license Required but Held in Drivers name (incase of logistic companies)": 100,
+        "license Required but Held in Drivers name (in case of logistic companies)": 100,
         "license Required and is applied (other than Logistics) supported by evidence": 60,
     },
     "Vehicle Ownership": {
@@ -272,7 +272,7 @@ SME_EXISTING_BUSINESS_CRITERIA = {
         "No NTN held and NON-Filer": 0,
     },
     "Security": {
-        "Vehicle incase of Logistics": 100,
+        "Vehicle in case of Logistics": 100,
         "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100,
         "Mortgage of partly-rented residential/ Commercial / Industrial property": 80,
         "Mortgage of Rural / Agri Property": 70,
