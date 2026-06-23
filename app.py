@@ -163,7 +163,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "No such requirement": 100,
         "Required But not Held": 0,
         "license Required but Learner Held": 60,
-        "license Required but Held in Drivers name (incase of logistic companies)": 100,
+        "license Required but Held in Drivers name (in case of logistic companies)": 100,
         "license Required and is applied (other than Logistics) supported by evidence": 60,
     },
     "Applicant's Understanding": {
