@@ -298,7 +298,7 @@ with c2:
 months = tenor * 12
 
 st.markdown("**Loan Details**")
-desired_amount = st.number_input("Requested Loan Amount (PKR) *", min_value=0, value=0)
+requested_amount = st.number_input("Requested Loan Amount (PKR) *", min_value=0, value=0)
 
 if not staff_loan:
     c1, c2 = st.columns(2)
@@ -381,7 +381,7 @@ if submit_button:
         st.error(f"❌ CNIC must be exactly 13 digits")
         st.stop()
     
-    if not name or income == 0 or desired_amount == 0:
+    if not name or income == 0 or requested_amount == 0:
         st.error("❌ Please fill all required fields")
         st.stop()
     
@@ -416,7 +416,7 @@ if submit_button:
         max_by_dbr_amount = loan_from_emi(max_emi_allowed, rate_used, months)
         
         # Final approved amount
-        approved = min(desired_amount, max_by_salary, max_by_dbr_amount)
+        approved = min(requested_amount, max_by_salary, max_by_dbr_amount)
         
         approved_emi = emi(approved, rate_used, months)
         total_repayment = approved_emi * months
@@ -437,9 +437,9 @@ if submit_button:
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            st.markdown("**YOU DESIRED**")
-            st.metric("Loan Amount", f"PKR {desired_amount:,.0f}")
-            st.metric("Monthly EMI", f"PKR {emi(desired_amount, rate_used, months):,.0f}")
+            st.markdown("**YOU requested**")
+            st.metric("Loan Amount", f"PKR {requested_amount:,.0f}")
+            st.metric("Monthly EMI", f"PKR {emi(requested_amount, rate_used, months):,.0f}")
         
         with col2:
             st.markdown("**Other Conditions**")
@@ -453,9 +453,9 @@ if submit_button:
         
         # Messages
         st.markdown("---")
-        if approved < desired_amount:
-            st.warning(f"⚠️ Limited to PKR {approved:,.0f} (Requested: PKR {desired_amount:,.0f})")
-        elif approved > desired_amount:
+        if approved < requested_amount:
+            st.warning(f"⚠️ Limited to PKR {approved:,.0f} (Requested: PKR {requested_amount:,.0f})")
+        elif approved > requested_amount:
             st.info(f"ℹ️ You can also borrow up to PKR {approved:,.0f}")
         else:
             st.success(f"✅ Full amount approved: PKR {approved:,.0f}")
@@ -583,7 +583,7 @@ if submit_button:
         max_by_asset = float('inf')
     
     # Approved amount
-    approved = min(desired_amount, max_by_dbr_amount, max_by_asset) if max_by_asset != float('inf') else min(desired_amount, max_by_dbr_amount)
+    approved = min(requested_amount, max_by_dbr_amount, max_by_asset) if max_by_asset != float('inf') else min(requested_amount, max_by_dbr_amount)
     
     approved_emi = emi(approved, rate_used, months)
     approved_dbr = (approved_emi / income * 100) if income > 0 else 0
@@ -597,9 +597,9 @@ if submit_button:
     
     with col1:
         st.markdown("**YOUR REQUEST**")
-        st.metric("Amount Desired", f"PKR {desired_amount:,.0f}")
-        st.metric("EMI Required", f"PKR {emi(desired_amount, rate_used, months):,.0f}")
-        st.metric("DBR Required", f"{(emi(desired_amount, rate_used, months) / income * 100):.2f}%")
+        st.metric("Amount requested", f"PKR {requested_amount:,.0f}")
+        st.metric("EMI Required", f"PKR {emi(requested_amount, rate_used, months):,.0f}")
+        st.metric("DBR Required", f"{(emi(requested_amount, rate_used, months) / income * 100):.2f}%")
     
     with col2:
         st.markdown("**CONSTRAINT: INCOME/DBR**")
@@ -619,27 +619,27 @@ if submit_button:
     
     with col4:
         st.markdown("**FINAL APPROVED**")
-        st.metric("Approved Amount", f"PKR {approved:,.0f}", delta=f"vs Desired: PKR {approved - desired_amount:,.0f}" if approved != desired_amount else "Matches Request")
+        st.metric("Approved Amount", f"PKR {approved:,.0f}", delta=f"vs requested: PKR {approved - requested_amount:,.0f}" if approved != requested_amount else "Matches Request")
         st.metric("Monthly EMI", f"PKR {approved_emi:,.0f}")
         st.metric("DBR Utilization", f"{approved_dbr:.2f}%")
     
     # Messages based on limiting factors
     st.markdown("---")
     
-    if approved == desired_amount:
+    if approved == requested_amount:
         st.success(f"✅ Full Amount Approved: PKR {approved:,.0f}")
         if approved < max_by_dbr_amount and approved < max_by_asset if max_by_asset != float('inf') else approved < max_by_dbr_amount:
             max_possible = max_by_asset if max_by_asset != float('inf') and max_by_asset < max_by_dbr_amount else max_by_dbr_amount
             st.info(f"ℹ️ You can also borrow up to PKR {max_possible:,.0f} if needed")
     else:
-        st.warning(f"⚠️ Limited Approval: PKR {approved:,.0f} (vs Desired: PKR {desired_amount:,.0f})")
+        st.warning(f"⚠️ Limited Approval: PKR {approved:,.0f} (vs requested: PKR {requested_amount:,.0f})")
         
         if max_by_dbr_amount < max_by_asset if max_by_asset != float('inf') else True:
             st.error("🔴 **LIMITED BY INCOME/DBR**")
             st.markdown(f"""
-Your requested loan requires EMI of PKR {emi(desired_amount, rate_used, months):,.0f}
+Your requested loan requires EMI of PKR {emi(requested_amount, rate_used, months):,.0f}
 
-This creates DBR of {(emi(desired_amount, rate_used, months) / income * 100):.2f}% (Max allowed: {dbr_limit*100:.0f}%)
+This creates DBR of {(emi(requested_amount, rate_used, months) / income * 100):.2f}% (Max allowed: {dbr_limit*100:.0f}%)
 
 **Max you can borrow: PKR {max_by_dbr_amount:,.0f}**
 
