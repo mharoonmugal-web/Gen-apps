@@ -152,7 +152,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "Applicant has Never Worked / Un-Employed": 0,
     },
     "Training": {
-        "Trained & Certified": 100,
+        "Trained & Certified in Relevant Field - Evidence Provided": 100,
         "Training not required": 100,
         "Trained in Relevant Field but not certified (No evidence)": 80,
         "Not Trained": 0,
@@ -163,7 +163,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "No such requirement": 100,
         "Required But not Held": 0,
         "license Required but Learner Held": 60,
-        "license Required but Held in Drivers name (in case of logistic companies)": 100,
+        "license Required but Held in Drivers name (incase of logistic companies)": 100,
         "license Required and is applied (other than Logistics) supported by evidence": 60,
     },
     "Applicant's Understanding": {
@@ -194,7 +194,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "No vehicle owned by applicant": 0,
         "Not Applicable in case of Entities": 50,
     },
-    "Is Sim on your Name": {
+    "Is Sim On Customer Name": {
         "Yes": 100,
         "No": -1800,
     },
@@ -205,7 +205,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "No NTN held and NON-Filer": 0,
     },
     "Security": {
-        "Vehicle in case of Logistics": 100,
+        "Vehicle incase of Logistics": 100,
         "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100,
         "Mortgage of partly-rented residential/ Commercial / Industrial property": 80,
         "Mortgage of Rural / Agri Property": 70,
@@ -243,7 +243,7 @@ SME_EXISTING_BUSINESS_CRITERIA = {
         "No such requirement": 100,
         "Required But not Held": 0,
         "license Required but Learner Held": 60,
-        "license Required but Held in Drivers name (in case of logistic companies)": 100,
+        "license Required but Held in Drivers name (incase of logistic companies)": 100,
         "license Required and is applied (other than Logistics) supported by evidence": 60,
     },
     "Vehicle Ownership": {
@@ -272,7 +272,7 @@ SME_EXISTING_BUSINESS_CRITERIA = {
         "No NTN held and NON-Filer": 0,
     },
     "Security": {
-        "Vehicle in case of Logistics": 100,
+        "Vehicle incase of Logistics": 100,
         "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100,
         "Mortgage of partly-rented residential/ Commercial / Industrial property": 80,
         "Mortgage of Rural / Agri Property": 70,
@@ -367,11 +367,7 @@ def calculate_individual_score(selections):
     for criterion, selected_option in selections.items():
         if selected_option and selected_option in INDIVIDUAL_CRITERIA[criterion]:
             score = INDIVIDUAL_CRITERIA[criterion][selected_option]
-            score_breakdown.append({
-                "Criterion": criterion,
-                "Selected": selected_option,
-                "Score": score
-            })
+            score_breakdown.append({"Criterion": criterion, "Selected": selected_option, "Score": score})
             total_score += score
     
     max_score = 100
@@ -389,16 +385,8 @@ def calculate_individual_score(selections):
         grade, grade_name = 5, "Satisfactory"
     elif percentage >= 51:
         grade, grade_name = 6, "Acceptable"
-    elif percentage >= 41:
-        grade, grade_name = 7, "Marginal"
-    elif percentage >= 31:
-        grade, grade_name = 8, "Watch List"
-    elif percentage >= 21:
-        grade, grade_name = 9, "Substandard"
-    elif percentage >= 11:
-        grade, grade_name = 10, "Doubtful"
     else:
-        grade, grade_name = 12, "Loss"
+        grade, grade_name = 7, "Declined"
     
     is_approved = grade <= 6
     
@@ -421,15 +409,10 @@ def calculate_sme_score(selections, business_type):
     max_score = 1530 if business_type == "Existing Business" else 1250
     
     for criterion, selected_option in selections.items():
-        if criterion in criteria and selected_option:
-            if selected_option in criteria[criterion]:
-                score = criteria[criterion][selected_option]
-                score_breakdown.append({
-                    "Criterion": criterion,
-                    "Selected": selected_option,
-                    "Score": score
-                })
-                total_score += score
+        if criterion in criteria and selected_option and selected_option in criteria[criterion]:
+            score = criteria[criterion][selected_option]
+            score_breakdown.append({"Criterion": criterion, "Selected": selected_option, "Score": score})
+            total_score += score
     
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
@@ -445,16 +428,8 @@ def calculate_sme_score(selections, business_type):
         grade, grade_name = 5, "Satisfactory"
     elif percentage >= 50:
         grade, grade_name = 6, "Acceptable"
-    elif percentage >= 40:
-        grade, grade_name = 7, "Marginal"
-    elif percentage >= 30:
-        grade, grade_name = 8, "Watch List"
-    elif percentage >= 20:
-        grade, grade_name = 9, "Substandard"
-    elif percentage >= 6:
-        grade, grade_name = 11, "Doubtful"
     else:
-        grade, grade_name = 12, "Loss"
+        grade, grade_name = 7, "Declined"
     
     is_approved = grade <= 6
     
@@ -493,7 +468,7 @@ with c2:
     cnic_digits = re.sub(r"\D", "", cnic_raw)
     cnic_valid = len(cnic_digits) == 13
     if cnic_raw and not cnic_valid:
-        st.error(f"⚠️ CNIC must be exactly 13 digits (you entered {len(cnic_digits)})")
+        st.error(f"⚠️ CNIC must be exactly 13 digits")
 
 with c3:
     app_date = datetime.today().strftime("%d-%m-%Y")
@@ -510,21 +485,20 @@ with c5:
 with c6:
     income = st.number_input("Net Monthly Income (PKR) *", min_value=0, value=0)
 
-c7, c8 = st.columns(2)
+c7, c8, c9 = st.columns(3)
 
 with c7:
     experience_years = st.number_input("Experience (Years) *", min_value=0, value=0)
 
 with c8:
     staff_loan = False
+    basic_salary = 0
     if profession == "Salaried":
         staff_loan = st.checkbox("✓ Staff Loan Eligible")
-        if staff_loan:
-            basic_salary = st.number_input("Basic Salary (PKR)", min_value=0, value=0)
-        else:
-            basic_salary = 0
-    else:
-        basic_salary = 0
+
+with c9:
+    if staff_loan:
+        basic_salary = st.number_input("Basic Salary (PKR) *", min_value=0, value=0)
 
 st.markdown("### 💳 Loan Product Details")
 
@@ -545,7 +519,7 @@ with c2:
 
 months = tenor * 12
 
-st.markdown("**Loan Amount & Details**")
+st.markdown("**Loan Details**")
 desired_amount = st.number_input("Desired Loan Amount (PKR) *", min_value=0, value=0)
 
 if not staff_loan:
@@ -561,59 +535,64 @@ equity_pct = 0
 if PRODUCTS[product]["equity"]:
     c1, c2 = st.columns(2)
     with c1:
-        asset_value = st.number_input("Asset Value (PKR)", min_value=0, value=0)
+        asset_value = st.number_input("Asset Value (PKR) *", min_value=0, value=0)
     with c2:
         equity_pct = st.slider("Equity % Required", 20, 50, 20)
 
-st.markdown("---")
-st.markdown("### 📊 Credit Risk Assessment")
+# =============================
+# SCORECARD SECTION (ONLY FOR NON-STAFF)
+# =============================
 
 individual_score_result = None
 sme_score_result = None
 
-if product != "Business Loan":
-    with st.expander("📋 **Individual Scorecard Assessment**", expanded=True):
-        st.info("Complete all fields below for credit evaluation")
-        
-        ind_selections = {}
-        c1, c2 = st.columns(2)
-        
-        with c1:
-            ind_selections["Age of Borrower"] = st.selectbox("Age of Borrower", list(INDIVIDUAL_CRITERIA["Age of Borrower"].keys()))
-            ind_selections["Gender"] = st.selectbox("Gender", list(INDIVIDUAL_CRITERIA["Gender"].keys()))
-            ind_selections["Marital Status"] = st.selectbox("Marital Status", list(INDIVIDUAL_CRITERIA["Marital Status"].keys()))
-            ind_selections["No. of Dependents"] = st.selectbox("No. of Dependents", list(INDIVIDUAL_CRITERIA["No. of Dependents"].keys()))
-            ind_selections["Qualification"] = st.selectbox("Qualification", list(INDIVIDUAL_CRITERIA["Qualification"].keys()))
-            ind_selections["Type of Occupation"] = st.selectbox("Type of Occupation", list(INDIVIDUAL_CRITERIA["Type of Occupation"].keys()))
-            ind_selections["Job Status"] = st.selectbox("Job Status", list(INDIVIDUAL_CRITERIA["Job Status"].keys()))
-        
-        with c2:
-            ind_selections["Length of Employment/Age of Business"] = st.selectbox("Length of Employment", list(INDIVIDUAL_CRITERIA["Length of Employment/Age of Business"].keys()))
-            ind_selections["Monthly Take Home Salary/Income"] = st.selectbox("Monthly Take Home Salary/Income", list(INDIVIDUAL_CRITERIA["Monthly Take Home Salary/Income"].keys()))
-            ind_selections["Type of Residence"] = st.selectbox("Type of Residence", list(INDIVIDUAL_CRITERIA["Type of Residence"].keys()))
-            ind_selections["Collateral"] = st.selectbox("Collateral", list(INDIVIDUAL_CRITERIA["Collateral"].keys()))
-            ind_selections["Debt Burden"] = st.selectbox("Debt Burden", list(INDIVIDUAL_CRITERIA["Debt Burden"].keys()))
-            ind_selections["Repayment History"] = st.selectbox("Repayment History", list(INDIVIDUAL_CRITERIA["Repayment History"].keys()))
-            ind_selections["Length of Credit History"] = st.selectbox("Length of Credit History", list(INDIVIDUAL_CRITERIA["Length of Credit History"].keys()))
-        
-        individual_score_result = calculate_individual_score(ind_selections)
-
-if product == "Business Loan":
-    with st.expander("📊 **SME/Business Scorecard Assessment**", expanded=True):
-        business_type = st.radio("Business Type *", ["New Business", "Existing Business"], horizontal=True)
-        
-        sme_selections = {}
-        criteria = SME_EXISTING_BUSINESS_CRITERIA if business_type == "Existing Business" else SME_NEW_BUSINESS_CRITERIA
-        params = list(criteria.keys())
-        
-        c1, c2 = st.columns(2)
-        for idx, param in enumerate(params):
-            if idx % 2 == 0:
-                c1, c2 = st.columns(2)
-            with (c1 if idx % 2 == 0 else c2):
-                sme_selections[param] = st.selectbox(param, list(criteria[param].keys()))
-        
-        sme_score_result = calculate_sme_score(sme_selections, business_type)
+if not staff_loan:
+    st.markdown("---")
+    st.markdown("### 📊 Credit Risk Assessment (MANDATORY)")
+    
+    if product != "Business Loan":
+        with st.expander("📋 **Individual Scorecard Assessment**", expanded=True):
+            st.info("Complete all fields below for credit evaluation")
+            
+            ind_selections = {}
+            c1, c2 = st.columns(2)
+            
+            with c1:
+                ind_selections["Age of Borrower"] = st.selectbox("Age of Borrower", list(INDIVIDUAL_CRITERIA["Age of Borrower"].keys()))
+                ind_selections["Gender"] = st.selectbox("Gender", list(INDIVIDUAL_CRITERIA["Gender"].keys()))
+                ind_selections["Marital Status"] = st.selectbox("Marital Status", list(INDIVIDUAL_CRITERIA["Marital Status"].keys()))
+                ind_selections["No. of Dependents"] = st.selectbox("No. of Dependents", list(INDIVIDUAL_CRITERIA["No. of Dependents"].keys()))
+                ind_selections["Qualification"] = st.selectbox("Qualification", list(INDIVIDUAL_CRITERIA["Qualification"].keys()))
+                ind_selections["Type of Occupation"] = st.selectbox("Type of Occupation", list(INDIVIDUAL_CRITERIA["Type of Occupation"].keys()))
+                ind_selections["Job Status"] = st.selectbox("Job Status", list(INDIVIDUAL_CRITERIA["Job Status"].keys()))
+            
+            with c2:
+                ind_selections["Length of Employment/Age of Business"] = st.selectbox("Length of Employment", list(INDIVIDUAL_CRITERIA["Length of Employment/Age of Business"].keys()))
+                ind_selections["Monthly Take Home Salary/Income"] = st.selectbox("Monthly Take Home Salary/Income", list(INDIVIDUAL_CRITERIA["Monthly Take Home Salary/Income"].keys()))
+                ind_selections["Type of Residence"] = st.selectbox("Type of Residence", list(INDIVIDUAL_CRITERIA["Type of Residence"].keys()))
+                ind_selections["Collateral"] = st.selectbox("Collateral", list(INDIVIDUAL_CRITERIA["Collateral"].keys()))
+                ind_selections["Debt Burden"] = st.selectbox("Debt Burden", list(INDIVIDUAL_CRITERIA["Debt Burden"].keys()))
+                ind_selections["Repayment History"] = st.selectbox("Repayment History", list(INDIVIDUAL_CRITERIA["Repayment History"].keys()))
+                ind_selections["Length of Credit History"] = st.selectbox("Length of Credit History", list(INDIVIDUAL_CRITERIA["Length of Credit History"].keys()))
+            
+            individual_score_result = calculate_individual_score(ind_selections)
+    
+    if product == "Business Loan":
+        with st.expander("📊 **SME/Business Scorecard Assessment**", expanded=True):
+            business_type = st.radio("Business Type *", ["New Business", "Existing Business"], horizontal=True)
+            
+            sme_selections = {}
+            criteria = SME_EXISTING_BUSINESS_CRITERIA if business_type == "Existing Business" else SME_NEW_BUSINESS_CRITERIA
+            params = list(criteria.keys())
+            
+            c1, c2 = st.columns(2)
+            for idx, param in enumerate(params):
+                if idx % 2 == 0:
+                    c1, c2 = st.columns(2)
+                with (c1 if idx % 2 == 0 else c2):
+                    sme_selections[param] = st.selectbox(param, list(criteria[param].keys()))
+            
+            sme_score_result = calculate_sme_score(sme_selections, business_type)
 
 st.markdown("---")
 
@@ -622,10 +601,11 @@ with col_submit:
     submit_button = st.button("🔍 CALCULATE ELIGIBILITY", use_container_width=True)
 
 # =============================
-# RESULTS
+# RESULTS SECTION
 # =============================
 
 if submit_button:
+    # Validation
     if not cnic_valid:
         st.error(f"❌ CNIC must be exactly 13 digits")
         st.stop()
@@ -634,11 +614,132 @@ if submit_button:
         st.error("❌ Please fill all required fields")
         st.stop()
     
-    # Check scores
+    if PRODUCTS[product]["equity"] and asset_value == 0:
+        st.error("❌ Please enter asset value")
+        st.stop()
+    
+    # =============================
+    # STAFF LOAN PATH - NO SCORECARD, AUTO APPROVAL
+    # =============================
+    
+    if staff_loan:
+        st.markdown("---")
+        st.success("✅ STAFF LOAN - AUTO APPROVED")
+        st.info("Staff loans are automatically approved based on salary multiples")
+        
+        rate_used = 0.05
+        dbr_limit = DBR[profession]
+        
+        # Calculate max by salary multiple
+        salary_multiples = {
+            "Personal Loan": basic_salary * 8,
+            "Auto Loan": basic_salary * 50,
+            "Home Loan": basic_salary * 150,
+            "Solar Loan": min(3_000_000, basic_salary * 100),
+        }
+        
+        max_by_salary = salary_multiples.get(product, basic_salary * 5)
+        
+        # Calculate max by DBR
+        max_emi_allowed = income * dbr_limit
+        max_by_dbr = loan_from_emi(max_emi_allowed, rate_used, months)
+        
+        # Final approved amount
+        approved = min(desired_amount, max_by_salary, max_by_dbr)
+        
+        approved_emi = emi(approved, rate_used, months)
+        total_repayment = approved_emi * months
+        markup = total_repayment - approved
+        dbr_utilization = (approved_emi / income * 100) if income > 0 else 0
+        
+        # Banker's dashboard
+        with st.sidebar:
+            st.markdown("### 🔐 Banker's Dashboard")
+            st.metric("Loan Type", "Staff Loan (Auto-Approved)")
+            st.metric("Max by Salary Multiple", f"PKR {max_by_salary:,.0f}")
+            st.metric("Max by DBR", f"PKR {max_by_dbr:,.0f}")
+            st.markdown(f"**CNIC:** {cnic_digits}")
+            st.markdown(f"**Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}")
+        
+        # Show comparison
+        st.markdown("### 💰 Loan Comparison")
+        
+        col1, col2, col3 = st.columns(3)
+        
+        with col1:
+            st.markdown("**YOU DESIRED**")
+            st.metric("Loan Amount", f"PKR {desired_amount:,.0f}")
+            st.metric("Monthly EMI", f"PKR {emi(desired_amount, rate_used, months):,.0f}")
+        
+        with col2:
+            st.markdown("**CONSTRAINTS**")
+            st.metric("Max by Salary", f"PKR {max_by_salary:,.0f}")
+            st.metric("Max by DBR", f"PKR {max_by_dbr:,.0f}")
+        
+        with col3:
+            st.markdown("**APPROVED**")
+            st.metric("Approved Amount", f"PKR {approved:,.0f}")
+            st.metric("Monthly EMI", f"PKR {approved_emi:,.0f}")
+        
+        # Messages
+        st.markdown("---")
+        if approved < desired_amount:
+            if max_by_salary < max_by_dbr:
+                st.warning(f"⚠️ Desired amount limited by salary multiple. Maximum: PKR {max_by_salary:,.0f}")
+            else:
+                st.warning(f"⚠️ Desired amount limited by DBR. Maximum: PKR {max_by_dbr:,.0f}")
+        elif approved > desired_amount:
+            st.info(f"ℹ️ You can also borrow up to PKR {approved:,.0f}")
+        
+        # Show amortization schedule
+        st.markdown("### 📅 Amortization Schedule")
+        
+        df_schedule = schedule(approved, rate_used, months, approved_emi)
+        display_df = pd.concat([df_schedule.head(12), df_schedule.tail(12)]) if months > 24 else df_schedule
+        
+        fmt_df = display_df.copy()
+        for col in fmt_df.columns[1:]:
+            fmt_df[col] = fmt_df[col].apply(lambda x: f"PKR {x:,.0f}")
+        
+        st.dataframe(fmt_df, use_container_width=True, hide_index=True)
+        
+        csv = df_schedule.to_csv(index=False)
+        st.download_button("📥 Download Full Schedule", csv, f"schedule_{cnic_digits}_{datetime.now().strftime('%d%m%Y')}.csv", "text/csv")
+        
+        # Summary
+        st.markdown("---")
+        st.markdown("### ⚖️ Offer Summary")
+        
+        col1, col2 = st.columns(2)
+        with col1:
+            st.markdown(f"""
+            - **Approved Amount:** PKR {approved:,.0f}
+            - **Tenor:** {tenor} Years
+            - **Interest Rate:** {rate_used:.2%}
+            - **Monthly EMI:** PKR {approved_emi:,.0f}
+            """)
+        
+        with col2:
+            st.markdown(f"""
+            - **Applicant:** {name}
+            - **CNIC:** {cnic_digits}
+            - **Total Repayment:** PKR {total_repayment:,.0f}
+            - **Approval Date:** {datetime.now().strftime('%d-%m-%Y')}
+            """)
+        
+        st.info("✓ This is a preliminary offer. Final approval is subject to document verification.")
+        st.stop()
+    
+    # =============================
+    # NON-STAFF LOAN PATH - SCORECARD REQUIRED
+    # =============================
+    
+    # Check scorecard results
     if product != "Business Loan" and individual_score_result:
         if not individual_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED")
+            st.error(f"❌ APPLICATION DECLINED - Risk Grade {individual_score_result['grade']}")
+            st.error(f"Reason: Risk Grade {individual_score_result['grade']} ({individual_score_result['grade_name']})")
             
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Confidential Dashboard")
@@ -653,7 +754,8 @@ if submit_button:
     if product == "Business Loan" and sme_score_result:
         if not sme_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED")
+            st.error(f"❌ APPLICATION DECLINED - Risk Grade {sme_score_result['grade']}")
+            st.error(f"Reason: Risk Grade {sme_score_result['grade']} ({sme_score_result['grade_name']})")
             
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Confidential Dashboard")
@@ -666,151 +768,140 @@ if submit_button:
             st.stop()
     
     # =============================
-    # NEW DBR LOGIC - SIDE-BY-SIDE COMPARISON
+    # SCORECARD APPROVED - CALCULATE LOAN WITH 3-WAY CONSTRAINTS
     # =============================
     
-    rate_used = 0.05 if staff_loan else PRODUCTS[product]["rate"]
+    st.markdown("---")
+    st.success("✅ APPLICATION APPROVED")
+    
+    if individual_score_result:
+        with st.sidebar:
+            st.markdown("### 🔐 Banker's Confidential Dashboard")
+            st.warning("For Authorized Use Only")
+            st.metric("Credit Score", f"{individual_score_result['total_score']}/{individual_score_result['max_score']}")
+            st.metric("% Score", f"{individual_score_result['percentage']:.2f}%")
+            st.metric("Risk Grade", f"{individual_score_result['grade']} - {individual_score_result['grade_name']}")
+            with st.expander("Score Breakdown"):
+                st.dataframe(pd.DataFrame(individual_score_result["breakdown"]), use_container_width=True, hide_index=True)
+            st.markdown(f"**CNIC:** {cnic_digits}")
+            st.markdown(f"**Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}")
+    
+    if sme_score_result:
+        with st.sidebar:
+            st.markdown("### 🔐 Banker's Confidential Dashboard")
+            st.warning("For Authorized Use Only")
+            st.metric("Credit Score", f"{sme_score_result['total_score']}/{sme_score_result['max_score']}")
+            st.metric("% Score", f"{sme_score_result['percentage']:.2f}%")
+            st.metric("Risk Grade", f"{sme_score_result['grade']} - {sme_score_result['grade_name']}")
+            with st.expander("Score Breakdown"):
+                st.dataframe(pd.DataFrame(sme_score_result["breakdown"]), use_container_width=True, hide_index=True)
+            st.markdown(f"**CNIC:** {cnic_digits}")
+            st.markdown(f"**Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}")
+    
+    # Calculate limits
+    rate_used = PRODUCTS[product]["rate"]
     dbr_limit = DBR[profession]
     
-    # CALCULATE ACTUAL DBR FOR DESIRED AMOUNT
-    desired_emi = emi(desired_amount, rate_used, months)
-    desired_dbr = (desired_emi / income * 100) if income > 0 else 0
-    
-    # CALCULATE MAX AVAILABLE BASED ON DBR LIMIT
+    # Constraint 1: DBR-based max
     max_emi_allowed = income * dbr_limit
-    max_available = loan_from_emi(max_emi_allowed, rate_used, months)
-    max_available_emi = emi(max_available, rate_used, months)
+    max_by_dbr = loan_from_emi(max_emi_allowed, rate_used, months)
+    max_by_dbr_emi = emi(max_by_dbr, rate_used, months)
     
-    # APPLY ASSET CONSTRAINT IF APPLICABLE
+    # Constraint 2: Asset-based max
     if PRODUCTS[product]["equity"]:
-        asset_limit = asset_value * (1 - equity_pct / 100)
-        max_available = min(max_available, asset_limit)
-    
-    # APPLY STAFF CAPS IF APPLICABLE
-    if staff_loan:
-        staff_caps = {
-            "Personal Loan": basic_salary * 8,
-            "Auto Loan": basic_salary * 50,
-            "Home Loan": basic_salary * 150,
-            "Solar Loan": min(3_000_000, max_available),
-        }
-        max_available = min(max_available, staff_caps.get(product, max_available))
-    
-    # FOR BUSINESS LOAN, CAP AT REQUESTED AMOUNT
-    if product == "Business Loan":
-        max_available = min(max_available, desired_amount)
-    
-    # FINAL APPROVED AMOUNT
-    if desired_dbr <= dbr_limit * 100:
-        approved = desired_amount
-        approval_status = "✅ APPROVED"
-    elif desired_amount > max_available:
-        approved = max_available
-        approval_status = "⚠️ APPROVED (Less than Desired)"
+        min_loan_amount = asset_value - (asset_value * equity_pct / 100)
+        max_by_asset = asset_value - (asset_value * equity_pct / 100)
     else:
-        approved = desired_amount
-        approval_status = "✅ APPROVED"
+        max_by_asset = float('inf')
     
-    # RECALCULATE FOR APPROVED AMOUNT
+    # Constraint 3: User desired
+    # Approved amount
+    approved = min(desired_amount, max_by_dbr, max_by_asset) if max_by_asset != float('inf') else min(desired_amount, max_by_dbr)
+    
     approved_emi = emi(approved, rate_used, months)
     approved_dbr = (approved_emi / income * 100) if income > 0 else 0
     total_repayment = approved_emi * months
     markup = total_repayment - approved
     
-    # =============================
-    # DISPLAY APPROVAL STATUS
-    # =============================
-    
-    st.markdown("---")
-    if approved_dbr <= dbr_limit * 100:
-        st.success(f"✅ APPLICATION APPROVED")
-    else:
-        st.warning(f"⚠️ APPROVAL WITH MODIFICATIONS")
-    
-    # =============================
-    # BANKER'S CONFIDENTIAL DASHBOARD
-    # =============================
-    
-    with st.sidebar:
-        st.markdown("### 🔐 Banker's Confidential Dashboard")
-        st.warning("⚠️ For Authorized Personnel Only")
-        
-        if individual_score_result:
-            st.metric("Credit Score", f"{individual_score_result['total_score']}/{individual_score_result['max_score']}")
-            st.metric("% Score", f"{individual_score_result['percentage']:.2f}%")
-            st.metric("Risk Grade", f"{individual_score_result['grade']} - {individual_score_result['grade_name']}")
-            with st.expander("📊 Score Breakdown"):
-                st.dataframe(pd.DataFrame(individual_score_result["breakdown"]), use_container_width=True, hide_index=True)
-        
-        if sme_score_result:
-            st.metric("Credit Score", f"{sme_score_result['total_score']}/{sme_score_result['max_score']}")
-            st.metric("% Score", f"{sme_score_result['percentage']:.2f}%")
-            st.metric("Risk Grade", f"{sme_score_result['grade']} - {sme_score_result['grade_name']}")
-            with st.expander("📊 Score Breakdown"):
-                st.dataframe(pd.DataFrame(sme_score_result["breakdown"]), use_container_width=True, hide_index=True)
-        
-        st.divider()
-        st.markdown(f"**CNIC:** {cnic_digits}")
-        st.markdown(f"**Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}")
-    
-    # =============================
-    # SIDE-BY-SIDE LOAN COMPARISON (APPLICANT SEES)
-    # =============================
-    
-    st.markdown("### 💰 Loan Comparison - Desired vs Available")
-    
-    comp_col1, comp_col2, comp_col3 = st.columns(3)
-    
-    with comp_col1:
-        st.markdown("**YOU DESIRED**")
-        st.metric("Loan Amount", f"PKR {desired_amount:,.0f}")
-        st.metric("Monthly EMI", f"PKR {desired_emi:,.0f}")
-        st.metric("DBR Required", f"{desired_dbr:.2f}%", delta=f"Limit: {dbr_limit*100:.0f}%")
-    
-    with comp_col2:
-        if desired_amount != approved:
-            st.markdown("**YOU CAN GET**")
-            st.metric("Loan Amount", f"PKR {max_available:,.0f}", delta=f"({max_available - desired_amount:,.0f})" if max_available > desired_amount else f"({max_available - desired_amount:,.0f})")
-            st.metric("Monthly EMI", f"PKR {emi(max_available, rate_used, months):,.0f}")
-            st.metric("DBR at Max", f"{(emi(max_available, rate_used, months) / income * 100):.2f}%")
+    # Determine limiting factor
+    limiting_factors = []
+    if approved == desired_amount and approved < max_by_dbr:
+        limiting_factors.append("You got your desired amount")
+    elif approved < desired_amount and approved == max_by_dbr:
+        limiting_factors.append("LIMITED BY INCOME/DBR")
+    elif approved < desired_amount and PRODUCTS[product]["equity"] and approved == max_by_asset:
+        limiting_factors.append("LIMITED BY ASSET/EQUITY")
+    elif approved < desired_amount:
+        if max_by_dbr < max_by_asset:
+            limiting_factors.append("LIMITED BY INCOME/DBR")
         else:
-            st.markdown("**APPROVED AMOUNT**")
-            st.metric("Loan Amount", f"PKR {approved:,.0f}")
-            st.metric("Monthly EMI", f"PKR {approved_emi:,.0f}")
-            st.metric("DBR Utilization", f"{approved_dbr:.2f}%")
+            limiting_factors.append("LIMITED BY ASSET/EQUITY")
     
-    with comp_col3:
-        if desired_dbr > dbr_limit * 100:
-            st.warning("⚠️ Desired DBR exceeds limit")
-            st.info(f"Max feasible: PKR {max_available:,.0f}")
-        else:
-            st.success("✓ DBR within limit")
-            if desired_amount < max_available:
-                st.info(f"You can also borrow up to PKR {max_available:,.0f}")
-    
-    # =============================
-    # FINAL LOAN OFFER
-    # =============================
-    
-    st.markdown("---")
-    st.markdown("### 💼 Final Loan Offer")
+    # Display 3-way comparison
+    st.markdown("### 💰 Loan Eligibility - 3-Way Constraints Analysis")
     
     col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Approved Amount", f"PKR {approved:,.0f}")
-    col2.metric("Monthly EMI", f"PKR {approved_emi:,.0f}")
-    col3.metric("DBR", f"{approved_dbr:.2f}%")
-    col4.metric("Tenure", f"{tenor} Years")
     
-    col1, col2, col3 = st.columns(3)
-    col1.metric("Total Repayment", f"PKR {total_repayment:,.0f}")
-    col2.metric("Total Markup", f"PKR {markup:,.0f}")
-    col3.metric("Interest Rate", f"{rate_used:.2%} p.a.")
+    with col1:
+        st.markdown("**YOUR REQUEST**")
+        st.metric("Amount Desired", f"PKR {desired_amount:,.0f}")
+        st.metric("EMI Required", f"PKR {emi(desired_amount, rate_used, months):,.0f}")
+        st.metric("DBR Required", f"{(emi(desired_amount, rate_used, months) / income * 100):.2f}%")
     
-    if PRODUCTS[product]["equity"]:
-        st.markdown("**Collateral Details**")
-        col1, col2 = st.columns(2)
-        col1.metric("Asset Value", f"PKR {asset_value:,.0f}")
-        col2.metric("Equity Contribution", f"PKR {asset_value * equity_pct / 100:,.0f}")
+    with col2:
+        st.markdown("**CONSTRAINT 1: INCOME/DBR**")
+        st.metric("Max Allowed", f"PKR {max_by_dbr:,.0f}")
+        st.metric("EMI at Max", f"PKR {max_by_dbr_emi:,.0f}")
+        st.metric("DBR Ratio", f"{dbr_limit*100:.0f}%")
+    
+    with col3:
+        if PRODUCTS[product]["equity"]:
+            st.markdown("**CONSTRAINT 2: ASSET/EQUITY**")
+            st.metric("Asset Value", f"PKR {asset_value:,.0f}")
+            st.metric("Equity Required", f"PKR {asset_value * equity_pct / 100:,.0f}")
+            st.metric("Max by Asset", f"PKR {max_by_asset:,.0f}")
+        else:
+            st.markdown("**NO COLLATERAL**")
+            st.info("This product does not require collateral")
+    
+    with col4:
+        st.markdown("**FINAL APPROVED**")
+        st.metric("Approved Amount", f"PKR {approved:,.0f}", delta=f"vs Desired: PKR {approved - desired_amount:,.0f}" if approved != desired_amount else "Matches Request")
+        st.metric("Monthly EMI", f"PKR {approved_emi:,.0f}")
+        st.metric("DBR Utilization", f"{approved_dbr:.2f}%")
+    
+    # Messages based on limiting factors
+    st.markdown("---")
+    
+    if approved == desired_amount:
+        st.success(f"✅ Full Amount Approved: PKR {approved:,.0f}")
+        if approved < max_by_dbr and approved < max_by_asset if max_by_asset != float('inf') else approved < max_by_dbr:
+            max_possible = max_by_asset if max_by_asset != float('inf') and max_by_asset < max_by_dbr else max_by_dbr
+            st.info(f"ℹ️ You can also borrow up to PKR {max_possible:,.0f} if needed")
+    else:
+        st.warning(f"⚠️ Limited Approval: PKR {approved:,.0f} (vs Desired: PKR {desired_amount:,.0f})")
+        
+        if max_by_dbr < max_by_asset if max_by_asset != float('inf') else True:
+            st.error("🔴 **LIMITED BY INCOME/DBR**")
+            st.markdown(f"""
+            - Your desired loan requires EMI of PKR {emi(desired_amount, rate_used, months):,.0f}
+            - This creates DBR of {(emi(desired_amount, rate_used, months) / income * 100):.2f}% (Max allowed: {dbr_limit*100:.0f}%)
+            - **Max you can borrow: PKR {max_by_dbr:,.0f}** at DBR {dbr_limit*100:.0f}%
+            
+            **To increase borrowing capacity:**
+            - Increase your monthly income, OR
+            - Extend the loan tenure (fewer months)
+            """)
+        
+        if PRODUCTS[product]["equity"] and max_by_asset < max_by_dbr:
+            st.error("🔴 **LIMITED BY ASSET/EQUITY**")
+            st.markdown(f"""
+            - With {equity_pct}% equity on PKR {asset_value:,.0f} asset
+            - Maximum loan allowed: PKR {max_by_asset:,.0f}
+            - **To increase borrowing capacity:**
+            - Increase equity contribution (reduce equity % required), OR
+            - Provide additional collateral/asset
+            """)
     
     # Amortization Schedule
     st.markdown("### 📅 Amortization Schedule")
@@ -827,25 +918,33 @@ if submit_button:
     csv = df_schedule.to_csv(index=False)
     st.download_button("📥 Download Full Schedule", csv, f"schedule_{cnic_digits}_{datetime.now().strftime('%d%m%Y')}.csv", "text/csv")
     
-    # Summary
+    # Final Offer Summary
     st.markdown("---")
-    st.markdown("### ⚖️ Offer Summary")
+    st.markdown("### ⚖️ Final Loan Offer Summary")
     
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(f"""
         - **Approved Amount:** PKR {approved:,.0f}
-        - **Tenor:** {tenor} Years
-        - **Interest Rate:** {rate_used:.2%}
+        - **Tenor:** {tenor} Years ({months} months)
+        - **Interest Rate:** {rate_used:.2%} p.a.
         - **Monthly EMI:** PKR {approved_emi:,.0f}
+        - **Total Repayment:** PKR {total_repayment:,.0f}
         """)
     
     with col2:
         st.markdown(f"""
         - **Applicant:** {name}
         - **CNIC:** {cnic_digits}
-        - **Total Repayment:** PKR {total_repayment:,.0f}
-        - **Approval Date:** {datetime.now().strftime('%d-%m-%Y')}
+        - **Total Markup/Interest:** PKR {markup:,.0f}
+        - **DBR Utilization:** {approved_dbr:.2f}%
+        - **Approval Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}
         """)
+    
+    if PRODUCTS[product]["equity"]:
+        st.markdown("**Collateral Details:**")
+        col1, col2 = st.columns(2)
+        col1.metric("Asset Value", f"PKR {asset_value:,.0f}")
+        col2.metric("Equity Contribution", f"PKR {asset_value * equity_pct / 100:,.0f}")
     
     st.info("✓ This is a preliminary offer. Final approval is subject to document verification and compliance review.")
