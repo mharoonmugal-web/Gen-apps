@@ -681,13 +681,13 @@ if submit_button:
         # Messages
         st.markdown("---")
         if approved < desired_amount:
-            if max_by_salary < max_by_dbr:
-                st.warning(f"⚠️ Desired amount limited by salary multiple. Maximum: PKR {max_by_salary:,.0f}")
-            else:
-                st.warning(f"⚠️ Desired amount limited by DBR. Maximum: PKR {max_by_dbr:,.0f}")
+            # Messages
+        if approved < desired_amount:
+            st.warning(f"⚠️ Limited to PKR {approved:,.0f} (Requested: PKR {desired_amount:,.0f})")
         elif approved > desired_amount:
             st.info(f"ℹ️ You can also borrow up to PKR {approved:,.0f}")
-        
+        else:
+            st.success(f"✅ Full amount approved: PKR {approved:,.0f}")        
         # Show amortization schedule
         st.markdown("### 📅 Amortization Schedule")
         
