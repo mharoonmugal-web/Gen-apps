@@ -640,12 +640,9 @@ if submit_button:
         
         max_by_salary = salary_multiples.get(product, basic_salary * 5)
         
-        # Calculate max by DBR
-        max_emi_allowed = income * dbr_limit
-        max_by_dbr = loan_from_emi(max_emi_allowed, rate_used, months)
         
         # Final approved amount
-        approved = min(desired_amount, max_by_salary, max_by_dbr)
+        approved = min(desired_amount, max_by_salary)
         
         approved_emi = emi(approved, rate_used, months)
         total_repayment = approved_emi * months
