@@ -152,7 +152,7 @@ SME_NEW_BUSINESS_CRITERIA = {
         "Applicant has Never Worked / Un-Employed": 0,
     },
     "Training": {
-        "Trained & Certified in Relevant Field - Evidence Provided": 100,
+        "Trained & Certified in Relevant Field": 100,
         "Training not required": 100,
         "Trained in Relevant Field but not certified (No evidence)": 80,
         "Not Trained": 0,
