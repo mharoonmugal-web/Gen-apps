@@ -117,101 +117,20 @@ INDIVIDUAL_CRITERIA = {
 # =============================
 
 SME_NEW_BUSINESS_CRITERIA = {
-    "Business Commitment": {
-        "Full Time": 100,
-        "Part Time": 50,
-    },
-    "Age": {
-        "42 - 60": 50,
-        "39-41.9": 45,
-        "35-38.9": 40,
-        "30-34.9": 30,
-        "25-29.9": 25,
-        "Not Applicable in case of Entities": 50,
-    },
-    "Credit Turnover Of Existing Limit With Any Bank": {
-        "No such requirement - Logistics loans": 100,
-        "No such Limit Availed from any bank": 100,
-        "More than 4 times of RF Limit": 100,
-        "More than 3 times of RF Limit": 80,
-        "More than 2 times of RF limit": 50,
-        "2 times or less of the RF limit": 30,
-    },
-    "Experience": {
-        "Relevant Experience - > 3 Years": 100,
-        "Relevant Experience -1- 3 years": 80,
-        "No Experience but has family background in the chosen business.": 70,
-        "Unrelated work experience": 50,
-        "Applicant has never worked": 0,
-    },
-    "Present Employment Status": {
-        "Employed in Relevant Job": 50,
-        "Working in relevant family owned business": 50,
-        "Employed in non-relevant job": 25,
-        "Previous relevant experience": 35,
-        "Applicant has Never Worked / Un-Employed": 0,
-    },
-    "Training": {
-        "Trained & Certified in Relevant Field - Evidence Provided": 100,
-        "Training not required": 100,
-        "Trained in Relevant Field but not certified (No evidence)": 80,
-        "Not Trained": 0,
-        "Not Applicable in case of Entities": 100,
-    },
-    "License/ Certification/ Permission": {
-        "Required & Held": 100,
-        "No such requirement": 100,
-        "Required But not Held": 0,
-        "license Required but Learner Held": 60,
-        "license Required but Held in Drivers name (in case of logistic companies)": 100,
-        "license Required and is applied (other than Logistics) supported by evidence": 60,
-    },
-    "Applicant's Understanding": {
-        "Absolutely clear and perfect": 100,
-        "Good but not perfect": 50,
-        "Very little or no understanding": -100,
-    },
-    "Applicant's Business Place": {
-        "Logistics Business - Not required in case of new business": 100,
-        "Owned - Documents Provided (Self/business/company)": 100,
-        "Family owned - Document Provided": 80,
-        "Owned / Family owned- Documents not Provided": 60,
-        "Rented  - Document Provided (Self/business/company)": 50,
-        "Rented  - Document Not Provided": 40,
-        "To be rented": 20,
-    },
-    "Debt Burden Ratio": {
-        "20% <": 100,
-        "20% - 30%": 90,
-        "30% - 40%": 80,
-        "40% - 50%": 70,
-        "Exceeding 50%": -1800,
-    },
-    "Vehicle Ownership": {
-        "Car / Tractor / Morotrcycle / Any registered Vehicle": 50,
-        "Family Owned (Father/Husband/ Mother/Wife)": 40,
-        "Not Applicable for Logistic loan": 50,
-        "No vehicle owned by applicant": 0,
-        "Not Applicable in case of Entities": 50,
-    },
-    "Is Sim On Customer Name": {
-        "Yes": 100,
-        "No": -1800,
-    },
-    "Tax Filer": {
-        "NTN held and Filer": 100,
-        "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 80,
-        "NTN held and NON-Filer": 40,
-        "No NTN held and NON-Filer": 0,
-    },
-    "Security": {
-        "Vehicle in case of Logistics": 100,
-        "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100,
-        "Mortgage of partly-rented residential/ Commercial / Industrial property": 80,
-        "Mortgage of Rural / Agri Property": 70,
-        "Mortgage of rented residential / Commercial / Industrial property": 60,
-        "Liquid security / Near Cash Security": 100,
-    },
+    "Business Commitment": {"Full Time": 100, "Part Time": 50},
+    "Age": {"42 - 60": 50, "39-41.9": 45, "35-38.9": 40, "30-34.9": 30, "25-29.9": 25, "Not Applicable in case of Entities": 50},
+    "Credit Turnover Of Existing Limit With Any Bank": {"No such requirement - Logistics loans": 100, "No such Limit Availed from any bank": 100, "More than 4 times of RF Limit": 100, "More than 3 times of RF Limit": 80, "More than 2 times of RF limit": 50, "2 times or less of the RF limit": 30},
+    "Experience": {"Relevant Experience - > 3 Years": 100, "Relevant Experience -1- 3 years": 80, "No Experience but has family background in the chosen business.": 70, "Unrelated work experience": 50, "Applicant has never worked": 0},
+    "Present Employment Status": {"Employed in Relevant Job": 50, "Working in relevant family owned business": 50, "Employed in non-relevant job": 25, "Previous relevant experience": 35, "Applicant has Never Worked / Un-Employed": 0},
+    "Training": {"Trained & Certified in Relevant Field - Evidence Provided": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "Applicant's Understanding": {"Absolutely clear and perfect": 100, "Good but not perfect": 50, "Very little or no understanding": -100},
+    "Applicant's Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
+    "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
+    "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 50, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 50, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 50},
+    "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
+    "Tax Filer": {"NTN held and Filer": 100, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 80, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
+    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
 }
 
 # =============================
@@ -219,119 +138,23 @@ SME_NEW_BUSINESS_CRITERIA = {
 # =============================
 
 SME_EXISTING_BUSINESS_CRITERIA = {
-    "Business Commitment": {
-        "Full Time": 100,
-        "Part Time": 50,
-    },
-    "Age": {
-        "42 - 60": 50,
-        "39-41.9": 45,
-        "35-38.9": 40,
-        "30-34.9": 30,
-        "25-29.9": 25,
-        "Not Applicable in case of Entities": 50,
-    },
-    "Training": {
-        "Trained & Certified in Relevant Field": 100,
-        "Training not required": 100,
-        "Trained in Relevant Field but not certified (No evidence)": 80,
-        "Not Trained": 0,
-        "Not Applicable in case of Entities": 100,
-    },
-    "License/ Certification/ Permission": {
-        "Required & Held": 100,
-        "No such requirement": 100,
-        "Required But not Held": 0,
-        "license Required but Learner Held": 60,
-        "license Required but Held in Drivers name (in case of logistic companies)": 100,
-        "license Required and is applied (other than Logistics) supported by evidence": 60,
-    },
-    "Vehicle Ownership": {
-        "Car / Tractor / Morotrcycle / Any registered Vehicle": 60,
-        "Family Owned (Father/Husband/ Mother/Wife)": 40,
-        "Not Applicable for Logistic loan": 60,
-        "No vehicle owned by applicant": 0,
-        "Not Applicable in case of Entities": 60,
-    },
-    "Applicants Business Outlook": {
-        "Positive": 100,
-        "Neutral": 50,
-        "Negative": -200,
-    },
-    "Debt Burden Ratio": {
-        "20% <": 100,
-        "20% - 30%": 90,
-        "30% - 40%": 80,
-        "40% - 50%": 70,
-        "Exceeding 50%": -1800,
-    },
-    "Tax Filer Status": {
-        "NTN held and Filer": 60,
-        "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 50,
-        "NTN held and NON-Filer": 40,
-        "No NTN held and NON-Filer": 0,
-    },
-    "Security": {
-        "Vehicle in case of Logistics": 100,
-        "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100,
-        "Mortgage of partly-rented residential/ Commercial / Industrial property": 80,
-        "Mortgage of Rural / Agri Property": 70,
-        "Mortgage of rented residential / Commercial / Industrial property": 60,
-        "Liquid security / Near Cash Security": 100,
-    },
-    "Applicant'S Business Place": {
-        "Logistics Business - Not required in case of new business": 100,
-        "Owned - Documents Provided (Self/business/company)": 100,
-        "Family owned - Document Provided": 80,
-        "Owned / Family owned- Documents not Provided": 60,
-        "Rented  - Document Provided (Self/business/company)": 50,
-        "Rented  - Document Not Provided": 40,
-        "To be rented": 20,
-    },
-    "Is Sim On Customer Name": {
-        "Yes": 100,
-        "No": -1800,
-    },
-    "Length Of Business Existence": {
-        "More than 5 Years": 100,
-        "2 - 5 Years": 80,
-        "1 - 2 Years": 25,
-        "Less than 1 Year": 0,
-    },
-    "Accounts": {
-        "Prepared by Chartered Accountant": 100,
-        "Prepared by Professional Accountant": 90,
-        "Self prepared": 80,
-        "Mandatory PR Requirement but not provided": -1800,
-        "No Scuh Mandatory requirement": 100,
-        "Not prepared": 50,
-    },
-    "Revenues": {
-        "Growing": 100,
-        "Stagnant": 80,
-        "Declined up to 30%": 60,
-        "Declined more than 30%": 0,
-    },
-    "Profitability": {
-        "Growing": 80,
-        "Static": 60,
-        "Declined up to 30%": 40,
-        "Declined more than 30%": 0,
-    },
-    "Applicant'S Bank Account": {
-        "Yes - Evidence provided": 80,
-        "Yes - Evidence not provided": 40,
-        "No such requirement": 80,
-        "No Bank Account": 0,
-    },
-    "Credit Turnover Of Existing Limit With Any Bank": {
-        "No such requirement - Logistics loans": 100,
-        "No such Limit Availed from any bank": 100,
-        "More than 4 times of RF Limit": 100,
-        "More than 3 times of RF Limit": 80,
-        "More than 2 times of RF limit": 50,
-        "2 times or less of the RF limit": 30,
-    },
+    "Business Commitment": {"Full Time": 100, "Part Time": 50},
+    "Age": {"42 - 60": 50, "39-41.9": 45, "35-38.9": 40, "30-34.9": 30, "25-29.9": 25, "Not Applicable in case of Entities": 50},
+    "Training": {"Trained & Certified in Relevant Field": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 60, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 60, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 60},
+    "Applicants Business Outlook": {"Positive": 100, "Neutral": 50, "Negative": -200},
+    "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
+    "Tax Filer Status": {"NTN held and Filer": 60, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 50, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
+    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
+    "Applicant'S Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
+    "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
+    "Length Of Business Existence": {"More than 5 Years": 100, "2 - 5 Years": 80, "1 - 2 Years": 25, "Less than 1 Year": 0},
+    "Accounts": {"Prepared by Chartered Accountant": 100, "Prepared by Professional Accountant": 90, "Self prepared": 80, "Mandatory PR Requirement but not provided": -1800, "No Scuh Mandatory requirement": 100, "Not prepared": 50},
+    "Revenues": {"Growing": 100, "Stagnant": 80, "Declined up to 30%": 60, "Declined more than 30%": 0},
+    "Profitability": {"Growing": 80, "Static": 60, "Declined up to 30%": 40, "Declined more than 30%": 0},
+    "Applicant'S Bank Account": {"Yes - Evidence provided": 80, "Yes - Evidence not provided": 40, "No such requirement": 80, "No Bank Account": 0},
+    "Credit Turnover Of Existing Limit With Any Bank": {"No such requirement - Logistics loans": 100, "No such Limit Availed from any bank": 100, "More than 4 times of RF Limit": 100, "More than 3 times of RF Limit": 80, "More than 2 times of RF limit": 50, "2 times or less of the RF limit": 30},
 }
 
 # =============================
@@ -360,19 +183,15 @@ def schedule(p, r, n, e):
     return pd.DataFrame(rows, columns=["Month", "EMI", "Principal", "Markup", "Balance"])
 
 def calculate_individual_score(selections):
-    """Calculate individual scorecard"""
     score_breakdown = []
     total_score = 0
-    
     for criterion, selected_option in selections.items():
         if selected_option and selected_option in INDIVIDUAL_CRITERIA[criterion]:
             score = INDIVIDUAL_CRITERIA[criterion][selected_option]
             score_breakdown.append({"Criterion": criterion, "Selected": selected_option, "Score": score})
             total_score += score
-    
     max_score = 100
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
-    
     if percentage >= 96:
         grade, grade_name = 1, "Exceptional"
     elif percentage >= 91:
@@ -387,35 +206,20 @@ def calculate_individual_score(selections):
         grade, grade_name = 6, "Acceptable"
     else:
         grade, grade_name = 7, "Declined"
-    
     is_approved = grade <= 6
-    
-    return {
-        "breakdown": score_breakdown,
-        "total_score": total_score,
-        "max_score": max_score,
-        "percentage": percentage,
-        "grade": grade,
-        "grade_name": grade_name,
-        "is_approved": is_approved
-    }
+    return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
 
 def calculate_sme_score(selections, business_type):
-    """Calculate SME scorecard"""
     score_breakdown = []
     total_score = 0
-    
     criteria = SME_EXISTING_BUSINESS_CRITERIA if business_type == "Existing Business" else SME_NEW_BUSINESS_CRITERIA
     max_score = 1530 if business_type == "Existing Business" else 1250
-    
     for criterion, selected_option in selections.items():
         if criterion in criteria and selected_option and selected_option in criteria[criterion]:
             score = criteria[criterion][selected_option]
             score_breakdown.append({"Criterion": criterion, "Selected": selected_option, "Score": score})
             total_score += score
-    
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
-    
     if percentage >= 90:
         grade, grade_name = 1, "Exceptional"
     elif percentage >= 80:
@@ -430,18 +234,8 @@ def calculate_sme_score(selections, business_type):
         grade, grade_name = 6, "Acceptable"
     else:
         grade, grade_name = 7, "Declined"
-    
     is_approved = grade <= 6
-    
-    return {
-        "breakdown": score_breakdown,
-        "total_score": total_score,
-        "max_score": max_score,
-        "percentage": percentage,
-        "grade": grade,
-        "grade_name": grade_name,
-        "is_approved": is_approved
-    }
+    return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
 
 # =============================
 # MAIN APP
@@ -449,53 +243,39 @@ def calculate_sme_score(selections, business_type):
 
 col1, col2, col3 = st.columns([1, 3, 1])
 with col2:
-    st.markdown("""
-    <div style='text-align: center; padding: 20px;'>
-        <h1 style='margin: 0; color: #1a237e;'>🏦 DIGITAL CREDIT ENGINE</h1>
-        <p style='color: #1e88e5; font-size: 14px; margin: 5px 0;'>Intelligent Loan Underwriting Platform</p>
-    </div>
-    """, unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; padding: 20px;'><h1 style='margin: 0; color: #1a237e;'>🏦 DIGITAL CREDIT ENGINE</h1><p style='color: #1e88e5; font-size: 14px; margin: 5px 0;'>Intelligent Loan Underwriting Platform</p></div>", unsafe_allow_html=True)
 
 st.markdown("### 👤 Applicant Information")
 
 c1, c2, c3 = st.columns(3)
-
 with c1:
     name = st.text_input("Full Name *", key="name")
-
 with c2:
     cnic_raw = st.text_input("CNIC (13 digits only) *", key="cnic", placeholder="12345678901234")
     cnic_digits = re.sub(r"\D", "", cnic_raw)
     cnic_valid = len(cnic_digits) == 13
     if cnic_raw and not cnic_valid:
         st.error(f"⚠️ CNIC must be exactly 13 digits")
-
 with c3:
     app_date = datetime.today().strftime("%d-%m-%Y")
     st.text_input("Application Date", value=app_date, disabled=True)
 
 c4, c5, c6 = st.columns(3)
-
 with c4:
     gender = st.selectbox("Gender *", ["Male", "Female"])
-
 with c5:
     profession = st.selectbox("Profession *", list(DBR.keys()))
-
 with c6:
     income = st.number_input("Net Monthly Income (PKR) *", min_value=0, value=0)
 
 c7, c8, c9 = st.columns(3)
-
 with c7:
     experience_years = st.number_input("Experience (Years) *", min_value=0, value=0)
-
 with c8:
     staff_loan = False
     basic_salary = 0
     if profession == "Salaried":
         staff_loan = st.checkbox("✓ Staff Loan Eligible")
-
 with c9:
     if staff_loan:
         basic_salary = st.number_input("Basic Salary (PKR) *", min_value=0, value=0)
@@ -503,11 +283,9 @@ with c9:
 st.markdown("### 💳 Loan Product Details")
 
 c1, c2 = st.columns(2)
-
 with c1:
     allowed_products = ["Personal Loan", "Auto Loan", "Home Loan", "Solar Loan"] if profession == "Salaried" else ["Personal Loan", "Auto Loan", "Home Loan", "Solar Loan", "Business Loan"]
     product = st.selectbox("Select Loan Product *", allowed_products)
-
 with c2:
     if staff_loan:
         staff_tenor = {"Personal Loan": 7, "Auto Loan": 10, "Home Loan": 25, "Solar Loan": 20}
@@ -553,10 +331,8 @@ if not staff_loan:
     if product != "Business Loan":
         with st.expander("📋 **Individual Scorecard Assessment**", expanded=True):
             st.info("Complete all fields below for credit evaluation")
-            
             ind_selections = {}
             c1, c2 = st.columns(2)
-            
             with c1:
                 ind_selections["Age of Borrower"] = st.selectbox("Age of Borrower", list(INDIVIDUAL_CRITERIA["Age of Borrower"].keys()))
                 ind_selections["Gender"] = st.selectbox("Gender", list(INDIVIDUAL_CRITERIA["Gender"].keys()))
@@ -565,7 +341,6 @@ if not staff_loan:
                 ind_selections["Qualification"] = st.selectbox("Qualification", list(INDIVIDUAL_CRITERIA["Qualification"].keys()))
                 ind_selections["Type of Occupation"] = st.selectbox("Type of Occupation", list(INDIVIDUAL_CRITERIA["Type of Occupation"].keys()))
                 ind_selections["Job Status"] = st.selectbox("Job Status", list(INDIVIDUAL_CRITERIA["Job Status"].keys()))
-            
             with c2:
                 ind_selections["Length of Employment/Age of Business"] = st.selectbox("Length of Employment", list(INDIVIDUAL_CRITERIA["Length of Employment/Age of Business"].keys()))
                 ind_selections["Monthly Take Home Salary/Income"] = st.selectbox("Monthly Take Home Salary/Income", list(INDIVIDUAL_CRITERIA["Monthly Take Home Salary/Income"].keys()))
@@ -574,24 +349,20 @@ if not staff_loan:
                 ind_selections["Debt Burden"] = st.selectbox("Debt Burden", list(INDIVIDUAL_CRITERIA["Debt Burden"].keys()))
                 ind_selections["Repayment History"] = st.selectbox("Repayment History", list(INDIVIDUAL_CRITERIA["Repayment History"].keys()))
                 ind_selections["Length of Credit History"] = st.selectbox("Length of Credit History", list(INDIVIDUAL_CRITERIA["Length of Credit History"].keys()))
-            
             individual_score_result = calculate_individual_score(ind_selections)
     
     if product == "Business Loan":
         with st.expander("📊 **SME/Business Scorecard Assessment**", expanded=True):
             business_type = st.radio("Business Type *", ["New Business", "Existing Business"], horizontal=True)
-            
             sme_selections = {}
             criteria = SME_EXISTING_BUSINESS_CRITERIA if business_type == "Existing Business" else SME_NEW_BUSINESS_CRITERIA
             params = list(criteria.keys())
-            
             c1, c2 = st.columns(2)
             for idx, param in enumerate(params):
                 if idx % 2 == 0:
                     c1, c2 = st.columns(2)
                 with (c1 if idx % 2 == 0 else c2):
                     sme_selections[param] = st.selectbox(param, list(criteria[param].keys()))
-            
             sme_score_result = calculate_sme_score(sme_selections, business_type)
 
 st.markdown("---")
@@ -619,7 +390,7 @@ if submit_button:
         st.stop()
     
     # =============================
-    # STAFF LOAN PATH - NO SCORECARD, AUTO APPROVAL
+    # STAFF LOAN PATH
     # =============================
     
     if staff_loan:
@@ -640,9 +411,12 @@ if submit_button:
         
         max_by_salary = salary_multiples.get(product, basic_salary * 5)
         
+        # Calculate max by DBR
+        max_emi_allowed = income * dbr_limit
+        max_by_dbr_amount = loan_from_emi(max_emi_allowed, rate_used, months)
         
         # Final approved amount
-        approved = min(desired_amount, max_by_salary)
+        approved = min(desired_amount, max_by_salary, max_by_dbr_amount)
         
         approved_emi = emi(approved, rate_used, months)
         total_repayment = approved_emi * months
@@ -654,7 +428,6 @@ if submit_button:
             st.markdown("### 🔐 Banker's Dashboard")
             st.metric("Loan Type", "Staff Loan (Auto-Approved)")
             st.metric("Max by Salary Multiple", f"PKR {max_by_salary:,.0f}")
-            
             st.markdown(f"**CNIC:** {cnic_digits}")
             st.markdown(f"**Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}")
         
@@ -669,9 +442,9 @@ if submit_button:
             st.metric("Monthly EMI", f"PKR {emi(desired_amount, rate_used, months):,.0f}")
         
         with col2:
-            st.markdown("**Conditions**")
+            st.markdown("**CONSTRAINTS**")
             st.metric("Max by Salary", f"PKR {max_by_salary:,.0f}")
-            
+            st.metric("DBR Limit", f"{dbr_limit*100:.0f}%")
         
         with col3:
             st.markdown("**APPROVED**")
@@ -680,16 +453,14 @@ if submit_button:
         
         # Messages
         st.markdown("---")
-if approved < desired_amount:
-            # Messages
         if approved < desired_amount:
             st.warning(f"⚠️ Limited to PKR {approved:,.0f} (Requested: PKR {desired_amount:,.0f})")
         elif approved > desired_amount:
             st.info(f"ℹ️ You can also borrow up to PKR {approved:,.0f}")
         else:
-            st.success(f"✅ Full amount approved: PKR {approved:,.0f}")        
-       
-       # Show amortization schedule
+            st.success(f"✅ Full amount approved: PKR {approved:,.0f}")
+        
+        # Show amortization schedule
         st.markdown("### 📅 Amortization Schedule")
         
         df_schedule = schedule(approved, rate_used, months, approved_emi)
@@ -711,29 +482,29 @@ if approved < desired_amount:
         col1, col2 = st.columns(2)
         with col1:
             st.markdown(f"""
-            - **Approved Amount:** PKR {approved:,.0f}
-            - **Tenor:** {tenor} Years
-            - **Interest Rate:** {rate_used:.2%}
-            - **Monthly EMI:** PKR {approved_emi:,.0f}
+- **Approved Amount:** PKR {approved:,.0f}
+- **Tenor:** {tenor} Years
+- **Interest Rate:** {rate_used:.2%}
+- **Monthly EMI:** PKR {approved_emi:,.0f}
             """)
         
         with col2:
             st.markdown(f"""
-            - **Applicant:** {name}
-            - **CNIC:** {cnic_digits}
-            - **Total Repayment:** PKR {total_repayment:,.0f}
-            - **Approval Date:** {datetime.now().strftime('%d-%m-%Y')}
+- **Applicant:** {name}
+- **CNIC:** {cnic_digits}
+- **Total Repayment:** PKR {total_repayment:,.0f}
+- **Approval Date:** {datetime.now().strftime('%d-%m-%Y')}
             """)
         
         st.info("✓ This is a preliminary offer. Final approval is subject to document verification.")
         st.stop()
     
     # =============================
-    # NON-STAFF LOAN PATH - SCORECARD REQUIRED
+    # NON-STAFF LOAN PATH
     # =============================
     
     # Check scorecard results
-if product != "Business Loan" and individual_score_result:
+    if product != "Business Loan" and individual_score_result:
         if not individual_score_result["is_approved"]:
             st.markdown("---")
             st.error(f"❌ APPLICATION DECLINED")
@@ -749,7 +520,7 @@ if product != "Business Loan" and individual_score_result:
                     st.dataframe(pd.DataFrame(individual_score_result["breakdown"]), use_container_width=True, hide_index=True)
             st.stop()
     
-if product == "Business Loan" and sme_score_result:
+    if product == "Business Loan" and sme_score_result:
         if not sme_score_result["is_approved"]:
             st.markdown("---")
             st.error(f"❌ APPLICATION DECLINED")
@@ -766,10 +537,10 @@ if product == "Business Loan" and sme_score_result:
             st.stop()
     
     # =============================
-    # SCORECARD APPROVED - CALCULATE LOAN WITH 3-WAY Conditions
+    # SCORECARD APPROVED - CALCULATE LOAN
     # =============================
     
-st.markdown("---")
+    st.markdown("---")
     st.success("✅ APPLICATION APPROVED")
     
     if individual_score_result:
@@ -802,41 +573,25 @@ st.markdown("---")
     
     # Constraint 1: DBR-based max
     max_emi_allowed = income * dbr_limit
-    max_by_dbr = loan_from_emi(max_emi_allowed, rate_used, months)
-    max_by_dbr_emi = emi(max_by_dbr, rate_used, months)
+    max_by_dbr_amount = loan_from_emi(max_emi_allowed, rate_used, months)
+    max_by_dbr_emi = emi(max_by_dbr_amount, rate_used, months)
     
     # Constraint 2: Asset-based max
     if PRODUCTS[product]["equity"]:
-        min_loan_amount = asset_value - (asset_value * equity_pct / 100)
         max_by_asset = asset_value - (asset_value * equity_pct / 100)
     else:
         max_by_asset = float('inf')
     
-    # Constraint 3: User desired
     # Approved amount
-    approved = min(desired_amount, max_by_dbr, max_by_asset) if max_by_asset != float('inf') else min(desired_amount, max_by_dbr)
+    approved = min(desired_amount, max_by_dbr_amount, max_by_asset) if max_by_asset != float('inf') else min(desired_amount, max_by_dbr_amount)
     
     approved_emi = emi(approved, rate_used, months)
     approved_dbr = (approved_emi / income * 100) if income > 0 else 0
     total_repayment = approved_emi * months
     markup = total_repayment - approved
     
-    # Determine limiting factor
-    limiting_factors = []
-    if approved == desired_amount and approved < max_by_dbr:
-        limiting_factors.append("You got your desired amount")
-    elif approved < desired_amount and approved == max_by_dbr:
-        limiting_factors.append("LIMITED BY INCOME/DBR")
-    elif approved < desired_amount and PRODUCTS[product]["equity"] and approved == max_by_asset:
-        limiting_factors.append("LIMITED BY ASSET/EQUITY")
-    elif approved < desired_amount:
-        if max_by_dbr < max_by_asset:
-            limiting_factors.append("LIMITED BY INCOME/DBR")
-        else:
-            limiting_factors.append("LIMITED BY ASSET/EQUITY")
-    
     # Display 3-way comparison
-    st.markdown("### 💰 Loan Eligibility - 3-Way Conditions Analysis")
+    st.markdown("### 💰 Loan Eligibility - Constraints Analysis")
     
     col1, col2, col3, col4 = st.columns(4)
     
@@ -847,14 +602,14 @@ st.markdown("---")
         st.metric("DBR Required", f"{(emi(desired_amount, rate_used, months) / income * 100):.2f}%")
     
     with col2:
-        st.markdown("**CONSTRAINT 1: INCOME/DBR**")
-        st.metric("Max Allowed", f"PKR {max_by_dbr:,.0f}")
+        st.markdown("**CONSTRAINT: INCOME/DBR**")
+        st.metric("Max Allowed", f"PKR {max_by_dbr_amount:,.0f}")
         st.metric("EMI at Max", f"PKR {max_by_dbr_emi:,.0f}")
-        st.metric("DBR Ratio", f"{dbr_limit*100:.0f}%")
+        st.metric("DBR Limit", f"{dbr_limit*100:.0f}%")
     
     with col3:
         if PRODUCTS[product]["equity"]:
-            st.markdown("**CONSTRAINT 2: ASSET/EQUITY**")
+            st.markdown("**CONSTRAINT: ASSET/EQUITY**")
             st.metric("Asset Value", f"PKR {asset_value:,.0f}")
             st.metric("Equity Required", f"PKR {asset_value * equity_pct / 100:,.0f}")
             st.metric("Max by Asset", f"PKR {max_by_asset:,.0f}")
@@ -873,32 +628,36 @@ st.markdown("---")
     
     if approved == desired_amount:
         st.success(f"✅ Full Amount Approved: PKR {approved:,.0f}")
-        if approved < max_by_dbr and approved < max_by_asset if max_by_asset != float('inf') else approved < max_by_dbr:
-            max_possible = max_by_asset if max_by_asset != float('inf') and max_by_asset < max_by_dbr else max_by_dbr
+        if approved < max_by_dbr_amount and approved < max_by_asset if max_by_asset != float('inf') else approved < max_by_dbr_amount:
+            max_possible = max_by_asset if max_by_asset != float('inf') and max_by_asset < max_by_dbr_amount else max_by_dbr_amount
             st.info(f"ℹ️ You can also borrow up to PKR {max_possible:,.0f} if needed")
     else:
         st.warning(f"⚠️ Limited Approval: PKR {approved:,.0f} (vs Desired: PKR {desired_amount:,.0f})")
         
-        if max_by_dbr < max_by_asset if max_by_asset != float('inf') else True:
+        if max_by_dbr_amount < max_by_asset if max_by_asset != float('inf') else True:
             st.error("🔴 **LIMITED BY INCOME/DBR**")
             st.markdown(f"""
-            - Your desired loan requires EMI of PKR {emi(desired_amount, rate_used, months):,.0f}
-            - This creates DBR of {(emi(desired_amount, rate_used, months) / income * 100):.2f}% (Max allowed: {dbr_limit*100:.0f}%)
-            - **Max you can borrow: PKR {max_by_dbr:,.0f}** at DBR {dbr_limit*100:.0f}%
-            
-            **To increase borrowing capacity:**
-            - Increase your monthly income, OR
-            - Extend the loan tenure (fewer months)
+Your desired loan requires EMI of PKR {emi(desired_amount, rate_used, months):,.0f}
+
+This creates DBR of {(emi(desired_amount, rate_used, months) / income * 100):.2f}% (Max allowed: {dbr_limit*100:.0f}%)
+
+**Max you can borrow: PKR {max_by_dbr_amount:,.0f}**
+
+To increase borrowing capacity:
+- Increase your monthly income, OR
+- Extend the loan tenure
             """)
         
-        if PRODUCTS[product]["equity"] and max_by_asset < max_by_dbr:
+        if PRODUCTS[product]["equity"] and max_by_asset < max_by_dbr_amount:
             st.error("🔴 **LIMITED BY ASSET/EQUITY**")
             st.markdown(f"""
-            - With {equity_pct}% equity on PKR {asset_value:,.0f} asset
-            - Maximum loan allowed: PKR {max_by_asset:,.0f}
-            - **To increase borrowing capacity:**
-            - Increase equity contribution (reduce equity % required), OR
-            - Provide additional collateral/asset
+With {equity_pct}% equity on PKR {asset_value:,.0f} asset
+
+Maximum loan allowed: PKR {max_by_asset:,.0f}
+
+To increase borrowing capacity:
+- Increase equity contribution (reduce equity %), OR
+- Provide additional collateral/asset
             """)
     
     # Amortization Schedule
@@ -923,20 +682,20 @@ st.markdown("---")
     col1, col2 = st.columns(2)
     with col1:
         st.markdown(f"""
-        - **Approved Amount:** PKR {approved:,.0f}
-        - **Tenor:** {tenor} Years ({months} months)
-        - **Interest Rate:** {rate_used:.2%} p.a.
-        - **Monthly EMI:** PKR {approved_emi:,.0f}
-        - **Total Repayment:** PKR {total_repayment:,.0f}
+- **Approved Amount:** PKR {approved:,.0f}
+- **Tenor:** {tenor} Years ({months} months)
+- **Interest Rate:** {rate_used:.2%} p.a.
+- **Monthly EMI:** PKR {approved_emi:,.0f}
+- **Total Repayment:** PKR {total_repayment:,.0f}
         """)
     
     with col2:
         st.markdown(f"""
-        - **Applicant:** {name}
-        - **CNIC:** {cnic_digits}
-        - **Total Markup/Interest:** PKR {markup:,.0f}
-        - **DBR Utilization:** {approved_dbr:.2f}%
-        - **Approval Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}
+- **Applicant:** {name}
+- **CNIC:** {cnic_digits}
+- **Total Markup/Interest:** PKR {markup:,.0f}
+- **DBR Utilization:** {approved_dbr:.2f}%
+- **Approval Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}
         """)
     
     if PRODUCTS[product]["equity"]:
