@@ -738,7 +738,7 @@ if submit_button:
     if product != "Business Loan" and individual_score_result:
         if not individual_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED - Risk Grade {individual_score_result['grade']}")
+            st.error(f"❌ APPLICATION DECLINED")
             st.error(f"Reason: Risk Grade {individual_score_result['grade']} ({individual_score_result['grade_name']})")
             
             with st.sidebar:
@@ -754,7 +754,7 @@ if submit_button:
     if product == "Business Loan" and sme_score_result:
         if not sme_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED - Risk Grade {sme_score_result['grade']}")
+            st.error(f"❌ APPLICATION DECLINED")
             st.error(f"Reason: Risk Grade {sme_score_result['grade']} ({sme_score_result['grade_name']})")
             
             with st.sidebar:
