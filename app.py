@@ -437,7 +437,7 @@ if submit_button:
         col1, col2, col3 = st.columns(3)
         
         with col1:
-            st.markdown("**YOU requested**")
+            st.markdown("**You Requested**")
             st.metric("Loan Amount", f"PKR {requested_amount:,.0f}")
             st.metric("Monthly EMI", f"PKR {emi(requested_amount, rate_used, months):,.0f}")
         
