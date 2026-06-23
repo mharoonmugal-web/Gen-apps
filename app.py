@@ -671,7 +671,7 @@ if submit_button:
         with col2:
             st.markdown("**Conditions**")
             st.metric("Max by Salary", f"PKR {max_by_salary:,.0f}")
-            st.metric("Max by DBR", f"PKR {max_by_dbr:,.0f}")
+            
         
         with col3:
             st.markdown("**APPROVED**")
