@@ -442,7 +442,7 @@ if submit_button:
             st.metric("Monthly EMI", f"PKR {emi(desired_amount, rate_used, months):,.0f}")
         
         with col2:
-            st.markdown("**CONSTRAINTS**")
+            st.markdown("**Other Conditions**")
             st.metric("Max by Salary", f"PKR {max_by_salary:,.0f}")
             st.metric("DBR Limit", f"{dbr_limit*100:.0f}%")
         
@@ -591,7 +591,7 @@ if submit_button:
     markup = total_repayment - approved
     
     # Display 3-way comparison
-    st.markdown("### 💰 Loan Eligibility - Constraints Analysis")
+    st.markdown("### 💰 Loan Eligibility - Other Conditions Analysis")
     
     col1, col2, col3, col4 = st.columns(4)
     
