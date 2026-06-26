@@ -106,7 +106,7 @@ INDIVIDUAL_CRITERIA = {
         "Personal Loans (clean)": 0,
     },
     "Debt Burden": {
-        "If existing debt/burden=upto 30% of disposable income": 5,
+        "upto 30% of disposable income": 5,
         "If existing debt/burden=40% of disposable income": 3,
         "If existing debt/burden=50% of disposable income": 1,
     },
