@@ -16,7 +16,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-KIBOR = 12.96 / 100
+KIBOR = 12 / 100
 
 DBR_STAFF = 0.50  # Staff loans: 50% DBR
 DBR = {
@@ -31,7 +31,7 @@ PROCESSING_FEES = {
     "Auto Loan": 8000,
     "Home Loan": 12000,
     "Solar Loan": 5000,
-    "Business Loan": 0,  # TBA
+    "Business Loan": 5000, 
 }
 
 # Product Configuration with Caps
@@ -136,7 +136,7 @@ SME_NEW_BUSINESS_CRITERIA = {
     "Applicant's Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
     "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
     "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 50, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 50, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 50},
-    "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
+    "Is Sim On Your Name": {"Yes": 100, "No": -1800},
     "Tax Filer": {"NTN held and Filer": 100, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 80, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
     "Security": {"Vehicle incase of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
 }
@@ -364,7 +364,7 @@ if not staff_loan:
     
     if product != "Business Loan":
         with st.expander("📋 **Individual Scorecard Assessment**", expanded=True):
-            st.info("Pre-filled fields use information from Applicant Info. Modify if needed.")
+            st.info("Pre-filled fields use information from Applicant Info")
             ind_selections = {}
             c1, c2 = st.columns(2)
             
@@ -498,13 +498,7 @@ if submit_button:
             st.info(f"ℹ️ You can also borrow up to PKR {approved:,.0f}")
         else:
             st.success(f"✅ Approved Amount: PKR {approved:,.0f}")
-        
-        # Amortization Schedule
-        st.markdown("### 📅 Amortization Schedule")
-        
-        df_schedule = schedule(approved, rate_used, months, approved_emi)
-        display_df = pd.concat([df_schedule.head(12), df_schedule.tail(12)]) if months > 24 else df_schedule
-        
+               
         fmt_df = display_df.copy()
         for col in fmt_df.columns[1:]:
             fmt_df[col] = fmt_df[col].apply(lambda x: f"PKR {x:,.0f}")
@@ -562,7 +556,7 @@ if submit_button:
     if product != "Business Loan" and individual_score_result:
         if not individual_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED - Risk Grade {individual_score_result['grade']}")
+            st.error(f"❌ APPLICATION DECLINED")
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Confidential Dashboard")
                 st.warning("For Authorized Use Only")
@@ -574,7 +568,7 @@ if submit_button:
     if product == "Business Loan" and sme_score_result:
         if not sme_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED - Risk Grade {sme_score_result['grade']}")
+            st.error(f"❌ APPLICATION DECLINED")
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Confidential Dashboard")
                 st.warning("For Authorized Use Only")
