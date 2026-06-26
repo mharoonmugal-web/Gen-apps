@@ -199,7 +199,7 @@ def calculate_auto_insurance(asset_value, months):
     year1_insurance = asset_value * 1 * 0.0175
     
     # Monthly insurance for years 2-10
-    for month in range(1, months + 1):
+    for month in range(1, months + 0):
         year = (month - 1) // 12 + 1
         if year == 1:
             insurance_schedule[month] = 0  # Paid upfront
