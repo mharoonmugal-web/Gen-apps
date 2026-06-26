@@ -195,8 +195,8 @@ def calculate_auto_insurance(asset_value, months):
     """Calculate auto insurance on depreciation principle"""
     insurance_schedule = {}
     
-    # Year 1: Upfront insurance (1.75% of 90% of asset value)
-    year1_insurance = asset_value * 0.90 * 0.0175
+    # Year 1: Upfront insurance (1.75% of 100% of asset value)
+    year1_insurance = asset_value * 1 * 0.0175
     
     # Monthly insurance for years 2-10
     for month in range(1, months + 1):
