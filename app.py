@@ -107,8 +107,8 @@ INDIVIDUAL_CRITERIA = {
     },
     "Debt Burden": {
         "upto 30% of disposable income": 5,
-        "If existing debt/burden=40% of disposable income": 3,
-        "If existing debt/burden=50% of disposable income": 1,
+        "upto 40% of disposable income": 3,
+        "upto 50% of disposable income": 1,
     },
     "Repayment History": {
         "If no default during last 12 months": 15,
