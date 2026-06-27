@@ -11,14 +11,25 @@ st.set_page_config(page_title="Digital Credit Engine", layout="wide", initial_si
 
 def format_currency_input(label, min_value=0, value=0, key=None):
     """Input field that accepts and displays numbers with comma formatting"""
-    display_value = f"{value:,.0f}" if value > 0 else ""
-    text_input = st.text_input(label, value=display_value, key=key, placeholder="e.g., 100,000")
+    # Use session state to maintain formatted display
+    if key not in st.session_state:
+        st.session_state[key] = f"{value:,.0f}" if value > 0 else ""
+    
+    text_input = st.text_input(
+        label, 
+        value=st.session_state[key], 
+        key=f"{key}_input",
+        placeholder="e.g., 100,000 or 100000"
+    )
     
     # Parse input: remove commas and convert to integer
     try:
         numeric_value = int(text_input.replace(",", "")) if text_input else 0
     except ValueError:
         numeric_value = 0
+    
+    # Update session state with formatted value
+    st.session_state[key] = f"{numeric_value:,.0f}" if numeric_value > 0 else ""
     
     # Validate minimum value
     if numeric_value < min_value:
@@ -294,7 +305,7 @@ def calculate_sme_score(selections, business_type):
 
 col1, col2, col3 = st.columns([1, 3, 1])
 with col2:
-    st.markdown("<div style='text-align: center; padding: 20px;'><h1 style='margin: 0; color: #1a237e;'>🏦 DIGITAL CREDIT ENGINE</h1><p style='color: #1e88e5; font-size: 14px; margin: 5px 0;'>Intelligent Loan Underwriting Platform Powered by The Bank of Punjab-Passion Reborn</p></div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; padding: 20px;'><h1 style='margin: 0; color: #1a237e;'>🏦 DIGITAL CREDIT ENGINE</h1><p style='color: #1e88e5; font-size: 14px; margin: 5px 0;'>Intelligent Loan Underwriting Platform</p></div>", unsafe_allow_html=True)
 
 st.markdown("### 👤 Applicant Information")
 
@@ -385,7 +396,7 @@ if not staff_loan:
     
     if product != "Business Loan":
         with st.expander("📋 **Individual Scorecard Assessment**", expanded=True):
-            st.info("Pre-filled fields use information from Applicant Info. Modify if needed.")
+            st.info("💡 **Navigation Tip:** Use arrow keys (↑↓) to navigate lists, or type to search. Pre-filled fields (📌) use your Applicant Info.")
             ind_selections = {}
             c1, c2 = st.columns(2)
             
@@ -400,7 +411,16 @@ if not staff_loan:
                 ind_selections["Job Status"] = st.selectbox("Job Status", list(INDIVIDUAL_CRITERIA["Job Status"].keys()))
             
             with c2:
-                ind_selections["Length of Employment"] = st.selectbox("Length of Employment", list(INDIVIDUAL_CRITERIA["Length of Employment"].keys()))
+                # Auto-populate Length of Employment based on experience_years
+                if experience_years >= 5:
+                    exp_lov = "5 years & over"
+                elif experience_years >= 3:
+                    exp_lov = "3 years & over"
+                else:
+                    exp_lov = "Less than 3 years"
+                st.markdown(f"**Length of Employment:** 📌 {experience_years} years → *{exp_lov}*")
+                ind_selections["Length of Employment"] = exp_lov  # Auto-populated, hardcoded
+                
                 # Auto-populate Monthly Income based on income value
                 if income <= 50000:
                     income_lov = "Below Rs.50,000-SI / Below Rs.80,000-SEB/SEP"
@@ -410,6 +430,7 @@ if not staff_loan:
                     income_lov = "Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP"
                 st.markdown(f"**Monthly Income:** 📌 PKR {income:,.0f} → *{income_lov}*")
                 ind_selections["Monthly Income"] = income_lov  # Auto-populated, hardcoded
+                
                 ind_selections["Type of Residence"] = st.selectbox("Type of Residence", list(INDIVIDUAL_CRITERIA["Type of Residence"].keys()))
                 ind_selections["Collateral"] = st.selectbox("Collateral", list(INDIVIDUAL_CRITERIA["Collateral"].keys()))
                 ind_selections["Debt Burden"] = st.selectbox("Debt Burden", list(INDIVIDUAL_CRITERIA["Debt Burden"].keys()))
