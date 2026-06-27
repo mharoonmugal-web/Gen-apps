@@ -323,7 +323,7 @@ with c4:
 with c5:
     profession = st.selectbox("Profession *", list(DBR.keys()))
 with c6:
-    income = currency_input("Net Monthly Income (PKR) *", min_value=0, value=0, key="income")
+    income = currency_input("Net Monthly Income (PKR) *", min_value=0, key="income")
 
 c7, c8, c9 = st.columns(3)
 with c7:
@@ -335,7 +335,7 @@ with c8:
         staff_loan = st.checkbox("✓ Staff Loan Eligible")
 with c9:
     if staff_loan:
-        basic_salary = currency_input("Basic Salary (PKR) *", min_value=0, value=0, key="basic_salary")
+        basic_salary = currency_input("Basic Salary (PKR) *", min_value=0, key="basic_salary")
 
 st.markdown("### 💳 Loan Product Details")
 
@@ -357,9 +357,9 @@ months = tenor * 12
 st.markdown("**Loan Details**")
 
 if staff_loan:
-    desired_amount = currency_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)", min_value=0, value=0, key="desired_amount_staff")
+    desired_amount = currency_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)", min_value=0, key="desired_amount_staff")
 else:
-    desired_amount = currency_input("Desired Loan Amount (PKR) *", min_value=0, value=0, key="desired_amount_nonstaff")
+    desired_amount = currency_input("Desired Loan Amount (PKR) *", min_value=0, key="desired_amount_nonstaff")
 
 if not staff_loan:
     c1, c2 = st.columns(2)
@@ -374,7 +374,7 @@ equity_pct = 0
 if not staff_loan and PRODUCTS[product]["equity"]:
     c1, c2 = st.columns(2)
     with c1:
-        asset_value = currency_input("Asset Value (PKR) *", min_value=0, value=0, key="asset_value")
+        asset_value = currency_input("Asset Value (PKR) *", min_value=0, key="asset_value")
     with c2:
         equity_pct = st.slider("Equity % Required", 20, 50, 20)
 
