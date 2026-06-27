@@ -3,7 +3,7 @@ import pandas as pd
 import re
 from datetime import datetime
 
-st.set_page_config(page_title="Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Digital Credit Engine Powered by The Bank of Punjab-Passion Reborn", layout="wide", initial_sidebar_state="expanded")
 
 st.markdown("""
 <style>
