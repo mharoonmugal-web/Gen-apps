@@ -5,31 +5,6 @@ from datetime import datetime
 
 st.set_page_config(page_title="Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
 
-# =============================
-# HELPER FUNCTION - Currency Input
-# =============================
-
-def currency_input(label, min_value=0, key=None):
-    """Input field that accepts numbers with or without commas"""
-    text_input = st.text_input(
-        label, 
-        key=key,
-        placeholder="e.g., 100000 or 100,000"
-    )
-    
-    # Parse input: remove commas and convert to integer
-    try:
-        numeric_value = int(text_input.replace(",", "").replace(" ", "")) if text_input else 0
-    except ValueError:
-        st.error(f"❌ Please enter a valid number (commas optional)")
-        numeric_value = 0
-    
-    # Validate minimum value
-    if numeric_value < min_value:
-        numeric_value = min_value
-    
-    return numeric_value
-
 st.markdown("""
 <style>
     * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
@@ -217,22 +192,23 @@ def schedule(p, r, n, e, insurance_schedule=None):
     return pd.DataFrame(rows, columns=cols if insurance_schedule else cols[:-2] + [cols[-1]])
 
 def calculate_auto_insurance(asset_value, months):
-    """Calculate auto insurance on depreciation principle - starts Month 1"""
+    """Calculate auto insurance - Year 1 upfront on FULL asset, then depreciated"""
     insurance_schedule = {}
     
-    # Year 1 upfront: 1.75% of asset value (90% depreciation in year 1)
-    year1_insurance = asset_value * 0.90 * 0.0175
+    # Year 1 upfront: 1.75% of FULL asset value (NOT depreciated)
+    year1_insurance = asset_value * 0.0175
     
-    # Insurance for all months (Month 1 onwards)
+    # Insurance for all months starting Month 1
     for month in range(1, months + 1):
         year = (month - 1) // 12 + 1
         
-        # Last year - NO insurance
-        if year == ((months - 1) // 12 + 1):  # Final year
+        # Last year of tenor - NO insurance
+        total_years = (months - 1) // 12 + 1
+        if year == total_years:
             insurance_schedule[month] = 0
         else:
-            # Asset depreciates by 10% each year: 90%, 81%, 72.9%, etc
-            depreciation = 0.90 ** year
+            # Depreciation: Year 2 = 90%, Year 3 = 81%, Year 4 = 72.9%, etc
+            depreciation = 0.90 ** (year - 1)
             year_insurance = asset_value * depreciation * 0.0175
             monthly_insurance = year_insurance / 12
             insurance_schedule[month] = monthly_insurance
@@ -323,7 +299,7 @@ with c4:
 with c5:
     profession = st.selectbox("Profession *", list(DBR.keys()))
 with c6:
-    income = currency_input("Net Monthly Income (PKR) *", min_value=0, key="income")
+    income = st.number_input("Net Monthly Income (PKR) *""income")
 
 c7, c8, c9 = st.columns(3)
 with c7:
@@ -335,7 +311,7 @@ with c8:
         staff_loan = st.checkbox("✓ Staff Loan Eligible")
 with c9:
     if staff_loan:
-        basic_salary = currency_input("Basic Salary (PKR) *", min_value=0, key="basic_salary")
+        basic_salary = st.number_input("Basic Salary (PKR) *""basic_salary")
 
 st.markdown("### 💳 Loan Product Details")
 
@@ -357,9 +333,9 @@ months = tenor * 12
 st.markdown("**Loan Details**")
 
 if staff_loan:
-    desired_amount = currency_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)", min_value=0, key="desired_amount_staff")
+    desired_amount = st.number_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)""desired_amount_staff")
 else:
-    desired_amount = currency_input("Desired Loan Amount (PKR) *", min_value=0, key="desired_amount_nonstaff")
+    desired_amount = st.number_input("Desired Loan Amount (PKR) *""desired_amount_nonstaff")
 
 if not staff_loan:
     c1, c2 = st.columns(2)
@@ -374,7 +350,7 @@ equity_pct = 0
 if not staff_loan and PRODUCTS[product]["equity"]:
     c1, c2 = st.columns(2)
     with c1:
-        asset_value = currency_input("Asset Value (PKR) *", min_value=0, key="asset_value")
+        asset_value = st.number_input("Asset Value (PKR) *""asset_value")
     with c2:
         equity_pct = st.slider("Equity % Required", 20, 50, 20)
 
@@ -391,7 +367,6 @@ if not staff_loan:
     
     if product != "Business Loan":
         with st.expander("📋 **Individual Scorecard Assessment**", expanded=True):
-            st.info("💡 **Navigation Tip:** Use arrow keys (↑↓) to navigate lists, or type to search. Pre-filled fields (📌) use your Applicant Info.")
             ind_selections = {}
             c1, c2 = st.columns(2)
             
