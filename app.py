@@ -3,7 +3,28 @@ import pandas as pd
 import re
 from datetime import datetime
 
-st.set_page_config(page_title="Digital Credit Engine Powered by The Bank of Punjab-Passion Reborn", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
+
+# =============================
+# HELPER FUNCTION - Currency Input with Comma Formatting
+# =============================
+
+def format_currency_input(label, min_value=0, value=0, key=None):
+    """Input field that accepts and displays numbers with comma formatting"""
+    display_value = f"{value:,.0f}" if value > 0 else ""
+    text_input = st.text_input(label, value=display_value, key=key, placeholder="e.g., 100,000")
+    
+    # Parse input: remove commas and convert to integer
+    try:
+        numeric_value = int(text_input.replace(",", "")) if text_input else 0
+    except ValueError:
+        numeric_value = 0
+    
+    # Validate minimum value
+    if numeric_value < min_value:
+        numeric_value = min_value
+    
+    return numeric_value
 
 st.markdown("""
 <style>
@@ -106,9 +127,9 @@ INDIVIDUAL_CRITERIA = {
         "Personal Loans (clean)": 0,
     },
     "Debt Burden": {
-        "upto 30% of disposable income": 5,
-        "40% of disposable income": 3,
-        "50% of disposable income": 1,
+        "If existing debt/burden=upto 30% of disposable income": 5,
+        "If existing debt/burden=40% of disposable income": 3,
+        "If existing debt/burden=50% of disposable income": 1,
     },
     "Repayment History": {
         "If no default during last 12 months": 15,
@@ -131,26 +152,26 @@ SME_NEW_BUSINESS_CRITERIA = {
     "Experience": {"Relevant Experience - > 3 Years": 100, "Relevant Experience -1- 3 years": 80, "No Experience but has family background in the chosen business.": 70, "Unrelated work experience": 50, "Applicant has never worked": 0},
     "Present Employment Status": {"Employed in Relevant Job": 50, "Working in relevant family owned business": 50, "Employed in non-relevant job": 25, "Previous relevant experience": 35, "Applicant has Never Worked / Un-Employed": 0},
     "Training": {"Trained & Certified in Relevant Field - Evidence Provided": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
-    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (incase of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
     "Applicant's Understanding": {"Absolutely clear and perfect": 100, "Good but not perfect": 50, "Very little or no understanding": -100},
     "Applicant's Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
     "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
     "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 50, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 50, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 50},
     "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
     "Tax Filer": {"NTN held and Filer": 100, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 80, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
-    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
+    "Security": {"Vehicle incase of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
 }
 
 SME_EXISTING_BUSINESS_CRITERIA = {
     "Business Commitment": {"Full Time": 100, "Part Time": 50},
     "Age": {"42 - 60": 50, "39-41.9": 45, "35-38.9": 40, "30-34.9": 30, "25-29.9": 25, "Not Applicable in case of Entities": 50},
-    "Training": {"Trained & Certified in Relevant Field": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
-    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "Training": {"Trained & Certified in Relevant Field - Evidence Provided": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (incase of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
     "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 60, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 60, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 60},
     "Applicants Business Outlook": {"Positive": 100, "Neutral": 50, "Negative": -200},
     "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
     "Tax Filer Status": {"NTN held and Filer": 60, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 50, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
-    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
+    "Security": {"Vehicle incase of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
     "Applicant'S Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
     "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
     "Length Of Business Existence": {"More than 5 Years": 100, "2 - 5 Years": 80, "1 - 2 Years": 25, "Less than 1 Year": 0},
@@ -296,7 +317,7 @@ with c4:
 with c5:
     profession = st.selectbox("Profession *", list(DBR.keys()))
 with c6:
-    income = st.number_input("Net Monthly Income (PKR) *", min_value=0, value=0)
+    income = format_currency_input("Net Monthly Income (PKR) *", min_value=0, value=0, key="income")
 
 c7, c8, c9 = st.columns(3)
 with c7:
@@ -308,7 +329,7 @@ with c8:
         staff_loan = st.checkbox("✓ Staff Loan Eligible")
 with c9:
     if staff_loan:
-        basic_salary = st.number_input("Basic Salary (PKR) *", min_value=0, value=0)
+        basic_salary = format_currency_input("Basic Salary (PKR) *", min_value=0, value=0, key="basic_salary")
 
 st.markdown("### 💳 Loan Product Details")
 
@@ -330,9 +351,9 @@ months = tenor * 12
 st.markdown("**Loan Details**")
 
 if staff_loan:
-    desired_amount = st.number_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)", min_value=0, value=0)
+    desired_amount = format_currency_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)", min_value=0, value=0, key="desired_amount_staff")
 else:
-    desired_amount = st.number_input("Desired Loan Amount (PKR) *", min_value=0, value=0)
+    desired_amount = format_currency_input("Desired Loan Amount (PKR) *", min_value=0, value=0, key="desired_amount_nonstaff")
 
 if not staff_loan:
     c1, c2 = st.columns(2)
@@ -347,7 +368,7 @@ equity_pct = 0
 if not staff_loan and PRODUCTS[product]["equity"]:
     c1, c2 = st.columns(2)
     with c1:
-        asset_value = st.number_input("Asset Value (PKR) *", min_value=0, value=0)
+        asset_value = format_currency_input("Asset Value (PKR) *", min_value=0, value=0, key="asset_value")
     with c2:
         equity_pct = st.slider("Equity % Required", 20, 50, 20)
 
@@ -387,7 +408,7 @@ if not staff_loan:
                     income_lov = "Rs.50,000 & above-SI / Rs.80,000 & above-SEB/SEP"
                 else:
                     income_lov = "Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP"
-                st.markdown(f"**Monthly Income:** 📌 PKR {income:,.0f} → {income_lov}")
+                st.markdown(f"**Monthly Income:** 📌 PKR {income:,.0f} → *{income_lov}*")
                 ind_selections["Monthly Income"] = income_lov  # Auto-populated, hardcoded
                 ind_selections["Type of Residence"] = st.selectbox("Type of Residence", list(INDIVIDUAL_CRITERIA["Type of Residence"].keys()))
                 ind_selections["Collateral"] = st.selectbox("Collateral", list(INDIVIDUAL_CRITERIA["Collateral"].keys()))
@@ -571,7 +592,7 @@ if submit_button:
     if product != "Business Loan" and individual_score_result:
         if not individual_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED")
+            st.error(f"❌ APPLICATION DECLINED - Risk Grade {individual_score_result['grade']}")
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Confidential Dashboard")
                 st.warning("For Authorized Use Only")
@@ -583,7 +604,7 @@ if submit_button:
     if product == "Business Loan" and sme_score_result:
         if not sme_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED")
+            st.error(f"❌ APPLICATION DECLINED - Risk Grade {sme_score_result['grade']}")
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Confidential Dashboard")
                 st.warning("For Authorized Use Only")
