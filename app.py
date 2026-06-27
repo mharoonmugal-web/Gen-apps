@@ -273,7 +273,7 @@ def calculate_sme_score(selections, business_type):
 
 col1, col2, col3 = st.columns([1, 3, 1])
 with col2:
-    st.markdown("<div style='text-align: center; padding: 20px;'><h1 style='margin: 0; color: #1a237e;'>🏦 DIGITAL CREDIT ENGINE Powered by THE BANK OF PUNJAB-Passion Reborn</h1><p style='color: #1e88e5; font-size: 14px; margin: 5px 0;'>Intelligent Loan Underwriting Platform</p></div>", unsafe_allow_html=True)
+    st.markdown("<div style='text-align: center; padding: 20px;'><h1 style='margin: 0; color: #1a237e;'>🏦 DIGITAL CREDIT ENGINE</h1><p style='color: #1e88e5; font-size: 14px; margin: 5px 0;'>Intelligent Loan Underwriting Platform Powered by The Bank of Punjab-Passion Reborn</p></div>", unsafe_allow_html=True)
 
 st.markdown("### 👤 Applicant Information")
 
