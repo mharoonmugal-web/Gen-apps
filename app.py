@@ -16,7 +16,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-KIBOR = 12 / 100
+KIBOR = 12.96 / 100
 
 DBR_STAFF = 0.50  # Staff loans: 50% DBR
 DBR = {
@@ -31,13 +31,13 @@ PROCESSING_FEES = {
     "Auto Loan": 8000,
     "Home Loan": 12000,
     "Solar Loan": 5000,
-    "Business Loan": 5000, 
+    "Business Loan": 0,  # TBA
 }
 
 # Product Configuration with Caps
 PRODUCTS = {
     "Personal Loan": {"rate": 0.35, "max_tenor": 5, "equity": False, "max_limit": 3_000_000},
-    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": True, "max_limit": 3_000_000},
+    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 10, "equity": True, "max_limit": 3_000_000},
     "Home Loan": {"rate": KIBOR + 0.03, "max_tenor": 20, "equity": True, "max_limit": 250_000_000},
     "Solar Loan": {"rate": KIBOR + 0.05, "max_tenor": 8, "equity": True, "max_limit_salaried": 5_000_000, "max_limit_other": 100_000_000},
     "Business Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": False, "max_limit": float('inf')},
@@ -107,8 +107,8 @@ INDIVIDUAL_CRITERIA = {
     },
     "Debt Burden": {
         "upto 30% of disposable income": 5,
-        "upto 40% of disposable income": 3,
-        "upto 50% of disposable income": 1,
+        "40% of disposable income": 3,
+        "50% of disposable income": 1,
     },
     "Repayment History": {
         "If no default during last 12 months": 15,
@@ -131,26 +131,26 @@ SME_NEW_BUSINESS_CRITERIA = {
     "Experience": {"Relevant Experience - > 3 Years": 100, "Relevant Experience -1- 3 years": 80, "No Experience but has family background in the chosen business.": 70, "Unrelated work experience": 50, "Applicant has never worked": 0},
     "Present Employment Status": {"Employed in Relevant Job": 50, "Working in relevant family owned business": 50, "Employed in non-relevant job": 25, "Previous relevant experience": 35, "Applicant has Never Worked / Un-Employed": 0},
     "Training": {"Trained & Certified in Relevant Field - Evidence Provided": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
-    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (incase of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
     "Applicant's Understanding": {"Absolutely clear and perfect": 100, "Good but not perfect": 50, "Very little or no understanding": -100},
     "Applicant's Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
     "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
     "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 50, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 50, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 50},
-    "Is Sim On Your Name": {"Yes": 100, "No": -1800},
+    "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
     "Tax Filer": {"NTN held and Filer": 100, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 80, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
-    "Security": {"Vehicle incase of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
+    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
 }
 
 SME_EXISTING_BUSINESS_CRITERIA = {
     "Business Commitment": {"Full Time": 100, "Part Time": 50},
     "Age": {"42 - 60": 50, "39-41.9": 45, "35-38.9": 40, "30-34.9": 30, "25-29.9": 25, "Not Applicable in case of Entities": 50},
-    "Training": {"Trained & Certified in Relevant Field - Evidence Provided": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
-    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (incase of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "Training": {"Trained & Certified in Relevant Field": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
     "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 60, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 60, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 60},
     "Applicants Business Outlook": {"Positive": 100, "Neutral": 50, "Negative": -200},
     "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
     "Tax Filer Status": {"NTN held and Filer": 60, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 50, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
-    "Security": {"Vehicle incase of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
+    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
     "Applicant'S Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
     "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
     "Length Of Business Existence": {"More than 5 Years": 100, "2 - 5 Years": 80, "1 - 2 Years": 25, "Less than 1 Year": 0},
@@ -195,11 +195,11 @@ def calculate_auto_insurance(asset_value, months):
     """Calculate auto insurance on depreciation principle"""
     insurance_schedule = {}
     
-    # Year 1: Upfront insurance (1.75% of 100% of asset value)
-    year1_insurance = asset_value * 1 * 0.0175
+    # Year 1: Upfront insurance (1.75% of full asset value)
+    year1_insurance = asset_value * 0.0175
     
     # Monthly insurance for years 2-10
-    for month in range(1, months + 0):
+    for month in range(1, months + 1):
         year = (month - 1) // 12 + 1
         if year == 1:
             insurance_schedule[month] = 0  # Paid upfront
@@ -364,13 +364,14 @@ if not staff_loan:
     
     if product != "Business Loan":
         with st.expander("📋 **Individual Scorecard Assessment**", expanded=True):
-            st.info("Pre-filled fields use information from Applicant Info")
+            st.info("Pre-filled fields use information from Applicant Info. Modify if needed.")
             ind_selections = {}
             c1, c2 = st.columns(2)
             
             with c1:
                 ind_selections["Age of Borrower"] = st.selectbox("Age of Borrower", list(INDIVIDUAL_CRITERIA["Age of Borrower"].keys()))
-                ind_selections["Gender"] = st.selectbox("Gender", list(INDIVIDUAL_CRITERIA["Gender"].keys()), index=0 if gender=="Male" else 1)
+                st.markdown(f"**Gender:** 📌 {gender}")
+                ind_selections["Gender"] = gender  # Auto-populated, hardcoded
                 ind_selections["Marital Status"] = st.selectbox("Marital Status", list(INDIVIDUAL_CRITERIA["Marital Status"].keys()))
                 ind_selections["No. of Dependents"] = st.selectbox("No. of Dependents", list(INDIVIDUAL_CRITERIA["No. of Dependents"].keys()))
                 ind_selections["Qualification"] = st.selectbox("Qualification", list(INDIVIDUAL_CRITERIA["Qualification"].keys()))
@@ -379,7 +380,15 @@ if not staff_loan:
             
             with c2:
                 ind_selections["Length of Employment"] = st.selectbox("Length of Employment", list(INDIVIDUAL_CRITERIA["Length of Employment"].keys()))
-                ind_selections["Monthly Income"] = st.selectbox("Monthly Income", list(INDIVIDUAL_CRITERIA["Monthly Income"].keys()))
+                # Auto-populate Monthly Income based on income value
+                if income <= 50000:
+                    income_lov = "Below Rs.50,000-SI / Below Rs.80,000-SEB/SEP"
+                elif income <= 100000:
+                    income_lov = "Rs.50,000 & above-SI / Rs.80,000 & above-SEB/SEP"
+                else:
+                    income_lov = "Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP"
+                st.markdown(f"**Monthly Income:** 📌 PKR {income:,.0f} → {income_lov}")
+                ind_selections["Monthly Income"] = income_lov  # Auto-populated, hardcoded
                 ind_selections["Type of Residence"] = st.selectbox("Type of Residence", list(INDIVIDUAL_CRITERIA["Type of Residence"].keys()))
                 ind_selections["Collateral"] = st.selectbox("Collateral", list(INDIVIDUAL_CRITERIA["Collateral"].keys()))
                 ind_selections["Debt Burden"] = st.selectbox("Debt Burden", list(INDIVIDUAL_CRITERIA["Debt Burden"].keys()))
@@ -498,7 +507,13 @@ if submit_button:
             st.info(f"ℹ️ You can also borrow up to PKR {approved:,.0f}")
         else:
             st.success(f"✅ Approved Amount: PKR {approved:,.0f}")
-               
+        
+        # Amortization Schedule
+        st.markdown("### 📅 Amortization Schedule")
+        
+        df_schedule = schedule(approved, rate_used, months, approved_emi)
+        display_df = pd.concat([df_schedule.head(12), df_schedule.tail(12)]) if months > 24 else df_schedule
+        
         fmt_df = display_df.copy()
         for col in fmt_df.columns[1:]:
             fmt_df[col] = fmt_df[col].apply(lambda x: f"PKR {x:,.0f}")
@@ -693,29 +708,30 @@ if submit_button:
             st.error("🔴 **LIMITED BY ASSET/EQUITY**")
             st.markdown(f"With {equity_pct}% equity, max: PKR {max_by_asset:,.0f}")
     
-    # Amortization Schedule
-    st.markdown("### 📅 Amortization Schedule")
-    
+    # Amortization Schedule - Download Only (CSV)
     if product == "Auto Loan" and insurance_schedule:
         df_schedule = schedule(approved, rate_used, months, approved_emi, insurance_schedule)
     else:
         df_schedule = schedule(approved, rate_used, months, approved_emi)
     
-    display_df = pd.concat([df_schedule.head(12), df_schedule.tail(12)]) if months > 24 else df_schedule
-    
-    fmt_df = display_df.copy()
-    for col in fmt_df.columns[1:]:
-        fmt_df[col] = fmt_df[col].apply(lambda x: f"PKR {x:,.0f}")
-    
-    st.dataframe(fmt_df, use_container_width=True, hide_index=True)
-    
     csv = df_schedule.to_csv(index=False)
-    st.download_button("📥 Download Full Schedule", csv, f"schedule_{cnic_digits}_{datetime.now().strftime('%d%m%Y')}.csv", "text/csv")
+    st.download_button("📥 Download Repayment Schedule (CSV)", csv, f"repayment_schedule_{cnic_digits}_{datetime.now().strftime('%d%m%Y')}.csv", "text/csv")
     
     # Down Payment Breakdown
     st.markdown("### 💳 Down Payment Breakdown")
     
-    equity_amount = asset_value * equity_pct / 100 if PRODUCTS[product]["equity"] else 0
+    # Correct equity calculation
+    # If equity% is 20%, then loan is 80% of total purchase price
+    # Equity Needed = Loan × (Equity% / (100-Equity%))
+    if PRODUCTS[product]["equity"]:
+        equity_amount = approved * (equity_pct / (100 - equity_pct))
+        total_purchase_price = approved + equity_amount
+        shortfall = asset_value - total_purchase_price if asset_value > total_purchase_price else 0
+    else:
+        equity_amount = 0
+        total_purchase_price = 0
+        shortfall = 0
+    
     down_payment_total = processing_fee + year1_insurance + equity_amount
     
     col1, col2 = st.columns(2)
@@ -740,8 +756,11 @@ if submit_button:
         st.markdown("### 🏠 Collateral & Equity Details")
         col1, col2, col3 = st.columns(3)
         col1.metric("Asset Value", f"PKR {asset_value:,.0f}")
-        col2.metric("Equity Required (%)", f"{equity_pct}%")
-        col3.metric("Equity Amount (PKR)", f"PKR {equity_amount:,.0f}")
+        col2.metric("Total Purchase", f"PKR {total_purchase_price:,.0f}")
+        col3.metric("Equity Needed", f"PKR {equity_amount:,.0f}")
+        
+        if shortfall > 0:
+            st.warning(f"⚠️ **Shortfall Alert:** You need to arrange additional PKR {shortfall:,.0f} out of your pocket to complete the purchase of the asset.")
     
     # Final Offer Summary
     st.markdown("---")
