@@ -6,30 +6,23 @@ from datetime import datetime
 st.set_page_config(page_title="Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
 
 # =============================
-# HELPER FUNCTION - Currency Input with Comma Formatting
+# HELPER FUNCTION - Currency Input
 # =============================
 
-def format_currency_input(label, min_value=0, value=0, key=None):
-    """Input field that accepts and displays numbers with comma formatting"""
-    # Use session state to maintain formatted display
-    if key not in st.session_state:
-        st.session_state[key] = f"{value:,.0f}" if value > 0 else ""
-    
+def currency_input(label, min_value=0, key=None):
+    """Input field that accepts numbers with or without commas"""
     text_input = st.text_input(
         label, 
-        value=st.session_state[key], 
-        key=f"{key}_input",
-        placeholder="e.g., 100,000 or 100000"
+        key=key,
+        placeholder="e.g., 100000 or 100,000"
     )
     
     # Parse input: remove commas and convert to integer
     try:
-        numeric_value = int(text_input.replace(",", "")) if text_input else 0
+        numeric_value = int(text_input.replace(",", "").replace(" ", "")) if text_input else 0
     except ValueError:
+        st.error(f"❌ Please enter a valid number (commas optional)")
         numeric_value = 0
-    
-    # Update session state with formatted value
-    st.session_state[key] = f"{numeric_value:,.0f}" if numeric_value > 0 else ""
     
     # Validate minimum value
     if numeric_value < min_value:
@@ -224,20 +217,22 @@ def schedule(p, r, n, e, insurance_schedule=None):
     return pd.DataFrame(rows, columns=cols if insurance_schedule else cols[:-2] + [cols[-1]])
 
 def calculate_auto_insurance(asset_value, months):
-    """Calculate auto insurance on depreciation principle"""
+    """Calculate auto insurance on depreciation principle - starts Month 1"""
     insurance_schedule = {}
     
-    # Year 1: Upfront insurance (1.75% of full asset value)
-    year1_insurance = asset_value * 0.0175
+    # Year 1 upfront: 1.75% of asset value (90% depreciation in year 1)
+    year1_insurance = asset_value * 0.90 * 0.0175
     
-    # Monthly insurance for years 2-10
+    # Insurance for all months (Month 1 onwards)
     for month in range(1, months + 1):
         year = (month - 1) // 12 + 1
-        if year == 1:
-            insurance_schedule[month] = 0  # Paid upfront
+        
+        # Last year - NO insurance
+        if year == ((months - 1) // 12 + 1):  # Final year
+            insurance_schedule[month] = 0
         else:
-            # Asset depreciates by 10% each year
-            depreciation = 0.90 ** (year - 1)
+            # Asset depreciates by 10% each year: 90%, 81%, 72.9%, etc
+            depreciation = 0.90 ** year
             year_insurance = asset_value * depreciation * 0.0175
             monthly_insurance = year_insurance / 12
             insurance_schedule[month] = monthly_insurance
@@ -328,7 +323,7 @@ with c4:
 with c5:
     profession = st.selectbox("Profession *", list(DBR.keys()))
 with c6:
-    income = format_currency_input("Net Monthly Income (PKR) *", min_value=0, value=0, key="income")
+    income = currency_input("Net Monthly Income (PKR) *", min_value=0, value=0, key="income")
 
 c7, c8, c9 = st.columns(3)
 with c7:
@@ -340,7 +335,7 @@ with c8:
         staff_loan = st.checkbox("✓ Staff Loan Eligible")
 with c9:
     if staff_loan:
-        basic_salary = format_currency_input("Basic Salary (PKR) *", min_value=0, value=0, key="basic_salary")
+        basic_salary = currency_input("Basic Salary (PKR) *", min_value=0, value=0, key="basic_salary")
 
 st.markdown("### 💳 Loan Product Details")
 
@@ -362,9 +357,9 @@ months = tenor * 12
 st.markdown("**Loan Details**")
 
 if staff_loan:
-    desired_amount = format_currency_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)", min_value=0, value=0, key="desired_amount_staff")
+    desired_amount = currency_input("Desired Loan Amount (PKR) - Optional (Leave 0 for salary multiple only)", min_value=0, value=0, key="desired_amount_staff")
 else:
-    desired_amount = format_currency_input("Desired Loan Amount (PKR) *", min_value=0, value=0, key="desired_amount_nonstaff")
+    desired_amount = currency_input("Desired Loan Amount (PKR) *", min_value=0, value=0, key="desired_amount_nonstaff")
 
 if not staff_loan:
     c1, c2 = st.columns(2)
@@ -379,7 +374,7 @@ equity_pct = 0
 if not staff_loan and PRODUCTS[product]["equity"]:
     c1, c2 = st.columns(2)
     with c1:
-        asset_value = format_currency_input("Asset Value (PKR) *", min_value=0, value=0, key="asset_value")
+        asset_value = currency_input("Asset Value (PKR) *", min_value=0, value=0, key="asset_value")
     with c2:
         equity_pct = st.slider("Equity % Required", 20, 50, 20)
 
@@ -762,16 +757,13 @@ if submit_button:
     # Down Payment Breakdown
     st.markdown("### 💳 Down Payment Breakdown")
     
-    # Correct equity calculation
-    # If equity% is 20%, then loan is 80% of total purchase price
-    # Equity Needed = Loan × (Equity% / (100-Equity%))
+    # CORRECT EQUITY CALCULATION
+    # Equity = Asset Value - Max Loan Available by DBR
     if PRODUCTS[product]["equity"]:
-        equity_amount = approved * (equity_pct / (100 - equity_pct))
-        total_purchase_price = approved + equity_amount
-        shortfall = asset_value - total_purchase_price if asset_value > total_purchase_price else 0
+        equity_amount = asset_value - max_by_dbr_amount
+        shortfall = 0  # No shortfall - equity is simply the difference
     else:
         equity_amount = 0
-        total_purchase_price = 0
         shortfall = 0
     
     down_payment_total = processing_fee + year1_insurance + equity_amount
@@ -798,11 +790,8 @@ if submit_button:
         st.markdown("### 🏠 Collateral & Equity Details")
         col1, col2, col3 = st.columns(3)
         col1.metric("Asset Value", f"PKR {asset_value:,.0f}")
-        col2.metric("Total Purchase", f"PKR {total_purchase_price:,.0f}")
+        col2.metric("Max Loan (DBR)", f"PKR {max_by_dbr_amount:,.0f}")
         col3.metric("Equity Needed", f"PKR {equity_amount:,.0f}")
-        
-        if shortfall > 0:
-            st.warning(f"⚠️ **Shortfall Alert:** You need to arrange additional PKR {shortfall:,.0f} out of your pocket to complete the purchase of the asset.")
     
     # Final Offer Summary
     st.markdown("---")
