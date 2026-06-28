@@ -350,6 +350,9 @@ if not staff_loan:
         bank = st.selectbox("Bank", BANKS)
     with c2:
         relationship_years = st.number_input("Relationship with Bank (Years)", min_value=0, value=0)
+else:
+    bank = "Internal Staff Loan"
+    relationship_years = 0
 
 asset_value = 0
 equity_pct = 0
@@ -357,7 +360,7 @@ equity_pct = 0
 if not staff_loan and PRODUCTS[product]["equity"]:
     c1, c2 = st.columns(2)
     with c1:
-        asset_value = st.number_input("Asset Value (PKR) *""asset_value")
+        asset_value = st.number_input("Asset Value (PKR) *", key="asset_value")
     with c2:
         equity_pct = st.slider("Equity % Required", 20, 50, 20)
 
@@ -379,7 +382,7 @@ if not staff_loan:
             
             with c1:
                 ind_selections["Age of Borrower"] = st.selectbox("Age of Borrower", list(INDIVIDUAL_CRITERIA["Age of Borrower"].keys()))
-                st.markdown(f"**Gender:** 📌 {gender}")
+                st.text_input("Gender (Auto-populated)", value=gender, disabled=True)
                 ind_selections["Gender"] = gender  # Auto-populated, hardcoded
                 ind_selections["Marital Status"] = st.selectbox("Marital Status", list(INDIVIDUAL_CRITERIA["Marital Status"].keys()))
                 ind_selections["No. of Dependents"] = st.selectbox("No. of Dependents", list(INDIVIDUAL_CRITERIA["No. of Dependents"].keys()))
@@ -395,7 +398,7 @@ if not staff_loan:
                     exp_lov = "3 years & over"
                 else:
                     exp_lov = "Less than 3 years"
-                st.markdown(f"**Length of Employment:** 📌 {experience_years} years → *{exp_lov}*")
+                st.text_input("Length of Employment (Auto-populated)", value=exp_lov, disabled=True)
                 ind_selections["Length of Employment"] = exp_lov  # Auto-populated, hardcoded
                 
                 # Auto-populate Monthly Income based on income value
@@ -405,7 +408,7 @@ if not staff_loan:
                     income_lov = "Rs.50,000 & above-SI / Rs.80,000 & above-SEB/SEP"
                 else:
                     income_lov = "Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP"
-                st.markdown(f"**Monthly Income:** 📌 PKR {income:,.0f} → *{income_lov}*")
+                st.text_input("Monthly Income (Auto-populated)", value=f"PKR {income:,.0f} → {income_lov}", disabled=True)
                 ind_selections["Monthly Income"] = income_lov  # Auto-populated, hardcoded
                 
                 ind_selections["Type of Residence"] = st.selectbox("Type of Residence", list(INDIVIDUAL_CRITERIA["Type of Residence"].keys()))
