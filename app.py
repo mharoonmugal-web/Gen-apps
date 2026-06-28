@@ -581,7 +581,7 @@ if submit_button:
 - **Processing Fee:** PKR {processing_fee:,.0f}
 - **Total Markup:** PKR {markup:,.0f}
 - **DBR:** {dbr_utilization:.2f}%
-**Bank:** {"The Bank of Punjab"}
+- **Bank:** {"The Bank of Punjab"}
             """)
         
         st.info("✓ This is a preliminary offer. Final approval is subject to document verification.")
