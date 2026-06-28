@@ -806,7 +806,7 @@ if submit_button:
 - **Down Payment:** PKR {down_payment_total:,.0f}
 - **Approval Date:** {datetime.now().strftime('%d-%m-%Y %H:%M')}
 - **Loan Product:** {product}
-- **Bank:** {bank if not staff_loan else "N/A"}
+- **Bank:** {"The Bank of Punjab"}
         """)
     
     st.info("✓ This is a preliminary offer. Final approval is subject to document verification and compliance review.")
