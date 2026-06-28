@@ -182,14 +182,21 @@ def schedule(p, r, n, e, insurance_schedule=None):
     for i in range(1, n + 1):
         interest = bal * m
         principal = e - interest
-        insurance_cost = 0
+        bal -= principal
+        
         if insurance_schedule:
             insurance_cost = insurance_schedule.get(i, 0)
-        total_payment = e + insurance_cost
-        bal -= principal
-        rows.append([i, e, principal, interest, insurance_cost, total_payment, max(bal, 0)])
-    cols = ["Month", "EMI", "Principal", "Markup", "Insurance", "Total Payment", "Balance"] if insurance_schedule else ["Month", "EMI", "Principal", "Markup", "Balance"]
-    return pd.DataFrame(rows, columns=cols if insurance_schedule else cols[:-2] + [cols[-1]])
+            total_payment = e + insurance_cost
+            rows.append([i, e, principal, interest, insurance_cost, total_payment, max(bal, 0)])
+        else:
+            rows.append([i, e, principal, interest, max(bal, 0)])
+    
+    if insurance_schedule:
+        cols = ["Month", "EMI", "Principal", "Markup", "Insurance", "Total Payment", "Balance"]
+    else:
+        cols = ["Month", "EMI", "Principal", "Markup", "Balance"]
+    
+    return pd.DataFrame(rows, columns=cols)
 
 def calculate_auto_insurance(asset_value, months):
     """Calculate auto insurance - Year 1 upfront on FULL asset, then depreciated"""
