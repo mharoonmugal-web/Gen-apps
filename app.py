@@ -252,9 +252,9 @@ def calculate_individual_score(selections):
         grade, grade_name = 9,
     elif percentage >= 11:
         grade, grade_name = 10,
-   elif percentage >= 6:
+    elif percentage >= 6:
         grade, grade_name = 11,
-   elif percentage <= 6:
+    elif percentage <= 6:
         grade, grade_name = 12,
     else:
         grade, grade_name = 7, 
