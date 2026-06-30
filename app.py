@@ -256,8 +256,6 @@ def calculate_individual_score(selections):
         grade, grade_name = 11,
     elif percentage <= 6:
         grade, grade_name = 12,
-    else:
-        grade, grade_name = 7, 
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
 
