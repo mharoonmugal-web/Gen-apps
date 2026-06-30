@@ -16,7 +16,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-KIBOR = 12.96 / 100
+KIBOR = 12 / 100
 
 DBR_STAFF = 0.50  # Staff loans: 50% DBR
 DBR = {
@@ -31,7 +31,7 @@ PROCESSING_FEES = {
     "Auto Loan": 8000,
     "Home Loan": 12000,
     "Solar Loan": 5000,
-    "Business Loan": 0,  # TBA
+    "Business Loan": 5000, 
 }
 
 # Product Configuration with Caps
@@ -106,9 +106,9 @@ INDIVIDUAL_CRITERIA = {
         "Personal Loans (clean)": 0,
     },
     "Debt Burden": {
-        "If existing debt/burden=upto 30% of disposable income": 5,
-        "If existing debt/burden=40% of disposable income": 3,
-        "If existing debt/burden=50% of disposable income": 1,
+        "upto 30% of disposable income": 5,
+        "I40% of disposable income": 3,
+        "50% of disposable income": 1,
     },
     "Repayment History": {
         "If no default during last 12 months": 15,
@@ -233,19 +233,31 @@ def calculate_individual_score(selections):
     max_score = 100
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     if percentage >= 96:
-        grade, grade_name = 1, "Exceptional"
+        grade, grade_name = 1, 
     elif percentage >= 91:
-        grade, grade_name = 2, "Superior"
+        grade, grade_name = 2, 
     elif percentage >= 81:
-        grade, grade_name = 3, "Very Good"
+        grade, grade_name = 3, 
     elif percentage >= 71:
-        grade, grade_name = 4, "Good"
+        grade, grade_name = 4, 
     elif percentage >= 61:
-        grade, grade_name = 5, "Satisfactory"
+        grade, grade_name = 5, 
     elif percentage >= 51:
-        grade, grade_name = 6, "Acceptable"
+        grade, grade_name = 6, 
+    elif percentage >= 41:
+        grade, grade_name = 7, 
+    elif percentage >= 31:
+        grade, grade_name = 8,
+    elif percentage >= 21:
+        grade, grade_name = 9,
+    elif percentage >= 11:
+        grade, grade_name = 10,
+   elif percentage >= 6:
+        grade, grade_name = 11,
+   elif percentage <= 6:
+        grade, grade_name = 12,
     else:
-        grade, grade_name = 7, "Declined"
+        grade, grade_name = 7, 
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
 
