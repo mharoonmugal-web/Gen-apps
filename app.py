@@ -23,7 +23,7 @@ st.markdown("""
     /* Bank Branding Header - Orange */
     .bank-header {
         background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
-        color: white;
+        color: black;
         padding: 30px;
         border-radius: 12px;
         text-align: center;
