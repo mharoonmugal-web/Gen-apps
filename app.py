@@ -658,7 +658,7 @@ if submit_button:
             st.markdown("**APPROVED**")
             st.metric("Loan Amount", f"PKR {approved:,.0f}")
             st.markdown("**Phase 1 (Principal):**")
-            st.metric("Months", f"{principal_months}")
+            
             st.metric("EMI", f"PKR {staff_phase1_emi:,.0f}")
             st.markdown("**Phase 2 (Markup):**")
             st.metric("Months", f"{markup_months}")
