@@ -12,15 +12,14 @@ st.markdown("""
 <style>
     * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     
-    /* Bank of Punjab Orange Theme */
-    :root {
-        --primary-color: #FF6B35;
-        --secondary-color: #FF8C00;
-        --text-dark: #1a1a1a;
-        --text-light: #ffffff;
-    }
+    /* FULL ORANGE BACKGROUND */
+    html { background: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important; }
+    body { background: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important; }
+    [data-testid="stAppViewContainer"] { background: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important; }
+    [data-testid="stMain"] { background: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important; }
+    .main { background: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important; }
     
-    /* Bank Branding Header - Orange */
+    /* Bank Header */
     .bank-header {
         background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
         color: white;
@@ -28,59 +27,60 @@ st.markdown("""
         border-radius: 12px;
         text-align: center;
         margin-bottom: 30px;
-        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
     }
-    .bank-logo { 
-        font-size: 28px; 
-        font-weight: bold; 
-        margin: 0;
-        color: #ffffff;
-    }
-    .bank-subtitle { 
-        font-size: 14px; 
-        margin: 8px 0 0 0;
-        color: #f0f0f0;
-    }
+    .bank-logo { font-size: 32px; font-weight: bold; color: white; letter-spacing: 1px; }
+    .bank-subtitle { font-size: 14px; margin: 8px 0 0 0; color: #f0f0f0; font-weight: 500; }
     
-    /* Metrics with Bank Colors */
-    .stMetric {
+    /* Metrics */
+    .stMetric { 
         background: white;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15);
         border-left: 5px solid #FF6B35;
     }
     
-    /* Headings - Orange */
-    h1 { color: #FF6B35 !important; border-bottom: 3px solid #FF8C00; padding-bottom: 15px; }
-    h2 { color: #FF6B35 !important; margin-top: 25px; }
-    h3 { color: #1a1a1a !important; }
+    /* Headings */
+    h1 { color: #FF6B35 !important; border-bottom: 3px solid #FF8C00; padding-bottom: 15px; font-weight: 700; }
+    h2 { color: #FF6B35 !important; margin-top: 25px; font-weight: 700; }
+    h3 { color: #FF6B35 !important; margin-top: 15px; font-weight: 600; }
+    h4, h5, h6 { color: #FF6B35 !important; }
     
-    /* Dark Mode Text Fix - CRITICAL */
-    body { color: #1a1a1a !important; background-color: #ffffff !important; }
+    /* ALL TEXT DARK FOR VISIBILITY */
+    body, p, span, div, li { color: #1a1a1a !important; }
     [data-testid="stMarkdownContainer"] { color: #1a1a1a !important; }
     .stMarkdown { color: #1a1a1a !important; }
-    .stText { color: #1a1a1a !important; }
-    label { color: #1a1a1a !important; }
-    p { color: #1a1a1a !important; }
     
-    /* Input Fields - Text visibility in dark mode */
-    input { color: #1a1a1a !important; background-color: white !important; }
-    select { color: #1a1a1a !important; background-color: white !important; }
-    textarea { color: #1a1a1a !important; background-color: white !important; }
-    [data-testid="stNumberInput"] input { color: #1a1a1a !important; background-color: white !important; }
-    [data-testid="stTextInput"] input { color: #1a1a1a !important; background-color: white !important; }
+    /* CRITICAL: LABELS MUST BE VISIBLE */
+    label { color: #1a1a1a !important; font-weight: 600 !important; }
+    [data-testid="stLabel"] { color: #1a1a1a !important; }
+    [data-testid="stLabel"] label { color: #1a1a1a !important; font-weight: 600 !important; }
     
-    /* Success/Info Boxes */
-    .success-banner { background-color: #FF6B35; color: white; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: bold; }
-    .info-banner { background-color: #FF8C00; color: white; padding: 12px; border-radius: 6px; }
+    /* Input Fields */
+    input, select, textarea { 
+        color: #1a1a1a !important; 
+        background-color: white !important;
+        border: 1px solid #FF8C00 !important;
+    }
     
-    /* Metric Values - Orange */
-    .metric-value { color: #FF6B35 !important; font-weight: bold; }
+    /* Success Banner */
+    .success-banner { 
+        background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
+        color: white; 
+        padding: 15px; 
+        border-radius: 8px; 
+        margin: 15px 0; 
+        font-weight: bold;
+    }
     
     /* Buttons */
-    .stButton>button { background-color: #FF6B35; color: white; border: none; }
-    .stButton>button:hover { background-color: #FF8C00; }
+    .stButton>button { 
+        background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 600 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -278,29 +278,29 @@ def calculate_individual_score(selections):
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     if percentage >= 96:
-        grade, grade_name = 1, "1"
+        grade, grade_name = 1, 
     elif percentage >= 91:
-        grade, grade_name = 2, "2"
+        grade, grade_name = 2, 
     elif percentage >= 81:
-        grade, grade_name = 3, "3"
+        grade, grade_name = 3, 
     elif percentage >= 71:
-        grade, grade_name = 4, "4"
+        grade, grade_name = 4, 
     elif percentage >= 61:
-        grade, grade_name = 5, "5"
+        grade, grade_name = 5, 
     elif percentage >= 51:
-        grade, grade_name = 6, "6"
+        grade, grade_name = 6, 
     elif percentage >= 41:
-        grade, grade_name = 7, "7"
+        grade, grade_name = 7, 
     elif percentage >= 31:
-        grade, grade_name = 8, "8"
+        grade, grade_name = 8, 
     elif percentage >= 21:
-        grade, grade_name = 9, "9"
+        grade, grade_name = 9, 
     elif percentage >= 11:
-        grade, grade_name = 10, "10"
+        grade, grade_name = 10, 
     elif percentage >= 6:
-        grade, grade_name = 11, "11"
+        grade, grade_name = 11, 
     else:
-        grade, grade_name = 12, "12"
+        grade, grade_name = 12, 
     
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
@@ -320,29 +320,29 @@ def calculate_sme_score(selections, business_type):
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     if percentage >= 90:
-        grade, grade_name = 1, "1"
+        grade, grade_name = 1, 
     elif percentage >= 80:
-        grade, grade_name = 2, "2"
+        grade, grade_name = 2, 
     elif percentage >= 70:
-        grade, grade_name = 3, "3"
+        grade, grade_name = 3, 
     elif percentage >= 60:
-        grade, grade_name = 4, "4"
+        grade, grade_name = 4, 
     elif percentage >= 55:
-        grade, grade_name = 5, "5"
+        grade, grade_name = 5, 
     elif percentage >= 50:
-        grade, grade_name = 6, "6"
+        grade, grade_name = 6, 
     elif percentage >= 40:
-        grade, grade_name = 7, "7"
+        grade, grade_name = 7, 
     elif percentage >= 30:
-        grade, grade_name = 8, "8"
+        grade, grade_name = 8, 
     elif percentage >= 20:
-        grade, grade_name = 9, "9"
+        grade, grade_name = 9, 
     elif percentage >= 10:
-        grade, grade_name = 10, "10"
+        grade, grade_name = 10, 
     elif percentage >= 5:
-        grade, grade_name = 11, "11"
+        grade, grade_name = 11, 
     else:
-        grade, grade_name = 12, "12"
+        grade, grade_name = 12, 
     
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
