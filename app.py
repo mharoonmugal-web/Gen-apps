@@ -278,29 +278,29 @@ def calculate_individual_score(selections):
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     if percentage >= 96:
-        grade, grade_name = 1, 
+        grade, grade_name = 1, "1"
     elif percentage >= 91:
-        grade, grade_name = 2, 
+        grade, grade_name = 2, "2"
     elif percentage >= 81:
-        grade, grade_name = 3, 
+        grade, grade_name = 3, "3"
     elif percentage >= 71:
-        grade, grade_name = 4, 
+        grade, grade_name = 4, "4"
     elif percentage >= 61:
-        grade, grade_name = 5, 
+        grade, grade_name = 5, "5"
     elif percentage >= 51:
-        grade, grade_name = 6, 
+        grade, grade_name = 6, "6"
     elif percentage >= 41:
-        grade, grade_name = 7, 
+        grade, grade_name = 7, "7"
     elif percentage >= 31:
-        grade, grade_name = 8, 
+        grade, grade_name = 8, "8"
     elif percentage >= 21:
-        grade, grade_name = 9, 
+        grade, grade_name = 9, "9"
     elif percentage >= 11:
-        grade, grade_name = 10, 
+        grade, grade_name = 10, "10"
     elif percentage >= 6:
-        grade, grade_name = 11, 
+        grade, grade_name = 11, "11"
     else:
-        grade, grade_name = 12, 
+        grade, grade_name = 12, "12"
     
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
@@ -320,29 +320,29 @@ def calculate_sme_score(selections, business_type):
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     if percentage >= 90:
-        grade, grade_name = 1, 
+        grade, grade_name = 1, "1"
     elif percentage >= 80:
-        grade, grade_name = 2, 
+        grade, grade_name = 2, "2"
     elif percentage >= 70:
-        grade, grade_name = 3, 
+        grade, grade_name = 3, "3"
     elif percentage >= 60:
-        grade, grade_name = 4, 
+        grade, grade_name = 4, "4"
     elif percentage >= 55:
-        grade, grade_name = 5, 
+        grade, grade_name = 5, "5"
     elif percentage >= 50:
-        grade, grade_name = 6, 
+        grade, grade_name = 6, "6"
     elif percentage >= 40:
-        grade, grade_name = 7, 
+        grade, grade_name = 7, "7"
     elif percentage >= 30:
-        grade, grade_name = 8, 
+        grade, grade_name = 8, "8"
     elif percentage >= 20:
-        grade, grade_name = 9, 
+        grade, grade_name = 9, "9"
     elif percentage >= 10:
-        grade, grade_name = 10, 
+        grade, grade_name = 10, "10"
     elif percentage >= 5:
-        grade, grade_name = 11, 
+        grade, grade_name = 11, "11"
     else:
-        grade, grade_name = 12, 
+        grade, grade_name = 12, "12"
     
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
