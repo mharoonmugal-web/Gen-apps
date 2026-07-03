@@ -605,16 +605,7 @@ if submit_button:
             st.markdown("**Phase 2 (Markup):**")
             st.metric("Months", f"{markup_months}")
             st.metric("EMI", f"PKR {staff_phase2_emi:,.0f}")
-        
-        st.markdown("---")
-        st.markdown("### 📋 Down Payment Breakdown")
-        
-        col1, col2 = st.columns(2)
-        with col1:
-            st.write(f"**Processing Fee:** PKR {processing_fee:,.0f}")
-        with col2:
-            st.metric("Total Down Payment", f"PKR {down_payment:,.0f}")
-        
+                
         st.markdown("### 📅 Amortization Schedule (Staff Loan - Phase 1: Principal | Phase 2: Markup)")
         
         df_schedule = staff_loan_schedule(approved, rate_used, months)
