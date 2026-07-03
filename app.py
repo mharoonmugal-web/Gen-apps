@@ -78,7 +78,7 @@ st.markdown("""
 # CONFIGURATION
 # =============================
 
-KIBOR = 12.96 / 100
+KIBOR = 12 / 100
 
 DBR_STAFF = 0.50
 DBR = {"Salaried": 0.40, "Self-Employed": 0.50, "Businessman": 0.50}
@@ -99,8 +99,8 @@ PRODUCTS = {
     "Business Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": False, "max_limit": float('inf')},
 }
 
-BANKS = ["Habib Bank Limited", "United Bank Limited", "MCB Bank", "Allied Bank Limited", "Bank Alfalah", 
-         "Meezan Bank", "Bank Al Habib", "Faysal Bank", "The Bank of Punjab", "Askari Bank", "JS Bank", "Soneri Bank"]
+BANKS = ["The Bank of Punjab", "United Bank Limited", "MCB Bank", "Allied Bank Limited", "Bank Alfalah", 
+         "Meezan Bank", "Bank Al Habib", "Faysal Bank", "Habib Bank Limited", "Askari Bank", "JS Bank", "Soneri Bank"]
 
 # =============================
 # SCORECARD CRITERIA
