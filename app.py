@@ -294,7 +294,7 @@ def calculate_sme_score(selections, business_type):
 st.markdown("""
 <div class="bank-header">
     <div class="bank-logo">🏦 THE BANK OF PUNJAB</div>
-    <div class="bank-subtitle">Digital Credit Engine - Intelligent Loan Underwriting</div>
+    <div class="bank-subtitle">Digital Credit Engine - UJALA Loan Underwriting System</div>
 </div>
 """, unsafe_allow_html=True)
 
