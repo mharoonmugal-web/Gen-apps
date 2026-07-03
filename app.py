@@ -254,7 +254,7 @@ def calculate_individual_score(selections):
     elif percentage >= 21: grade, grade_name = 9, "ORR9"
     elif percentage >= 11: grade, grade_name = 10, "ORR10"
     elif percentage >= 6: grade, grade_name = 11, "ORR11"
-    else: grade, grade_name = 12, "G12"
+    else: grade, grade_name = 12, "ORR12"
     
     return {"breakdown": score_breakdown, "total": total_score, "percentage": percentage, "grade": grade, "name": grade_name, "approved": grade <= 6}
 
@@ -283,7 +283,7 @@ def calculate_sme_score(selections, business_type):
     elif percentage >= 20: grade, grade_name = 9, "ORR9"
     elif percentage >= 10: grade, grade_name = 10, "ORR10"
     elif percentage >= 5: grade, grade_name = 11, "ORR11"
-    else: grade, grade_name = 12, "G12"
+    else: grade, grade_name = 12, "ORR12"
     
     return {"breakdown": score_breakdown, "total": total_score, "percentage": percentage, "grade": grade, "name": grade_name, "approved": grade <= 6}
 
