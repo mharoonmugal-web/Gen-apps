@@ -58,13 +58,6 @@ st.markdown("""
     }
     [data-testid="stLabel"] label { color: #1a1a1a !important; font-weight: 600 !important; }
     
-    /* INPUT FIELDS */
-    input, select, textarea, [role="combobox"] { 
-        color: #1a1a1a !important; 
-        background-color: white !important;
-        border: 1px solid #FF8C00 !important;
-    }
-    
     /* SUCCESS & INFO BOXES */
     .success-banner { background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%); color: white; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: 700; }
     
