@@ -12,15 +12,22 @@ st.markdown("""
 <style>
     * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     
-    /* Bank of Punjab Orange Theme */
-    :root {
-        --primary-color: #FF6B35;
-        --secondary-color: #FF8C00;
-        --text-dark: #1a1a1a;
-        --text-light: #ffffff;
+    /* Bank of Punjab Orange Theme - Full Background */
+    html, body { 
+        background-color: #fff8f0 !important; 
+        background-image: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important;
     }
     
-    /* Bank Branding Header - Orange */
+    .main {
+        background: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important;
+    }
+    
+    [data-testid="stAppViewContainer"] {
+        background-color: #fff8f0 !important;
+        background-image: linear-gradient(135deg, #fff8f0 0%, #ffe6d5 100%) !important;
+    }
+    
+    /* Bank Branding Header - Bold Orange */
     .bank-header {
         background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
         color: white;
@@ -28,59 +35,128 @@ st.markdown("""
         border-radius: 12px;
         text-align: center;
         margin-bottom: 30px;
-        box-shadow: 0 4px 12px rgba(255, 107, 53, 0.3);
+        box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
     }
+    
     .bank-logo { 
-        font-size: 28px; 
+        font-size: 32px; 
         font-weight: bold; 
         margin: 0;
         color: #ffffff;
+        letter-spacing: 1px;
     }
+    
     .bank-subtitle { 
         font-size: 14px; 
         margin: 8px 0 0 0;
         color: #f0f0f0;
+        font-weight: 500;
     }
     
-    /* Metrics with Bank Colors */
+    /* Metrics with Orange Accent */
     .stMetric {
         background: white;
         padding: 20px;
         border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15);
         border-left: 5px solid #FF6B35;
     }
     
     /* Headings - Orange */
     h1 { color: #FF6B35 !important; border-bottom: 3px solid #FF8C00; padding-bottom: 15px; }
-    h2 { color: #FF6B35 !important; margin-top: 25px; }
-    h3 { color: #1a1a1a !important; }
+    h2 { color: #FF6B35 !important; margin-top: 25px; font-weight: 700; }
+    h3 { color: #FF6B35 !important; margin-top: 15px; }
     
-    /* Dark Mode Text Fix - CRITICAL */
-    body { color: #1a1a1a !important; background-color: #ffffff !important; }
+    /* DARK MODE FIX - CRITICAL */
+    /* All text must be dark for visibility */
+    body { color: #1a1a1a !important; }
+    p { color: #1a1a1a !important; }
+    span { color: #1a1a1a !important; }
+    div { color: #1a1a1a !important; }
+    
+    /* Markdown containers */
     [data-testid="stMarkdownContainer"] { color: #1a1a1a !important; }
     .stMarkdown { color: #1a1a1a !important; }
     .stText { color: #1a1a1a !important; }
-    label { color: #1a1a1a !important; }
-    p { color: #1a1a1a !important; }
     
-    /* Input Fields - Text visibility in dark mode */
-    input { color: #1a1a1a !important; background-color: white !important; }
-    select { color: #1a1a1a !important; background-color: white !important; }
-    textarea { color: #1a1a1a !important; background-color: white !important; }
-    [data-testid="stNumberInput"] input { color: #1a1a1a !important; background-color: white !important; }
-    [data-testid="stTextInput"] input { color: #1a1a1a !important; background-color: white !important; }
+    /* LABELS - Make Visible */
+    label { 
+        color: #1a1a1a !important; 
+        font-weight: 600 !important;
+        display: block !important;
+    }
+    
+    [data-testid="stLabel"] { color: #1a1a1a !important; }
+    .stLabel { color: #1a1a1a !important; }
+    
+    /* Input Fields */
+    input { 
+        color: #1a1a1a !important; 
+        background-color: white !important;
+        border: 1px solid #FF8C00 !important;
+    }
+    
+    select { 
+        color: #1a1a1a !important; 
+        background-color: white !important;
+        border: 1px solid #FF8C00 !important;
+    }
+    
+    textarea { 
+        color: #1a1a1a !important; 
+        background-color: white !important;
+        border: 1px solid #FF8C00 !important;
+    }
+    
+    /* Selectbox & Number Input */
+    [data-testid="stNumberInput"] input { 
+        color: #1a1a1a !important; 
+        background-color: white !important;
+    }
+    
+    [data-testid="stTextInput"] input { 
+        color: #1a1a1a !important; 
+        background-color: white !important;
+    }
+    
+    [data-testid="stSelectbox"] { color: #1a1a1a !important; }
     
     /* Success/Info Boxes */
-    .success-banner { background-color: #FF6B35; color: white; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: bold; }
-    .info-banner { background-color: #FF8C00; color: white; padding: 12px; border-radius: 6px; }
+    .success-banner { 
+        background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
+        color: white; 
+        padding: 15px; 
+        border-radius: 8px; 
+        margin: 15px 0; 
+        font-weight: bold;
+    }
     
-    /* Metric Values - Orange */
-    .metric-value { color: #FF6B35 !important; font-weight: bold; }
+    .info-banner { 
+        background-color: #FF8C00; 
+        color: white; 
+        padding: 12px; 
+        border-radius: 6px; 
+    }
     
     /* Buttons */
-    .stButton>button { background-color: #FF6B35; color: white; border: none; }
-    .stButton>button:hover { background-color: #FF8C00; }
+    .stButton>button { 
+        background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%) !important;
+        color: white !important;
+        border: none !important;
+        font-weight: 600 !important;
+    }
+    
+    .stButton>button:hover { 
+        background-color: #FF5722 !important;
+        transform: scale(1.02);
+    }
+    
+    /* Expander */
+    .streamlit-expanderHeader { color: #1a1a1a !important; }
+    
+    /* Dataframe text */
+    [role="grid"] { color: #1a1a1a !important; }
+    td, th { color: #1a1a1a !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -557,27 +633,9 @@ if submit_button:
         
         approved = min(desired_amount if desired_amount > 0 else max_by_salary, max_by_salary, max_by_dbr_amount)
         
-        # Calculate staff EMI correctly - Phase 1: Principal Only
-        principal_months = int(months * 6 / 7)
-        markup_months = months - principal_months
-        fixed_principal = approved / principal_months
-        
-        # Calculate total markup accrued
-        bal = approved
-        total_accrued_markup = 0
-        for i in range(principal_months):
-            accrued_markup = bal * (rate_used / 12)
-            total_accrued_markup += accrued_markup
-            bal -= fixed_principal
-        
-        # Phase 1 EMI = Fixed Principal (no markup payment)
-        # Phase 2 EMI = Markup only
-        markup_emi = total_accrued_markup / markup_months if markup_months > 0 else 0
-        staff_phase1_emi = fixed_principal
-        staff_phase2_emi = markup_emi
-        
-        processing_fee = PROCESSING_FEES.get(product, 0)
-        down_payment = processing_fee
+        # Staff loans typically have NO processing fees
+        processing_fee = 0
+        down_payment = 0
         
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
