@@ -84,7 +84,7 @@ DBR_STAFF = 0.50
 DBR = {"Salaried": 0.40, "Self-Employed": 0.50, "Businessman": 0.50}
 
 PROCESSING_FEES = {
-    "Personal Loan": 2500,
+    "Personal Loan": 5000,
     "Auto Loan": 8000,
     "Home Loan": 12000,
     "Solar Loan": 5000,
@@ -93,7 +93,7 @@ PROCESSING_FEES = {
 
 PRODUCTS = {
     "Personal Loan": {"rate": 0.35, "max_tenor": 5, "equity": False, "max_limit": 3_000_000, "staff_tenor": 7},
-    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 10, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10, "insurance_rate": 0.0175},
+    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10, "insurance_rate": 0.0175},
     "Home Loan": {"rate": KIBOR + 0.03, "max_tenor": 20, "equity": True, "max_limit": 250_000_000, "staff_tenor": 25},
     "Solar Loan": {"rate": KIBOR + 0.05, "max_tenor": 8, "equity": True, "max_limit_salaried": 5_000_000, "max_limit_other": 100_000_000, "staff_limit": 2_000_000, "staff_tenor": 20},
     "Business Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": False, "max_limit": float('inf')},
@@ -118,7 +118,7 @@ INDIVIDUAL_CRITERIA = {
     "Monthly Income": {"Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP": 10, "Rs.50,000 & above-SI / Rs.80,000 & above-SEB/SEP": 7, "Below Rs.50,000-SI / Below Rs.80,000-SEB/SEP": 4},
     "Type of Residence": {"Owned/Parents'": 5, "Rented": 3},
     "Collateral": {"Leased/mortgage/Liquid Security": 5, "Personal Loans (clean)": 0},
-    "Debt Burden": {"If existing debt/burden=upto 30% of disposable income": 5, "If existing debt/burden=40% of disposable income": 3, "If existing debt/burden=50% of disposable income": 1},
+    "Debt Burden": {"upto 30% of disposable income": 5, "40% of disposable income": 3, "50% of disposable income": 1},
     "Repayment History": {"If no default during last 12 months": 15, "1 Instance of OD-30/60/90 days (No current existence)": 10, "2 Instances of OD-30/60/90 days (No current existence)/ No credit history": 6, "3 or more instances of OD-30/60/90 days": 0},
     "Length of Credit History": {"Over 5 years": 5, "From 3-5 years": 4, "Less than 3 years / No Previous Credit History": 2},
 }
@@ -385,7 +385,7 @@ sme_score = None
 
 if not staff_loan:
     st.markdown("---")
-    st.markdown("### 📊 Credit Risk Assessment (MANDATORY)")
+    st.markdown("### 📊 Credit Risk Assessment")
     
     if product != "Business Loan":
         with st.expander("📋 Individual Scorecard Assessment", expanded=True):
@@ -556,14 +556,14 @@ if submit_button:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
             st.metric("Credit Score", f"{individual_score['total']}/100")
-            st.metric("Risk Grade", f"G{individual_score['grade']}")
+            st.metric("Risk Grade", f"ORR{individual_score['grade']}")
     
     if sme_score:
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
             st.metric("Credit Score", f"{sme_score['total']}")
-            st.metric("Risk Grade", f"G{sme_score['grade']}")
+            st.metric("Risk Grade", f"ORR{sme_score['grade']}")
     
     rate_used = PRODUCTS[product]["rate"]
     dbr_limit = DBR[profession]
