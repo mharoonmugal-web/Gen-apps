@@ -84,7 +84,7 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-KIBOR = 12.96 / 100
+KIBOR = 12 / 100
 
 DBR_STAFF = 0.50  # Staff loans: 50% DBR
 DBR = {
@@ -132,7 +132,7 @@ INDIVIDUAL_CRITERIA = {
     "Monthly Income": {"Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP": 10, "Rs.50,000 & above-SI / Rs.80,000 & above-SEB/SEP": 7, "Below Rs.50,000-SI / Below Rs.80,000-SEB/SEP": 4},
     "Type of Residence": {"Owned/Parents'": 5, "Rented": 3},
     "Collateral": {"Leased/mortgage/Liquid Security": 5, "Personal Loans (clean)": 0},
-    "Debt Burden": {"If existing debt/burden=upto 30% of disposable income": 5, "If existing debt/burden=40% of disposable income": 3, "If existing debt/burden=50% of disposable income": 1},
+    "Debt Burden": {"upto 30% of disposable income": 5, "40% of disposable income": 3, "50% of disposable income": 1},
     "Repayment History": {"If no default during last 12 months": 15, "1 Instance of OD-30/60/90 days (No current existence)": 10, "2 Instances of OD-30/60/90 days (No current existence)/ No credit history": 6, "3 or more instances of OD-30/60/90 days": 0},
     "Length of Credit History": {"Over 5 years": 5, "From 3-5 years": 4, "Less than 3 years / No Previous Credit History": 2},
 }
@@ -143,27 +143,27 @@ SME_NEW_BUSINESS_CRITERIA = {
     "Credit Turnover Of Existing Limit With Any Bank": {"No such requirement - Logistics loans": 100, "No such Limit Availed from any bank": 100, "More than 4 times of RF Limit": 100, "More than 3 times of RF Limit": 80, "More than 2 times of RF limit": 50, "2 times or less of the RF limit": 30},
     "Experience": {"Relevant Experience - > 3 Years": 100, "Relevant Experience -1- 3 years": 80, "No Experience but has family background in the chosen business.": 70, "Unrelated work experience": 50, "Applicant has never worked": 0},
     "Present Employment Status": {"Employed in Relevant Job": 50, "Working in relevant family owned business": 50, "Employed in non-relevant job": 25, "Previous relevant experience": 35, "Applicant has Never Worked / Un-Employed": 0},
-    "Training": {"Trained & Certified in Relevant Field - Evidence Provided": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
-    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (incase of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "Training": {"Trained & Certified in Relevant Field": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
     "Applicant's Understanding": {"Absolutely clear and perfect": 100, "Good but not perfect": 50, "Very little or no understanding": -100},
     "Applicant's Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
     "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
     "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 50, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 50, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 50},
     "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
     "Tax Filer": {"NTN held and Filer": 100, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 80, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
-    "Security": {"Vehicle incase of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
+    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
 }
 
 SME_EXISTING_BUSINESS_CRITERIA = {
     "Business Commitment": {"Full Time": 100, "Part Time": 50},
     "Age": {"42 - 60": 50, "39-41.9": 45, "35-38.9": 40, "30-34.9": 30, "25-29.9": 25, "Not Applicable in case of Entities": 50},
-    "Training": {"Trained & Certified in Relevant Field - Evidence Provided": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
-    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (incase of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
+    "Training": {"Trained & Certified in Relevant Field": 100, "Training not required": 100, "Trained in Relevant Field but not certified (No evidence)": 80, "Not Trained": 0, "Not Applicable in case of Entities": 100},
+    "License/ Certification/ Permission": {"Required & Held": 100, "No such requirement": 100, "Required But not Held": 0, "license Required but Learner Held": 60, "license Required but Held in Drivers name (in case of logistic companies)": 100, "license Required and is applied (other than Logistics) supported by evidence": 60},
     "Vehicle Ownership": {"Car / Tractor / Morotrcycle / Any registered Vehicle": 60, "Family Owned (Father/Husband/ Mother/Wife)": 40, "Not Applicable for Logistic loan": 60, "No vehicle owned by applicant": 0, "Not Applicable in case of Entities": 60},
     "Applicants Business Outlook": {"Positive": 100, "Neutral": 50, "Negative": -200},
     "Debt Burden Ratio": {"20% <": 100, "20% - 30%": 90, "30% - 40%": 80, "40% - 50%": 70, "Exceeding 50%": -1800},
     "Tax Filer Status": {"NTN held and Filer": 60, "No NTN as Business located / to be established in TAX EXPEMTED ZONES": 50, "NTN held and NON-Filer": 40, "No NTN held and NON-Filer": 0},
-    "Security": {"Vehicle incase of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
+    "Security": {"Vehicle in case of Logistics": 100, "Mortgage of self-occupied residential/ Commercial/ Industrial / land": 100, "Mortgage of partly-rented residential/ Commercial / Industrial property": 80, "Mortgage of Rural / Agri Property": 70, "Mortgage of rented residential / Commercial / Industrial property": 60, "Liquid security / Near Cash Security": 100},
     "Applicant'S Business Place": {"Logistics Business - Not required in case of new business": 100, "Owned - Documents Provided (Self/business/company)": 100, "Family owned - Document Provided": 80, "Owned / Family owned- Documents not Provided": 60, "Rented  - Document Provided (Self/business/company)": 50, "Rented  - Document Not Provided": 40, "To be rented": 20},
     "Is Sim On Customer Name": {"Yes": 100, "No": -1800},
     "Length Of Business Existence": {"More than 5 Years": 100, "2 - 5 Years": 80, "1 - 2 Years": 25, "Less than 1 Year": 0},
@@ -278,29 +278,29 @@ def calculate_individual_score(selections):
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     if percentage >= 96:
-        grade, grade_name = 1, "G1"
+        grade, grade_name = 1, 
     elif percentage >= 91:
-        grade, grade_name = 2, "G2"
+        grade, grade_name = 2, 
     elif percentage >= 81:
-        grade, grade_name = 3, "G3"
+        grade, grade_name = 3, 
     elif percentage >= 71:
-        grade, grade_name = 4, "G4"
+        grade, grade_name = 4, 
     elif percentage >= 61:
-        grade, grade_name = 5, "G5"
+        grade, grade_name = 5, 
     elif percentage >= 51:
-        grade, grade_name = 6, "G6"
+        grade, grade_name = 6, 
     elif percentage >= 41:
-        grade, grade_name = 7, "G7"
+        grade, grade_name = 7, 
     elif percentage >= 31:
-        grade, grade_name = 8, "G8"
+        grade, grade_name = 8, 
     elif percentage >= 21:
-        grade, grade_name = 9, "G9"
+        grade, grade_name = 9, 
     elif percentage >= 11:
-        grade, grade_name = 10, "G10"
+        grade, grade_name = 10, 
     elif percentage >= 6:
-        grade, grade_name = 11, "G11"
+        grade, grade_name = 11, 
     else:
-        grade, grade_name = 12, "G12"
+        grade, grade_name = 12, 
     
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
@@ -320,29 +320,29 @@ def calculate_sme_score(selections, business_type):
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
     if percentage >= 90:
-        grade, grade_name = 1, "G1"
+        grade, grade_name = 1, 
     elif percentage >= 80:
-        grade, grade_name = 2, "G2"
+        grade, grade_name = 2, 
     elif percentage >= 70:
-        grade, grade_name = 3, "G3"
+        grade, grade_name = 3, 
     elif percentage >= 60:
-        grade, grade_name = 4, "G4"
+        grade, grade_name = 4, 
     elif percentage >= 55:
-        grade, grade_name = 5, "G5"
+        grade, grade_name = 5, 
     elif percentage >= 50:
-        grade, grade_name = 6, "G6"
+        grade, grade_name = 6, 
     elif percentage >= 40:
-        grade, grade_name = 7, "G7"
+        grade, grade_name = 7, 
     elif percentage >= 30:
-        grade, grade_name = 8, "G8"
+        grade, grade_name = 8, 
     elif percentage >= 20:
-        grade, grade_name = 9, "G9"
+        grade, grade_name = 9, 
     elif percentage >= 10:
-        grade, grade_name = 10, "G10"
+        grade, grade_name = 10, 
     elif percentage >= 5:
-        grade, grade_name = 11, "G11"
+        grade, grade_name = 11, 
     else:
-        grade, grade_name = 12, "G12"
+        grade, grade_name = 12, 
     
     is_approved = grade <= 6
     return {"breakdown": score_breakdown, "total_score": total_score, "max_score": max_score, "percentage": percentage, "grade": grade, "grade_name": grade_name, "is_approved": is_approved}
@@ -675,7 +675,7 @@ Total tenor remains {tenor} years unchanged
     if product != "Business Loan" and individual_score_result:
         if not individual_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED - Risk Grade {individual_score_result['grade']}")
+            st.error(f"❌ APPLICATION DECLINED")
             
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Dashboard")
@@ -687,7 +687,7 @@ Total tenor remains {tenor} years unchanged
     if product == "Business Loan" and sme_score_result:
         if not sme_score_result["is_approved"]:
             st.markdown("---")
-            st.error(f"❌ APPLICATION DECLINED - Risk Grade {sme_score_result['grade']}")
+            st.error(f"❌ APPLICATION DECLINED")
             
             with st.sidebar:
                 st.markdown("### 🔐 Banker's Dashboard")
