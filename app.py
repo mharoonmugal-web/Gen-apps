@@ -110,7 +110,7 @@ PRODUCTS = {
 }
 
 BANKS = [
-    "The Bank of Punjab" "United Bank Limited", "MCB Bank",
+    "The Bank of Punjab", "United Bank Limited", "MCB Bank",
     "Allied Bank Limited", "Bank Alfalah", "Meezan Bank",
     "Bank Al Habib", "Faysal Bank", "Habib Bank Limited",
     "Askari Bank", "JS Bank", "Soneri Bank"
