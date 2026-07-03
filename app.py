@@ -23,7 +23,7 @@ st.markdown("""
     /* Bank Branding Header - Orange */
     .bank-header {
         background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
-        color: black;
+        color: white;
         padding: 30px;
         border-radius: 12px;
         text-align: center;
@@ -103,7 +103,7 @@ PROCESSING_FEES = {
 
 PRODUCTS = {
     "Personal Loan": {"rate": 0.35, "max_tenor": 5, "equity": False, "max_limit": 3_000_000, "staff_tenor": 7},
-    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 10, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10},
+    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 3, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10},
     "Home Loan": {"rate": KIBOR + 0.03, "max_tenor": 20, "equity": True, "max_limit": 250_000_000, "staff_tenor": 25},
     "Solar Loan": {"rate": KIBOR + 0.05, "max_tenor": 8, "equity": True, "max_limit_salaried": 5_000_000, "max_limit_other": 100_000_000, "staff_limit": 2_000_000, "staff_tenor": 20},
     "Business Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": False, "max_limit": float('inf')},
