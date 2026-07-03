@@ -194,7 +194,7 @@ def schedule(p, r, n, e, insurance_schedule=None):
     return pd.DataFrame(rows, columns=cols[:len(rows[0])])
 
 def staff_loan_schedule(p, r, n):
-    """Staff loan: Phase 1 (6/7): Principal only, Phase 2 (1/7): Markup only"""
+    """Staff loan: Principle (6/7): Principal only, Markup (1/7): Markup only"""
     monthly_rate = r / 12
     principal_months = int(n * 6 / 7)
     markup_months = n - principal_months
@@ -505,8 +505,8 @@ if submit_button:
         with col3:
             st.markdown("**APPROVED**")
             st.metric("Amount", f"PKR {approved:,.0f}")
-            st.metric("Phase 1 EMI", f"PKR {fixed_principal:,.0f}")
-            st.metric("Phase 2 EMI", f"PKR {markup_emi:,.0f}")
+            st.metric("Principle EMI", f"PKR {fixed_principal:,.0f}")
+            st.metric("Markup EMI", f"PKR {markup_emi:,.0f}")
         
         st.markdown("### 📅 Repayment Schedule")
         df = staff_loan_schedule(approved, rate_used, months)
@@ -522,7 +522,7 @@ if submit_button:
         st.markdown("### ⚖️ Final Offer")
         col1, col2 = st.columns(2)
         with col1:
-            st.markdown(f"**Loan Details:**\n- **Amount:** PKR {approved:,.0f}\n- **Tenor:** {tenor} Years\n- **Phase 1 ({principal_months}m):** PKR {fixed_principal:,.0f}/month\n- **Phase 2 ({markup_months}m):** PKR {markup_emi:,.0f}/month\n- **Total Interest:** PKR {total_markup:,.0f}")
+            st.markdown(f"**Loan Details:**\n- **Amount:** PKR {approved:,.0f}\n- **Tenor:** {tenor} Years\n- **Principle ({principal_months}m):** PKR {fixed_principal:,.0f}/month\n- **Markup ({markup_months}m):** PKR {markup_emi:,.0f}/month\n- **Total Interest:** PKR {total_markup:,.0f}")
         with col2:
             st.markdown(f"**Applicant:**\n- **Name:** {name}\n- **CNIC:** {cnic_digits}\n- **Income:** PKR {income:,.0f}\n- **Bank:** {bank}\n- **Date:** {datetime.now().strftime('%d-%m-%Y')}")
         st.stop()
