@@ -533,7 +533,7 @@ if submit_button:
             "Personal Loan": basic_salary * 8,
             "Auto Loan": basic_salary * 50,
             "Home Loan": basic_salary * 150,
-            "Solar Loan": min(3_000_000, basic_salary * 100),
+            "Solar Loan": min(2_000_000, basic_salary * 100),
         }
         
         max_by_salary = salary_multiples.get(product, basic_salary * 5)
