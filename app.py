@@ -540,7 +540,7 @@ if submit_button:
     
     if product == "Business Loan" and sme_score and not sme_score["approved"]:
         st.markdown("---")
-        st.error(f"❌ APPLICATION DECLINED)
+        st.error(f"❌ APPLICATION DECLINED")
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
