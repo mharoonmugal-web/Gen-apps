@@ -294,7 +294,7 @@ def calculate_sme_score(selections, business_type):
 st.markdown("""
 <div class="bank-header">
     <div class="bank-logo">🏦 THE BANK OF PUNJAB</div>
-    <div class="bank-subtitle">Digital Credit Engine - LOS & Underwriting System</div>
+    <div class="bank-subtitle">Digital Credit Engine - Loan Origitnating & Underwriting System</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -508,7 +508,7 @@ if submit_button:
             st.metric("Principle EMI", f"PKR {fixed_principal:,.0f}")
             st.metric("Markup EMI", f"PKR {markup_emi:,.0f}")
         
-        st.markdown("### 📅 Repayment Schedule")
+        st.markdown("### 📅 Tentative Repayment Schedule")
         df = staff_loan_schedule(approved, rate_used, months)
         display_df = pd.concat([df.head(12), df.tail(12)]) if len(df) > 24 else df
         fmt_df = display_df.copy()
@@ -530,7 +530,7 @@ if submit_button:
     # NON-STAFF LOAN PATH
     if product != "Business Loan" and individual_score and not individual_score["approved"]:
         st.markdown("---")
-        st.error(f"❌ APPLICATION DECLINED - Risk Grade {individual_score['grade']}")
+        st.error(f"❌ APPLICATION DECLINED")
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
@@ -540,7 +540,7 @@ if submit_button:
     
     if product == "Business Loan" and sme_score and not sme_score["approved"]:
         st.markdown("---")
-        st.error(f"❌ APPLICATION DECLINED - Risk Grade {sme_score['grade']}")
+        st.error(f"❌ APPLICATION DECLINED")
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
@@ -650,7 +650,7 @@ if submit_button:
     with col3:
         st.metric("Total Down Payment", f"PKR {total_down_payment:,.0f}")
     
-    st.markdown("### 📅 Repayment Schedule")
+    st.markdown("### 📅 Tentative Repayment Schedule")
     if product == "Auto Loan" and insurance_schedule:
         df = schedule(approved, rate_used, months, approved_emi, insurance_schedule)
     else:
