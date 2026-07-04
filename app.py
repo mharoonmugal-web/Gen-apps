@@ -621,12 +621,12 @@ if submit_button:
         st.markdown("**YOUR REQUEST**")
         st.metric("Desired", f"PKR {desired_amount:,.0f}")
     with col2:
-        	st.markdown("**CONSTRAINTS**")
-			st.metric("DBR Max", f"PKR {max_by_dbr:,.0f}")
+        st.markdown("**CONSTRAINTS**")
+		st.metric("DBR Max", f"PKR {max_by_dbr:,.0f}")
         if product_cap != float('inf'):
-            st.metric("Product Cap", f"PKR {product_cap:,.0f}")
+        st.metric("Product Cap", f"PKR {product_cap:,.0f}")
         if PRODUCTS[product]["equity"]:
-            st.metric("Equity ({equity_pct}%)", f"PKR {max_by_equity:,.0f}")
+        st.metric("Equity ({equity_pct}%)", f"PKR {max_by_equity:,.0f}")
     with col3:
         st.markdown("**APPROVED**")
         st.metric("Loan Amount", f"PKR {approved:,.0f}")
