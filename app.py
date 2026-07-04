@@ -93,7 +93,7 @@ PROCESSING_FEES = {
 
 PRODUCTS = {
     "Personal Loan": {"rate": 0.35, "max_tenor": 5, "equity": False, "max_limit": 3_000_000, "staff_tenor": 7},
-    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10, "insurance_rate": 0.0175},
+    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 10, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10, "insurance_rate": 0.0175},
     "Home Loan": {"rate": KIBOR + 0.03, "max_tenor": 20, "equity": True, "max_limit": 250_000_000, "staff_tenor": 25},
     "Solar Loan": {"rate": KIBOR + 0.05, "max_tenor": 8, "equity": True, "max_limit_salaried": 5_000_000, "max_limit_other": 100_000_000, "staff_limit": 2_000_000, "staff_tenor": 20},
     "Business Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": False, "max_limit": float('inf')},
@@ -118,7 +118,7 @@ INDIVIDUAL_CRITERIA = {
     "Monthly Income": {"Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP": 10, "Rs.50,000 & above-SI / Rs.80,000 & above-SEB/SEP": 7, "Below Rs.50,000-SI / Below Rs.80,000-SEB/SEP": 4},
     "Type of Residence": {"Owned/Parents'": 5, "Rented": 3},
     "Collateral": {"Leased/mortgage/Liquid Security": 5, "Personal Loans (clean)": 0},
-    "Debt Burden": {"upto 30% of disposable income": 5, "40% of disposable income": 3, "50% of disposable income": 1},
+    "Debt Burden": {"If existing debt/burden=upto 30% of disposable income": 5, "If existing debt/burden=40% of disposable income": 3, "If existing debt/burden=50% of disposable income": 1},
     "Repayment History": {"If no default during last 12 months": 15, "1 Instance of OD-30/60/90 days (No current existence)": 10, "2 Instances of OD-30/60/90 days (No current existence)/ No credit history": 6, "3 or more instances of OD-30/60/90 days": 0},
     "Length of Credit History": {"Over 5 years": 5, "From 3-5 years": 4, "Less than 3 years / No Previous Credit History": 2},
 }
@@ -194,7 +194,7 @@ def schedule(p, r, n, e, insurance_schedule=None):
     return pd.DataFrame(rows, columns=cols[:len(rows[0])])
 
 def staff_loan_schedule(p, r, n):
-    """Staff loan: Principle (6/7): Principal only, Markup (1/7): Markup only"""
+    """Staff loan: Phase 1 (6/7): Principal only, Phase 2 (1/7): Markup only"""
     monthly_rate = r / 12
     principal_months = int(n * 6 / 7)
     markup_months = n - principal_months
@@ -243,18 +243,18 @@ def calculate_individual_score(selections):
     
     percentage = (total_score / 100 * 100) if 100 > 0 else 0
     
-    if percentage >= 96: grade, grade_name = 1, "ORR1"
-    elif percentage >= 91: grade, grade_name = 2, "ORR2"
-    elif percentage >= 81: grade, grade_name = 3, "ORR3"
-    elif percentage >= 71: grade, grade_name = 4, "ORR4"
-    elif percentage >= 61: grade, grade_name = 5, "ORR5"
-    elif percentage >= 51: grade, grade_name = 6, "ORR6"
-    elif percentage >= 41: grade, grade_name = 7, "ORR7"
-    elif percentage >= 31: grade, grade_name = 8, "ORR8"
-    elif percentage >= 21: grade, grade_name = 9, "ORR9"
-    elif percentage >= 11: grade, grade_name = 10, "ORR10"
-    elif percentage >= 6: grade, grade_name = 11, "ORR11"
-    else: grade, grade_name = 12, "ORR12"
+    if percentage >= 96: grade, grade_name = 1, "G1"
+    elif percentage >= 91: grade, grade_name = 2, "G2"
+    elif percentage >= 81: grade, grade_name = 3, "G3"
+    elif percentage >= 71: grade, grade_name = 4, "G4"
+    elif percentage >= 61: grade, grade_name = 5, "G5"
+    elif percentage >= 51: grade, grade_name = 6, "G6"
+    elif percentage >= 41: grade, grade_name = 7, "G7"
+    elif percentage >= 31: grade, grade_name = 8, "G8"
+    elif percentage >= 21: grade, grade_name = 9, "G9"
+    elif percentage >= 11: grade, grade_name = 10, "G10"
+    elif percentage >= 6: grade, grade_name = 11, "G11"
+    else: grade, grade_name = 12, "G12"
     
     return {"breakdown": score_breakdown, "total": total_score, "percentage": percentage, "grade": grade, "name": grade_name, "approved": grade <= 6}
 
@@ -272,18 +272,18 @@ def calculate_sme_score(selections, business_type):
     
     percentage = (total_score / max_score * 100) if max_score > 0 else 0
     
-    if percentage >= 90: grade, grade_name = 1, "ORR1"
-    elif percentage >= 80: grade, grade_name = 2, "ORR2"
-    elif percentage >= 70: grade, grade_name = 3, "ORR3"
-    elif percentage >= 60: grade, grade_name = 4, "ORR4"
-    elif percentage >= 55: grade, grade_name = 5, "ORR5"
-    elif percentage >= 50: grade, grade_name = 6, "ORR6"
-    elif percentage >= 40: grade, grade_name = 7, "ORR7"
-    elif percentage >= 30: grade, grade_name = 8, "ORR8"
-    elif percentage >= 20: grade, grade_name = 9, "ORR9"
-    elif percentage >= 10: grade, grade_name = 10, "ORR10"
-    elif percentage >= 5: grade, grade_name = 11, "ORR11"
-    else: grade, grade_name = 12, "ORR12"
+    if percentage >= 90: grade, grade_name = 1, "G1"
+    elif percentage >= 80: grade, grade_name = 2, "G2"
+    elif percentage >= 70: grade, grade_name = 3, "G3"
+    elif percentage >= 60: grade, grade_name = 4, "G4"
+    elif percentage >= 55: grade, grade_name = 5, "G5"
+    elif percentage >= 50: grade, grade_name = 6, "G6"
+    elif percentage >= 40: grade, grade_name = 7, "G7"
+    elif percentage >= 30: grade, grade_name = 8, "G8"
+    elif percentage >= 20: grade, grade_name = 9, "G9"
+    elif percentage >= 10: grade, grade_name = 10, "G10"
+    elif percentage >= 5: grade, grade_name = 11, "G11"
+    else: grade, grade_name = 12, "G12"
     
     return {"breakdown": score_breakdown, "total": total_score, "percentage": percentage, "grade": grade, "name": grade_name, "approved": grade <= 6}
 
@@ -294,7 +294,7 @@ def calculate_sme_score(selections, business_type):
 st.markdown("""
 <div class="bank-header">
     <div class="bank-logo">🏦 THE BANK OF PUNJAB</div>
-    <div class="bank-subtitle">Digital Credit Engine - Loan Originating & Underwriting System</div>
+    <div class="bank-subtitle">Digital Credit Engine - Intelligent Loan Originating & Underwriting System</div>
 </div>
 """, unsafe_allow_html=True)
 
@@ -363,7 +363,7 @@ if not staff_loan:
     with c2:
         relationship_years = st.number_input("Relationship with Bank (Years)", min_value=0, value=0)
 else:
-    bank = "The Bank of Punjab (Staff)"
+    bank = "The Bank of Punjab (Employees Loans)"
     relationship_years = 0
 
 asset_value = 0
@@ -501,12 +501,12 @@ if submit_button:
         with col2:
             st.markdown("**MAX CONSTRAINTS**")
             st.metric("By Salary", f"PKR {max_by_salary:,.0f}")
-            
+            st.metric("By DBR (50%)", f"PKR {max_by_dbr:,.0f}")
         with col3:
             st.markdown("**APPROVED**")
             st.metric("Amount", f"PKR {approved:,.0f}")
-            st.metric("Principle EMI", f"PKR {fixed_principal:,.0f}")
-            st.metric("Markup EMI", f"PKR {markup_emi:,.0f}")
+            st.metric("Phase 1 EMI", f"PKR {fixed_principal:,.0f}")
+            st.metric("Phase 2 EMI", f"PKR {markup_emi:,.0f}")
         
         st.markdown("### 📅 Tentative Repayment Schedule")
         df = staff_loan_schedule(approved, rate_used, months)
@@ -522,7 +522,7 @@ if submit_button:
         st.markdown("### ⚖️ Final Offer")
         col1, col2 = st.columns(2)
         with col1:
-            st.markdown(f"**Loan Details:**\n- **Amount:** PKR {approved:,.0f}\n- **Tenor:** {tenor} Years\n- **Principle ({principal_months}m):** PKR {fixed_principal:,.0f}/month\n- **Markup ({markup_months}m):** PKR {markup_emi:,.0f}/month\n- **Total Interest:** PKR {total_markup:,.0f}")
+            st.markdown(f"**Loan Details:**\n- **Amount:** PKR {approved:,.0f}\n- **Tenor:** {tenor} Years\n- **Phase 1 ({principal_months}m):** PKR {fixed_principal:,.0f}/month\n- **Phase 2 ({markup_months}m):** PKR {markup_emi:,.0f}/month\n- **Total Interest:** PKR {total_markup:,.0f}")
         with col2:
             st.markdown(f"**Applicant:**\n- **Name:** {name}\n- **CNIC:** {cnic_digits}\n- **Income:** PKR {income:,.0f}\n- **Bank:** {bank}\n- **Date:** {datetime.now().strftime('%d-%m-%Y')}")
         st.stop()
@@ -535,12 +535,12 @@ if submit_button:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
             st.metric("Credit Score", f"{individual_score['total']}/{individual_score['total']}")
-            st.metric("Risk Grade", f"ORR {individual_score['grade']}")
+            st.metric("Risk Grade", f"G{individual_score['grade']}")
         st.stop()
     
     if product == "Business Loan" and sme_score and not sme_score["approved"]:
         st.markdown("---")
-        st.error(f"❌ APPLICATION DECLINED")
+        st.error(f"❌ APPLICATION DECLINED)
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
@@ -622,7 +622,7 @@ if submit_button:
         st.metric("Desired", f"PKR {desired_amount:,.0f}")
     with col2:
         st.markdown("**CONSTRAINTS**")
-		st.metric("DBR Max", f"PKR {max_by_dbr:,.0f}")
+        st.metric("DBR Max", f"PKR {max_by_dbr:,.0f}")
         if product_cap != float('inf'):
             st.metric("Product Cap", f"PKR {product_cap:,.0f}")
         if PRODUCTS[product]["equity"]:
@@ -672,4 +672,4 @@ if submit_button:
     with col2:
         st.markdown(f"**Charges & Down Payment:**\n- **Processing Fee:** PKR {processing_fee:,.0f}\n- **Insurance (Y1):** PKR {year1_insurance:,.0f}\n- **Equity:** PKR {equity_contribution:,.0f}\n- **Total Down:** PKR {total_down_payment:,.0f}\n- **Name:** {name}\n- **CNIC:** {cnic_digits}\n- **Bank:** {bank}\n- **Date:** {datetime.now().strftime('%d-%m-%Y')}")
     
-    st.info("✓ Preliminary offer - subject to document verification")
+    st.info("✓ Preliminary offer - subject to verification of the application & approval by Bank")
