@@ -535,7 +535,7 @@ if submit_button:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
             st.metric("Credit Score", f"{individual_score['total']}/{individual_score['total']}")
-            st.metric("Risk Grade", f"ORR{individual_score['grade']}")
+            st.metric("Risk Grade", f"ORR {individual_score['grade']}")
         st.stop()
     
     if product == "Business Loan" and sme_score and not sme_score["approved"]:
@@ -545,7 +545,7 @@ if submit_button:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
             st.metric("Credit Score", f"{sme_score['total']}")
-            st.metric("Risk Grade", f"ORR{sme_score['grade']}")
+            st.metric("Risk Grade", f"ORR {sme_score['grade']}")
         st.stop()
     
     st.markdown("---")
@@ -556,14 +556,14 @@ if submit_button:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
             st.metric("Credit Score", f"{individual_score['total']}/100")
-            st.metric("Risk Grade", f"ORR{individual_score['grade']}")
+            st.metric("Risk Grade", f"ORR {individual_score['grade']}")
     
     if sme_score:
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
             st.warning("For Authorized Use Only")
             st.metric("Credit Score", f"{sme_score['total']}")
-            st.metric("Risk Grade", f"ORR{sme_score['grade']}")
+            st.metric("Risk Grade", f"ORR {sme_score['grade']}")
     
     rate_used = PRODUCTS[product]["rate"]
     dbr_limit = DBR[profession]
