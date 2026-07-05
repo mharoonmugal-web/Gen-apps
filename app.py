@@ -626,7 +626,7 @@ if submit_button:
         if product_cap != float('inf'):
             st.metric("Product Cap", f"PKR {product_cap:,.0f}")
         if PRODUCTS[product]["equity"]:
-            st.metric("Equity"), f"PKR {max_by_equity:,.0f}")
+            st.metric("Equity, f"PKR {max_by_equity:,.0f}")
     with col3:
         st.markdown("**APPROVED**")
         st.metric("Loan Amount", f"PKR {approved:,.0f}")
