@@ -643,6 +643,7 @@ if submit_button:
         st.write(f"**Processing Fee:** PKR {processing_fee:,.0f}")
         if product == "Auto Loan":
             st.write(f"**Year 1 Insurance:** PKR {year1_insurance:,.0f}")
+           st.write("Hello world")
     with col2:
       if PRODUCTS[product]["equity"]:
             st.write(f"**Equity Contribution:** PKR {equity_contribution:,.0f}")
