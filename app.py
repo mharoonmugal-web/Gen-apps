@@ -644,7 +644,7 @@ if submit_button:
         if product == "Auto Loan":
             st.write(f"**Year 1 Insurance:** PKR {year1_insurance:,.0f}")
    with col2:
-        if PRODUCTS[product]["equity"]:
+      if PRODUCTS[product]["equity"]:
             st.write(f"**Equity Contribution:** PKR {equity_contribution:,.0f}")
             st.write(f"*(Asset {asset_value:,.0f} - Loan {approved:,.0f})*")
     with col3:
