@@ -492,7 +492,7 @@ if submit_button:
         with st.sidebar:
             st.markdown("### 🔐 Banker's Dashboard")
             st.metric("Loan Type", "Staff Loan")
-            st.metric("Max by Salary", f"PKR {max_by_salary:,.0f}")
+            st.metric("Max by Salary Multiples", f"PKR {max_by_salary:,.0f}")
         
         col1, col2, col3 = st.columns(3)
         with col1:
@@ -500,7 +500,7 @@ if submit_button:
             st.metric("Amount", f"PKR {desired_amount:,.0f}" if desired_amount > 0 else "Salary formula")
         with col2:
             st.markdown("**MAX CONSTRAINTS**")
-            st.metric("By Salary", f"PKR {max_by_salary:,.0f}")
+            st.metric("By Salary Multiples", f"PKR {max_by_salary:,.0f}")
             st.metric("As per cushion in DBR (50%)", f"PKR {max_by_dbr:,.0f}")
         with col3:
             st.markdown("**APPROVED**")
