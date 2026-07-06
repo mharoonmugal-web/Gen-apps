@@ -497,7 +497,7 @@ if submit_button:
         col1, col2, col3 = st.columns(3)
         with col1:
             st.markdown("**YOUR DESIRED**")
-            st.metric("Amount", f"PKR {desired_amount:,.0f}" if desired_amount > 0 else "Salary formula")
+            st.metric("Amount", f"PKR {desired_amount:,.0f}" if desired_amount > 0 else "Salary multiples")
         with col2:
             st.markdown("**MAX CONSTRAINTS**")
             st.metric("By Salary Multiples", f"PKR {max_by_salary:,.0f}")
