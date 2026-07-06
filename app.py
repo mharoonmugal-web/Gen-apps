@@ -3,7 +3,7 @@ import pandas as pd
 import re
 from datetime import datetime
 
-st.set_page_config(page_title="The Bank of Punjab - Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="The Bank of Pune - Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
 
 # =============================
 # CSS - BANK OF PUNE ORANGE THEME + DARK MODE FIX
@@ -363,7 +363,7 @@ if not staff_loan:
     with c2:
         relationship_years = st.number_input("Relationship with Bank (Years)", min_value=0, value=0)
 else:
-    bank = "The Bank of Punjab (Employees Loans)"
+    bank = "The Bank of Pune (Employees Loans)"
     relationship_years = 0
 
 asset_value = 0
