@@ -468,7 +468,7 @@ if submit_button:
     if staff_loan:
         st.markdown("---")
         st.markdown('<div class="success-banner">✅ STAFF LOAN - AUTO APPROVED</div>', unsafe_allow_html=True)
-        st.info("Staff loans approved based on salary multiples and 50% DBR limit")
+        st.info("Staff loans are approved based on lowest of salary multiples or 50% DBR limit")
         
         rate_used = 0.05
         salary_multiples = {"Personal Loan": basic_salary * 8, "Auto Loan": basic_salary * 50, "Home Loan": basic_salary * 150, "Solar Loan": min(2_000_000, basic_salary * 100)}
