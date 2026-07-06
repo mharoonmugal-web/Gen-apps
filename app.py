@@ -631,7 +631,6 @@ if submit_button:
         st.markdown("**APPROVED**")
         st.metric("Loan Amount", f"PKR {approved:,.0f}")
         st.metric("Monthly EMI", f"PKR {approved_emi:,.0f}")
-    
     if approved < desired_amount:
         st.warning(f"⚠️ LIMITED BY: {limiting_factor}")
     else:
