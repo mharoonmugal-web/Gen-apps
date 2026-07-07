@@ -93,7 +93,7 @@ PROCESSING_FEES = {
 
 PRODUCTS = {
     "Personal Loan": {"rate": 0.35, "max_tenor": 5, "equity": False, "max_limit": 3_000_000, "staff_tenor": 7},
-    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10, "insurance_rate": 0.0175},
+    "Auto Loan": {"rate": KIBOR + 0.05, "max_tenor": 4, "equity": True, "max_limit": 3_000_000, "staff_tenor": 10, "insurance_rate": 0.0175},
     "Home Loan": {"rate": KIBOR + 0.03, "max_tenor": 20, "equity": True, "max_limit": 250_000_000, "staff_tenor": 25},
     "Solar Loan": {"rate": KIBOR + 0.05, "max_tenor": 8, "equity": True, "max_limit_salaried": 5_000_000, "max_limit_other": 100_000_000, "staff_limit": 2_000_000, "staff_tenor": 20},
     "Business Loan": {"rate": KIBOR + 0.05, "max_tenor": 5, "equity": False, "max_limit": float('inf')},
