@@ -3,10 +3,10 @@ import pandas as pd
 import re
 from datetime import datetime
 
-st.set_page_config(page_title="The Bank of Pune - Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="The Bank- Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
 
 # =============================
-# CSS - BANK OF PUNE ORANGE THEME + DARK MODE FIX
+# CSS - THE BANK ORANGE THEME + DARK MODE FIX
 # =============================
 st.markdown("""
 <style>
@@ -293,7 +293,7 @@ def calculate_sme_score(selections, business_type):
 
 st.markdown("""
 <div class="bank-header">
-    <div class="bank-logo">🏦 THE BANK OF PUNE</div>
+    <div class="bank-logo">🏦 THE BANK</div>
     <div class="bank-subtitle">Digital Credit Engine - Intelligent Loan Originating & Underwriting System</div>
 </div>
 """, unsafe_allow_html=True)
