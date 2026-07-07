@@ -118,7 +118,7 @@ INDIVIDUAL_CRITERIA = {
     "Monthly Income": {"Above Rs.100,000-SI / Above Rs.150,000-SEB/SEP": 10, "Rs.50,000 & above-SI / Rs.80,000 & above-SEB/SEP": 7, "Below Rs.50,000-SI / Below Rs.80,000-SEB/SEP": 4},
     "Type of Residence": {"Owned/Parents'": 5, "Rented": 3},
     "Collateral": {"Leased/mortgage/Liquid Security": 5, "Personal Loans (clean)": 0},
-    "Debt Burden": {"If existing debt/burden=upto 30% of disposable income": 5, "If existing debt/burden=40% of disposable income": 3, "If existing debt/burden=50% of disposable income": 1},
+    "Debt Burden": {"upto 30% of disposable income": 5, "40% of disposable income": 3, "50% of disposable income": 1},
     "Repayment History": {"If no default during last 12 months": 15, "1 Instance of OD-30/60/90 days (No current existence)": 10, "2 Instances of OD-30/60/90 days (No current existence)/ No credit history": 6, "3 or more instances of OD-30/60/90 days": 0},
     "Length of Credit History": {"Over 5 years": 5, "From 3-5 years": 4, "Less than 3 years / No Previous Credit History": 2},
 }
