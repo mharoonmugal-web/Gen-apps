@@ -363,7 +363,7 @@ if not staff_loan:
     with c2:
         relationship_years = st.number_input("Relationship with Bank (Years)", min_value=0, value=0)
 else:
-    bank = "The Bank of Pune (Employees Loans)"
+    bank = "The Bank (Employees Loans)"
     relationship_years = 0
 
 asset_value = 0
