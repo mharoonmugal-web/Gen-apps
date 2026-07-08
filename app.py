@@ -2,9 +2,8 @@ import streamlit as st
 import pandas as pd
 import re
 from datetime import datetime
-from io import BytesIO
 
-st.set_page_config(page_title="The Bank- Digital Credit Engine", layout="wide", initial_sidebar_state="expanded", theme="light")
+st.set_page_config(page_title="The Bank- Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
 
 # =============================
 # CSS - THE BANK BLUE THEME + DARK MODE FIX
@@ -13,8 +12,8 @@ st.markdown("""
 <style>
     * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     
-    /* DIGITAL BLUE THEME - PROFESSIONAL BANKING */
-    :root { --bg-light: #f0f4f9; --bg-mid: #e3ebf5; --blue-primary: #1E88E5; --blue-secondary: #00A8E8; --blue-dark: #0047AB; --text-dark: #1a1a1a; }
+    /* BLUE BACKGROUND GRADIENT */
+    :root { --bg-light: #f0f4f9; --bg-mid: #e3ebf5; --blue-dark: #0047AB; --blue-light: #1E88E5; --text-dark: #1a1a1a; }
     
     html { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
     body { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; color: var(--text-dark); }
@@ -22,7 +21,7 @@ st.markdown("""
     [data-testid="stAppViewContainer"] { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
     [data-testid="stMain"] { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
     
-    /* BANK HEADER - BLUE GRADIENT */
+    /* BANK HEADER */
     .bank-header {
         background: linear-gradient(135deg, #0047AB 0%, #1E88E5 100%);
         color: white;
@@ -30,20 +29,20 @@ st.markdown("""
         border-radius: 12px;
         text-align: center;
         margin-bottom: 30px;
-        box-shadow: 0 8px 20px rgba(30, 136, 229, 0.3);
+        box-shadow: 0 6px 16px rgba(30, 136, 229, 0.4);
     }
     .bank-logo { font-size: 32px; font-weight: 700; color: white; letter-spacing: 1px; margin: 0; }
-    .bank-subtitle { font-size: 14px; margin: 8px 0 0 0; color: #e3f2fd; font-weight: 500; }
+    .bank-subtitle { font-size: 14px; margin: 8px 0 0 0; color: #f0f0f0; font-weight: 500; }
     
-    /* METRICS - BLUE ACCENT */
-    .stMetric { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(30, 136, 229, 0.12); border-left: 5px solid #1E88E5; }
+    /* METRICS */
+    .stMetric { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(30, 136, 229, 0.15); border-left: 5px solid #0047AB; }
     
     /* ALL HEADINGS - BLUE */
     h1, h2, h3, h4, h5, h6 { color: #0047AB !important; }
     h1 { border-bottom: 3px solid #1E88E5; padding-bottom: 15px; font-weight: 700; }
     h2, h3 { font-weight: 600; }
     
-    /* ALL TEXT DARK FOR CONTRAST */
+    /* ALL TEXT MUST BE DARK */
     body, p, span, div, li, td, th, label { color: #1a1a1a !important; }
     
     /* MARKDOWN & TEXT CONTAINERS */
@@ -59,12 +58,12 @@ st.markdown("""
     }
     [data-testid="stLabel"] label { color: #1a1a1a !important; font-weight: 600 !important; }
     
-    /* SUCCESS & INFO BOXES - BLUE */
+    /* SUCCESS & INFO BOXES */
     .success-banner { background: linear-gradient(135deg, #0047AB 0%, #1E88E5 100%); color: white; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: 700; }
     
-    /* BUTTONS - BLUE */
+    /* BUTTONS */
     .stButton>button { background: linear-gradient(135deg, #0047AB 0%, #1E88E5 100%) !important; color: white !important; border: none !important; font-weight: 600 !important; }
-    .stButton>button:hover { background: linear-gradient(135deg, #003580 0%, #0d6fd5 100%) !important; transform: scale(1.02); }
+    .stButton>button:hover { background: #FF5722 !important; transform: scale(1.02); }
     
     /* DATAFRAME TEXT */
     [role="grid"] { color: #1a1a1a !important; }
@@ -74,23 +73,6 @@ st.markdown("""
     [data-testid="stSidebar"] { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
 </style>
 """, unsafe_allow_html=True)
-
-# =============================
-# QR CODE GENERATION
-# =============================
-
-def generate_qr_code(url):
-    """Generate QR code for app URL"""
-    qr = qrcode.QR()
-    qr.add_data(url)
-    qr.make(fit=True)
-    img = qr.make_image(fill_color="black", back_color="white")
-    
-    # Convert to bytes for download
-    buffer = BytesIO()
-    img.save(buffer, format="PNG")
-    buffer.seek(0)
-    return img, buffer
 
 # =============================
 # CONFIGURATION
@@ -315,26 +297,6 @@ st.markdown("""
     <div class="bank-subtitle">Digital Credit Engine - Intelligent Loan Originating & Underwriting System</div>
 </div>
 """, unsafe_allow_html=True)
-
-# QR CODE IN SIDEBAR
-with st.sidebar:
-    st.markdown("### 📱 Quick Access")
-    
-    # Generate QR code for app URL
-    app_url = "https://your-streamlit-app-url.streamlit.app"  # Replace with your deployed URL
-    qr_img, qr_buffer = generate_qr_code(app_url)
-    
-    st.image(qr_img, caption="Scan to Access App", use_column_width=True)
-    
-    # Download button for QR code
-    st.download_button(
-        label="📥 Download QR Code",
-        data=qr_buffer,
-        file_name="bop_credit_engine_qr.png",
-        mime="image/png"
-    )
-    
-    st.markdown("---")
 
 st.markdown("### 👤 Applicant Information")
 
