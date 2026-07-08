@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 import re
 from datetime import datetime
-import qrcode
 from io import BytesIO
 
 st.set_page_config(page_title="The Bank- Digital Credit Engine", layout="wide", initial_sidebar_state="expanded", theme="light")
