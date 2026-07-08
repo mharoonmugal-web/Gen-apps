@@ -12,8 +12,8 @@ st.markdown("""
 <style>
     * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     
-    /* BLUE BACKGROUND GRADIENT */
-    :root { --bg-light: #fff8f0; --bg-mid: #ffe6d5; --blue-dark: #FF6B35; --blue-light: #FF8C00; --text-dark: #1a1a1a; }
+    /* DIGITAL BLUE THEME - PROFESSIONAL BANKING */
+    :root { --bg-light: #f0f4f9; --bg-mid: #e3ebf5; --blue-primary: #1E88E5; --blue-secondary: #00A8E8; --blue-dark: #0047AB; --text-dark: #1a1a1a; }
     
     html { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
     body { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; color: var(--text-dark); }
@@ -21,28 +21,28 @@ st.markdown("""
     [data-testid="stAppViewContainer"] { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
     [data-testid="stMain"] { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
     
-    /* BANK HEADER */
+    /* BANK HEADER - BLUE GRADIENT */
     .bank-header {
-        background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%);
+        background: linear-gradient(135deg, #0047AB 0%, #1E88E5 100%);
         color: white;
         padding: 30px;
         border-radius: 12px;
         text-align: center;
         margin-bottom: 30px;
-        box-shadow: 0 6px 16px rgba(255, 107, 53, 0.4);
+        box-shadow: 0 8px 20px rgba(30, 136, 229, 0.3);
     }
     .bank-logo { font-size: 32px; font-weight: 700; color: white; letter-spacing: 1px; margin: 0; }
-    .bank-subtitle { font-size: 14px; margin: 8px 0 0 0; color: #f0f0f0; font-weight: 500; }
+    .bank-subtitle { font-size: 14px; margin: 8px 0 0 0; color: #e3f2fd; font-weight: 500; }
     
-    /* METRICS */
-    .stMetric { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15); border-left: 5px solid #FF6B35; }
+    /* METRICS - BLUE ACCENT */
+    .stMetric { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(30, 136, 229, 0.12); border-left: 5px solid #1E88E5; }
     
     /* ALL HEADINGS - BLUE */
-    h1, h2, h3, h4, h5, h6 { color: #FF6B35 !important; }
-    h1 { border-bottom: 3px solid #FF8C00; padding-bottom: 15px; font-weight: 700; }
+    h1, h2, h3, h4, h5, h6 { color: #0047AB !important; }
+    h1 { border-bottom: 3px solid #1E88E5; padding-bottom: 15px; font-weight: 700; }
     h2, h3 { font-weight: 600; }
     
-    /* ALL TEXT MUST BE DARK */
+    /* ALL TEXT DARK FOR CONTRAST */
     body, p, span, div, li, td, th, label { color: #1a1a1a !important; }
     
     /* MARKDOWN & TEXT CONTAINERS */
@@ -58,12 +58,12 @@ st.markdown("""
     }
     [data-testid="stLabel"] label { color: #1a1a1a !important; font-weight: 600 !important; }
     
-    /* SUCCESS & INFO BOXES */
-    .success-banner { background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%); color: white; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: 700; }
+    /* SUCCESS & INFO BOXES - BLUE */
+    .success-banner { background: linear-gradient(135deg, #0047AB 0%, #1E88E5 100%); color: white; padding: 15px; border-radius: 8px; margin: 15px 0; font-weight: 700; }
     
-    /* BUTTONS */
-    .stButton>button { background: linear-gradient(135deg, #FF6B35 0%, #FF8C00 100%) !important; color: white !important; border: none !important; font-weight: 600 !important; }
-    .stButton>button:hover { background: #FF5722 !important; transform: scale(1.02); }
+    /* BUTTONS - BLUE */
+    .stButton>button { background: linear-gradient(135deg, #0047AB 0%, #1E88E5 100%) !important; color: white !important; border: none !important; font-weight: 600 !important; }
+    .stButton>button:hover { background: linear-gradient(135deg, #003580 0%, #0d6fd5 100%) !important; transform: scale(1.02); }
     
     /* DATAFRAME TEXT */
     [role="grid"] { color: #1a1a1a !important; }
@@ -519,7 +519,7 @@ if submit_button:
         csv = df.to_csv(index=False)
         st.download_button("📥 Download Schedule", csv, f"staff_loan_{cnic_digits}.csv", "text/csv")
         
-        st.markdown("### ⚖️ Final Offer")
+        st.markdown("###⚖️ Final Offer")
         col1, col2 = st.columns(2)
         with col1:
             st.markdown(f"**Loan Details:**\n- **Amount:** PKR {approved:,.0f}\n- **Tenor:** {tenor} Years\n- **Principle ({principal_months}m):** PKR {fixed_principal:,.0f}/month\n- **Markup ({markup_months}m):** PKR {markup_emi:,.0f}/month\n- **Total Interest:** PKR {total_markup:,.0f}")
@@ -566,7 +566,12 @@ if submit_button:
             st.metric("Risk Grade", f"ORR {sme_score['grade']}")
     
     rate_used = PRODUCTS[product]["rate"]
-    dbr_limit = DBR[profession]
+    
+    # DBR linked to PRODUCT: Business Loan gets 50% for Self-Employed/SME, all others get 40%
+    if product == "Business Loan" and profession in ["Self-Employed", "Small & Medium Enterprises"]:
+        dbr_limit = 0.50
+    else:
+        dbr_limit = 0.40  # Standard 40% for Salaried and non-Business products
     
     max_emi_dbr = income * dbr_limit
     max_by_dbr = loan_from_emi(max_emi_dbr, rate_used, months)
