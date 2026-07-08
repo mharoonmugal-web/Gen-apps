@@ -12,8 +12,8 @@ st.markdown("""
 <style>
     * { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
     
-    /* ORANGE BACKGROUND GRADIENT */
-    :root { --bg-light: #fff8f0; --bg-mid: #ffe6d5; --orange-dark: #FF6B35; --orange-light: #FF8C00; --text-dark: #1a1a1a; }
+    /* BLUE BACKGROUND GRADIENT */
+    :root { --bg-light: #fff8f0; --bg-mid: #ffe6d5; --blue-dark: #FF6B35; --blue-light: #FF8C00; --text-dark: #1a1a1a; }
     
     html { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
     body { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; color: var(--text-dark); }
@@ -37,7 +37,7 @@ st.markdown("""
     /* METRICS */
     .stMetric { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 8px rgba(255, 107, 53, 0.15); border-left: 5px solid #FF6B35; }
     
-    /* ALL HEADINGS - ORANGE */
+    /* ALL HEADINGS - BLUE */
     h1, h2, h3, h4, h5, h6 { color: #FF6B35 !important; }
     h1 { border-bottom: 3px solid #FF8C00; padding-bottom: 15px; font-weight: 700; }
     h2, h3 { font-weight: 600; }
