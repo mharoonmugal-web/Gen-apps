@@ -81,7 +81,7 @@ st.markdown("""
 KIBOR = 12 / 100
 
 DBR_STAFF = 0.50
-DBR = {"Salaried Individuals": 0.40, "Self-Employed": 0.50, "Small & Medium Enterprises": 0.50}
+DBR = {"Salaried": 0.40, "Self-Employed": 0.50, "Small & Medium Enterprises": 0.50}
 
 PROCESSING_FEES = {
     "Personal Loan": 5000,
