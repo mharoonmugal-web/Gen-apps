@@ -2,8 +2,10 @@ import streamlit as st
 import pandas as pd
 import re
 from datetime import datetime
+import qrcode
+from io import BytesIO
 
-st.set_page_config(page_title="The Bank- Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
+st.set_page_config(page_title="The Bank- Digital Credit Engine", layout="wide", initial_sidebar_state="expanded", theme="light")
 
 # =============================
 # CSS - THE BANK BLUE THEME + DARK MODE FIX
@@ -73,6 +75,23 @@ st.markdown("""
     [data-testid="stSidebar"] { background: linear-gradient(135deg, var(--bg-light) 0%, var(--bg-mid) 100%) !important; }
 </style>
 """, unsafe_allow_html=True)
+
+# =============================
+# QR CODE GENERATION
+# =============================
+
+def generate_qr_code(url):
+    """Generate QR code for app URL"""
+    qr = qrcode.QR()
+    qr.add_data(url)
+    qr.make(fit=True)
+    img = qr.make_image(fill_color="black", back_color="white")
+    
+    # Convert to bytes for download
+    buffer = BytesIO()
+    img.save(buffer, format="PNG")
+    buffer.seek(0)
+    return img, buffer
 
 # =============================
 # CONFIGURATION
@@ -298,6 +317,26 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+# QR CODE IN SIDEBAR
+with st.sidebar:
+    st.markdown("### 📱 Quick Access")
+    
+    # Generate QR code for app URL
+    app_url = "https://your-streamlit-app-url.streamlit.app"  # Replace with your deployed URL
+    qr_img, qr_buffer = generate_qr_code(app_url)
+    
+    st.image(qr_img, caption="Scan to Access App", use_column_width=True)
+    
+    # Download button for QR code
+    st.download_button(
+        label="📥 Download QR Code",
+        data=qr_buffer,
+        file_name="bop_credit_engine_qr.png",
+        mime="image/png"
+    )
+    
+    st.markdown("---")
+
 st.markdown("### 👤 Applicant Information")
 
 c1, c2, c3 = st.columns(3)
@@ -519,7 +558,7 @@ if submit_button:
         csv = df.to_csv(index=False)
         st.download_button("📥 Download Schedule", csv, f"staff_loan_{cnic_digits}.csv", "text/csv")
         
-        st.markdown("###⚖️ Final Offer")
+        st.markdown("### ⚖️ Final Offer")
         col1, col2 = st.columns(2)
         with col1:
             st.markdown(f"**Loan Details:**\n- **Amount:** PKR {approved:,.0f}\n- **Tenor:** {tenor} Years\n- **Principle ({principal_months}m):** PKR {fixed_principal:,.0f}/month\n- **Markup ({markup_months}m):** PKR {markup_emi:,.0f}/month\n- **Total Interest:** PKR {total_markup:,.0f}")
