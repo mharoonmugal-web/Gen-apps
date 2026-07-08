@@ -6,7 +6,7 @@ from datetime import datetime
 st.set_page_config(page_title="The Bank- Digital Credit Engine", layout="wide", initial_sidebar_state="expanded")
 
 # =============================
-# CSS - THE BANK ORANGE THEME + DARK MODE FIX
+# CSS - THE BANK BLUE THEME + DARK MODE FIX
 # =============================
 st.markdown("""
 <style>
