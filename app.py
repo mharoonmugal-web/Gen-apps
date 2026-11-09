@@ -107,7 +107,7 @@ BANKS = ["The Bank of Punjab", "United Bank Limited", "MCB Bank", "Allied Bank L
 # =============================
 
 INDIVIDUAL_CRITERIA = {
-    "Age of Borrower": {"Over 50 years & upto max. age as per PPMs": 5, "Over 30 & upto 50 years": 4, "Over 18 & upto 30 years": 2},
+    "Age of Borrower": {"Over 50 years & upto max 60": 5, "Over 30 & upto 50 years": 4, "Over 18 & upto 30 years": 2},
     "Gender": {"Male": 4, "Female": 5},
     "Marital Status": {"Un-married": 5, "Married": 3},
     "No. of Dependents": {"Upto 3": 5, "4 to 5": 3, "More than 5": 1},
